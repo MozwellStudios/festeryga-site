@@ -19,28 +19,17 @@
 
   if (reduce) return;
 
-  /* Vimeo backdrop loops: .vcover[data-vim], desktop + motion only */
-  if (window.matchMedia('(min-width: 1000px)').matches) {
-    document.querySelectorAll('.vcover[data-vim]').forEach(function (v) {
-      var f = v.querySelector('iframe');
-      if (f && !f.src) {
-        f.src = 'https://player.vimeo.com/video/' + v.getAttribute('data-vim') + '?background=1&autopause=0&muted=1&loop=1&dnt=1';
-      }
-    });
-  }
-
-  /* parallax: hero title (0.6x) + slow elements (subtle) */
-  var hero = document.querySelector('[data-parallax-hero]');
+  /* subtle parallax on marked slow elements only (no hero-title parallax:
+     a bottom-anchored title slides off the fold and into the credits). */
   var slows = document.querySelectorAll('[data-parallax-slow]');
+  if (!slows.length) return;
   var vh = window.innerHeight, ticking = false;
   window.addEventListener('resize', function () { vh = window.innerHeight; });
   function onScroll() {
-    var y = window.pageYOffset;
-    if (hero && y < vh) { hero.style.transform = 'translateY(' + (y * 0.4) + 'px)'; }
     slows.forEach(function (el) {
       var r = el.getBoundingClientRect();
       var mid = r.top + r.height / 2 - vh / 2;
-      el.style.transform = 'translateY(' + (mid * -0.06) + 'px)';
+      el.style.transform = 'translateY(' + (mid * -0.05) + 'px)';
     });
     ticking = false;
   }
