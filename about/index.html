@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Edward Festeryga. Founder and attorney. A Houston trial lawyer.">
+<title>About Edward · Festeryga Law</title>
+<script>document.documentElement.classList.add('js');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  /* ---- depth pass (About prototype) ---- */
+
+  /* Layer 1: ambient hero media. Real footage drops into the <video> swap below;
+     for the prototype the portrait drifts (Ken Burns) so the hero holds motion. */
+  .hero-media { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+  .hero-media__img { position: absolute; inset: -8% -8% -8% -8%; background-size: cover; background-position: center;
+    filter: grayscale(1) contrast(1.08) brightness(0.6); animation: kenburns 26s ease-in-out infinite alternate; will-change: transform; }
+  .hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.1) brightness(0.72); }
+  .hero-media__duo { position: absolute; inset: 0; z-index: 1; background: linear-gradient(150deg, rgba(92,17,40,0.4) 0%, transparent 46%, rgba(4,6,12,0.5) 100%); mix-blend-mode: soft-light; }
+  .hero-media__vig { position: absolute; inset: 0; z-index: 2; pointer-events: none; background: radial-gradient(ellipse at center, transparent 38%, rgba(4,6,12,0.55) 100%); }
+  @keyframes kenburns { 0% { transform: scale(1.0) translate(0,0); } 100% { transform: scale(1.12) translate(-2%, -2%); } }
+
+  /* Ambient animated grain (slow drift) */
+  .grain-anim { animation: grain-shift 8s ease-in-out infinite alternate; }
+  @keyframes grain-shift { 0% { transform: translate(0,0); } 100% { transform: translate(-5%, -5%); } }
+
+  /* Layer 2: hero title parallax hook (JS sets transform) */
+  #heroTitle { will-change: transform; }
+
+  /* Layer 3: rich founder prose */
+  .founder { max-width: 66ch; margin: 0 auto; }
+  .founderprose { font-family: var(--f-body); font-size: clamp(18px, 1.7vw, 23px); line-height: 1.62; letter-spacing: -0.005em; color: rgba(239,234,222,0.95); }
+  .founderprose p + p { margin-top: 22px; }
+  .founderprose .lead { font-style: italic; color: var(--cream); }
+
+  /* Layer 4: pull-quote intercut */
+  .intercut { position: relative; overflow: hidden; background: var(--black); padding: clamp(72px, 11vw, 150px) 0; margin: clamp(48px, 6vw, 80px) 0; text-align: center; }
+  .intercut__vbg { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+  .intercut__vbg iframe { position: absolute; top: 50%; left: 50%; width: 100vw; height: 56.25vw; min-height: 100%; min-width: 177.78vh; transform: translate(-50%, -50%); border: 0; filter: grayscale(1) contrast(1.05) brightness(0.42); }
+  .intercut__scrim { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(4,6,12,0.82), rgba(4,6,12,0.68)); }
+  .intercut__content { position: relative; z-index: 2; }
+  .intercut__rule { position: absolute; left: var(--pad); right: var(--pad); height: 1px; background: var(--iron); z-index: 2; }
+  .intercut__rule--top { top: 0; } .intercut__rule--bot { bottom: 0; }
+  .intercut__q { font-family: var(--f-anton); text-transform: uppercase; font-size: clamp(48px, 8vw, 92px); line-height: 0.98; letter-spacing: -0.02em; color: var(--cream); }
+  .intercut__bar { width: 40px; height: 3px; background: var(--merlot-br); margin: 26px auto 14px; }
+  .intercut__by { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.32em; color: rgba(200,193,176,0.7); text-transform: uppercase; }
+
+  /* Layer 5: fade-on-scroll (gated behind .js so content is visible if JS fails) */
+  .fade-on-scroll { transition: opacity 700ms ease-out, transform 700ms ease-out; }
+  .js .fade-on-scroll { opacity: 0; transform: translateY(20px); }
+  .fade-on-scroll.visible { opacity: 1; transform: translateY(0); }
+
+  /* Layer 6: values hover reveal */
+  .passage--reveal .passage__b { max-height: 0; opacity: 0; overflow: hidden; transition: max-height 400ms ease-out, opacity 400ms ease-out; }
+  .passage--reveal:hover .passage__b, .passage--reveal:focus-within .passage__b { max-height: 200px; opacity: 1; }
+  .passage--reveal { transition: none; }
+  .passage--reveal:hover .passage__k, .passage--reveal:focus-within .passage__k { color: var(--merlot-br); }
+  .passage--reveal .passage__t { cursor: default; }
+  .values-hint { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.2em; color: var(--ash); text-transform: uppercase; margin-top: 18px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-media__img { animation: none; inset: 0; }
+    .grain-anim { animation: none; }
+    #heroTitle { transform: none !important; }
+    .fade-on-scroll { opacity: 1; transform: none; }
+  }
+  /* touch devices: expand all values (no hover) */
+  @media (hover: none) {
+    .passage--reveal .passage__b { max-height: 200px; opacity: 1; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav__primary">
+    <a href="../index.html" class="nav__brand">FESTERYGA LAW</a>
+    <div class="nav__right">
+      <a href="tel:+17134144042" class="nav__phone">(713) 414-4042</a>
+      <a href="#closing" class="cta cta--merlot nav__cta">CONTACT</a>
+    </div>
+  </div>
+  <div class="nav__secondary">
+    <nav class="nav__strip" aria-label="Sections">
+      <a href="../index.html" class="nav__link">HOME</a>
+      <a href="../results/" class="nav__link">RESULTS</a>
+      <a href="../practice-areas/" class="nav__link">PRACTICE</a>
+      <a href="../coverage/" class="nav__link">COVERAGE</a>
+      <a href="../about/" class="nav__link is-active">ABOUT</a>
+      <a href="../client-stories/" class="nav__link">STORIES</a>
+      <a href="../recognition/" class="nav__link">RECOGNITION</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- HERO -->
+<section class="phero phero--tall">
+  <div class="hero-media" aria-hidden="true">
+    <!-- SWAP-IN: drop real footage here and it replaces the drifting portrait.
+    <video class="hero-video" autoplay muted loop playsinline poster="../images/edward-portrait.jpg">
+      <source src="../videos/edward-desk-01.mp4" type="video/mp4">
+    </video>
+    -->
+    <div class="hero-media__img" style="background-image:url('../images/edward-portrait.jpg')"></div>
+    <div class="hero-media__duo"></div>
+    <div class="hero-media__vig"></div>
+  </div>
+  <div class="grain grain-anim" aria-hidden="true"></div>
+  <div class="phero__grade" aria-hidden="true"></div>
+  <div class="phero__meta">
+    <div class="meta-row">
+      <span class="meta meta--ash">A HOUSTON TRIAL LAWYER</span>
+      <span class="meta meta--ash">PAGE 05 &nbsp;&middot;&nbsp; THE ATTORNEY</span>
+    </div>
+  </div>
+  <div class="phero__inner">
+    <h1 class="phero__title" id="heroTitle">FESTERYGA</h1>
+    <div class="phero__sub">FOUNDER &nbsp;&middot;&nbsp; ATTORNEY &nbsp;&middot;&nbsp; TEXAS TRIAL LAWYER</div>
+    <div class="phero__lower">
+      <span class="bar"></span>
+      <span class="name">Edward Festeryga</span>
+      <span class="role">Founding Attorney</span>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: FOUNDER STORY -->
+<section class="sec">
+  <div class="wrap">
+    <div class="founder">
+      <span class="setup fade-on-scroll">THE STORY</span>
+      <!-- PENDING EDWARD VERIFICATION · Rewritten by Mozwell in Edward's voice; final approval required before public launch -->
+      <div class="founderprose fade-on-scroll" style="margin-top:22px">
+        <p class="lead">I started this firm because I wanted every client I represent to have my full attention.</p>
+        <p>Not a case number. Not a file passed between paralegals. Not the voice of an intake specialist who does not know your name. My cell phone. My calendar. My time in front of the jury.</p>
+        <p>Before Festeryga Law, I worked inside the machinery of high-volume firms. I saw what happens when a serious injury case is treated as inventory instead of a person's life. The client loses. Every time.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Layer 4: pull-quote intercut (full-bleed) -->
+  <div class="intercut fade-on-scroll">
+    <div class="intercut__vbg" aria-hidden="true"><iframe title="" allow="autoplay; fullscreen; picture-in-picture" frameborder="0" tabindex="-1"></iframe></div>
+    <div class="intercut__scrim" aria-hidden="true"></div>
+    <div class="intercut__rule intercut__rule--top" aria-hidden="true"></div>
+    <div class="intercut__content">
+      <div class="intercut__q">ONE CASE<br>AT A TIME.</div>
+      <div class="intercut__bar" aria-hidden="true"></div>
+      <div class="intercut__by">EDWARD FESTERYGA &nbsp;&middot;&nbsp; FOUNDING ATTORNEY</div>
+    </div>
+    <div class="intercut__rule intercut__rule--bot" aria-hidden="true"></div>
+  </div>
+
+  <div class="wrap">
+    <div class="founder">
+      <div class="founderprose fade-on-scroll">
+        <p>I built this firm to be the alternative. One lawyer who reads every deposition. One lawyer who negotiates every settlement. One lawyer whose reputation is on the line when the case walks into court.</p>
+        <p>If you hire me, you get me. That is the whole promise.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: THE VALUES (hover reveal) -->
+<section class="sec sec--dark">
+  <div class="wrap">
+    <div class="sec-head fade-on-scroll">
+      <span class="setup">THE VALUES</span>
+      <h2 class="h-sec">HOW EDWARD WORKS.</h2>
+      <div class="values-hint">Hover to read</div>
+    </div>
+    <div class="passages">
+      <div class="passage passage--reveal fade-on-scroll" tabindex="0">
+        <div class="passage__k">01 &nbsp;&middot;&nbsp; ONE CASE AT A TIME</div>
+        <div><div class="passage__t">Volume is not the goal.</div><div class="passage__b">I take on what I can lead personally. Volume is not the goal.</div></div>
+      </div>
+      <div class="passage passage--reveal fade-on-scroll" tabindex="0">
+        <div class="passage__k">02 &nbsp;&middot;&nbsp; TRIAL-READY FROM DAY ONE</div>
+        <div><div class="passage__t">Built to be tried.</div><div class="passage__b">Every case is prepared as if it will be tried, whether it settles or not.</div></div>
+      </div>
+      <div class="passage passage--reveal fade-on-scroll" tabindex="0">
+        <div class="passage__k">03 &nbsp;&middot;&nbsp; YOUR LAWYER, NOT YOUR LAW FIRM</div>
+        <div><div class="passage__t">You get Edward.</div><div class="passage__b">You will always know the person handling your case.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: EF PROCESS TEASER -->
+<section class="sec">
+  <div class="wrap">
+    <a class="linkout fade-on-scroll" href="../about/ef-process/">
+      <span class="setup">THE METHOD</span>
+      <span class="linkout__t">THE FESTERYGA PROCESS</span>
+      <span class="linkout__flow">EVIDENCE PRESERVATION &nbsp;&rarr;&nbsp; LITIGATION &nbsp;&rarr;&nbsp; TRIAL</span>
+      <span class="linkout__cta">SEE HOW EDWARD BUILDS A CASE &rarr;</span>
+    </a>
+  </div>
+</section>
+
+<section class="closer" id="closing">
+  <div class="closer__bg" aria-hidden="true"></div>
+  <div class="grain grain-anim" aria-hidden="true"></div>
+  <div class="closer__inner fade-on-scroll">
+    <h2 class="closer__title">WHEN IT'S EVERYTHING,<br>YOU GET <span class="uline">EDWARD</span>.</h2>
+    <a href="tel:+17134144042" class="closer__phone">(713) 414-4042</a>
+    <div class="closer__disc">Free consultation &nbsp;&middot;&nbsp; No fee unless we win &nbsp;&middot;&nbsp; English &amp; Espa&ntilde;ol</div>
+  </div>
+</section>
+
+</main>
+
+<footer class="credits">
+  <div class="wrap">
+    <div class="credits__logo">FESTERYGA LAW</div>
+    <div class="credits__cols">
+      <div>
+        <div class="credits__label">CONTACT</div>
+        <div class="credits__rule" aria-hidden="true"></div>
+        <span class="credits__line credits__line--mono">(713) 414-4042</span>
+        <span class="credits__line credits__line--mono">edward@festeryga.com</span>
+        <span class="credits__line">2525 North Loop W., Suite 510C</span>
+        <span class="credits__line">Houston, Texas 77008</span>
+      </div>
+      <div>
+        <div class="credits__label">SITE</div>
+        <div class="credits__rule" aria-hidden="true"></div>
+        <a class="credits__line" href="../index.html">Home</a>
+        <a class="credits__line" href="../results/">Results</a>
+        <a class="credits__line" href="../practice-areas/">Practice Areas</a>
+        <a class="credits__line" href="../coverage/">Coverage</a>
+        <a class="credits__line" href="../about/">About Edward</a>
+        <a class="credits__line" href="../client-stories/">Client Stories</a>
+        <a class="credits__line" href="../recognition/">Recognition</a>
+      </div>
+      <div>
+        <div class="credits__label">NOTES</div>
+        <div class="credits__rule" aria-hidden="true"></div>
+        <span class="credits__line">Attorney advertising.</span>
+        <span class="credits__line">Past results do not guarantee</span>
+        <span class="credits__line">future outcomes.</span>
+        <span class="credits__line credits__line--legal" style="margin-top:18px">PRIVACY &nbsp;&middot;&nbsp; TERMS</span>
+        <span class="credits__line credits__line--legal">DISCLAIMER &nbsp;&middot;&nbsp; SITEMAP</span>
+      </div>
+    </div>
+    <div class="credits__foot">
+      <span>HOUSTON, TEXAS</span>
+      <span>&copy; 2026 FESTERYGA LAW</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../shared/app.js" defer></script>
+<script>
+(function () {
+  'use strict';
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Layer 5: fade-on-scroll */
+  var faders = document.querySelectorAll('.fade-on-scroll');
+  if (reduce || !('IntersectionObserver' in window)) {
+    faders.forEach(function (el) { el.classList.add('visible'); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.15 });
+    faders.forEach(function (el) { io.observe(el); });
+  }
+
+  if (reduce) return;
+
+  /* intercut ambient video: placeholder Vimeo loop, desktop + motion only */
+  var ivb = document.querySelector('.intercut__vbg iframe');
+  if (ivb && window.matchMedia('(min-width: 1000px)').matches) {
+    ivb.src = 'https://player.vimeo.com/video/1219991563?background=1&autopause=0&muted=1&loop=1&dnt=1';
+  }
+
+  /* Layer 2: hero title parallax (rAF-gated) */
+  var heroTitle = document.getElementById('heroTitle');
+  var vh = window.innerHeight, ticking = false;
+  window.addEventListener('resize', function () { vh = window.innerHeight; });
+  function onScroll() {
+    var y = window.pageYOffset;
+    if (heroTitle && y < vh) { heroTitle.style.transform = 'translateY(' + (y * 0.4) + 'px)'; }
+    ticking = false;
+  }
+  window.addEventListener('scroll', function () {
+    if (!ticking) { window.requestAnimationFrame(onScroll); ticking = true; }
+  }, { passive: true });
+})();
+</script>
+</body>
+</html>
