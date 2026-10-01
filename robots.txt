@@ -1,4 +1,3 @@
-# Festeryga POC preview
-# Build scaffolding and planning docs are not for indexing.
+# Festeryga POC preview (client review only, not for indexing)
 User-agent: *
-Disallow: /internal/
+Disallow: /
