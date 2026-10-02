@@ -72,6 +72,57 @@
   @media (hover: none) {
     .passage--reveal .passage__b { max-height: 200px; opacity: 1; }
   }
+
+  /* ---- Glyph portal hero: scroll-zoom through FESTERYGA ---- */
+  .gp { position: relative; background: var(--black); }
+  .js .gp { height: 320vh; }
+  .gp__pin { position: relative; min-height: 86vh; overflow: hidden; background: var(--black); isolation: isolate; }
+  .js .gp__pin { position: sticky; top: 0; height: 100vh; }
+  .gp__field { position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background: radial-gradient(ellipse at 50% 42%, rgba(122,27,58,0.16), transparent 60%),
+                radial-gradient(ellipse at 50% 122%, rgba(92,17,40,0.3), transparent 62%),
+                linear-gradient(180deg, #04060C 0%, #080B12 58%, #04060C 100%); }
+  .gp__scene { position: absolute; inset: -6%; z-index: 1; background-size: cover; background-position: 50% 28%;
+    filter: grayscale(1) contrast(1.08) brightness(0.5); opacity: 0; }
+  .gp__stage { position: absolute; inset: 0; z-index: 2; display: grid; place-items: center; padding: 0 16px; }
+  .gp__word { margin: 0; font-family: var(--f-anton); font-weight: 400; text-transform: uppercase; white-space: nowrap;
+    font-size: clamp(58px, 15.5vw, 232px); line-height: 0.86; letter-spacing: -0.02em;
+    background-image: url('../images/edward-portrait.jpg'); background-size: 128% auto; background-position: 50% 26%;
+    -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent;
+    filter: grayscale(1) contrast(1.06) brightness(1.1);
+    transform-origin: 50% 50%; will-change: transform, opacity; }
+  .gp__word span { display: inline; }
+  .gp__grain { z-index: 3; }
+  .gp__front { position: absolute; inset: 0; z-index: 4; pointer-events: none; }
+  .gp__eyebrow { position: absolute; top: clamp(22px, 9vh, 84px); left: 0; right: 0; text-align: center;
+    font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.34em; text-transform: uppercase; color: rgba(200,193,176,0.72); }
+  .gp__hint { position: absolute; bottom: clamp(24px, 6vh, 60px); left: 0; right: 0; text-align: center;
+    font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(200,193,176,0.6); }
+  .gp__hintbar { display: block; width: 1px; height: 38px; margin: 0 auto 16px; background: linear-gradient(var(--merlot-br), transparent); }
+
+  /* landing title card (portal lands here) */
+  .gp__card { position: relative; min-height: 86vh; overflow: hidden; display: flex; align-items: flex-end; background: var(--black); border-bottom: 1px solid var(--iron); }
+  .gp__card__img { position: absolute; inset: -6%; z-index: 0; background-size: cover; background-position: 50% 26%;
+    filter: grayscale(1) contrast(1.08) brightness(0.52); animation: kenburns 26s ease-in-out infinite alternate; }
+  .gp__card__grade { position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background: radial-gradient(ellipse at center, transparent 34%, rgba(4,6,12,0.6) 100%),
+                linear-gradient(180deg, rgba(4,6,12,0.32) 0%, transparent 32%, rgba(4,6,12,0.88) 100%); }
+  .gp__card__in { position: relative; z-index: 2; width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 var(--pad) clamp(40px, 7vh, 82px); }
+  .gp__card__sub { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--merlot-br); }
+  .gp__card__name { font-family: var(--f-anton); text-transform: uppercase; font-size: clamp(40px, 6.4vw, 104px); line-height: 0.92; letter-spacing: -0.01em; color: var(--cream); margin: 14px 0 0; }
+  .gp__card__role { font-family: var(--f-body); font-style: italic; font-size: clamp(16px, 1.6vw, 21px); color: var(--bone); margin-top: 10px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gp, .js .gp { height: auto; }
+    .gp__pin, .js .gp__pin { position: relative; height: auto; min-height: 76vh; display: grid; }
+    .gp__word { transform: none !important; opacity: 1 !important; }
+    .gp__scene { opacity: 0; }
+    .gp__card__img { animation: none; }
+  }
+  @media (max-width: 760px) {
+    .js .gp { height: 250vh; }
+    .gp__word { background-size: 170% auto; }
+  }
 </style>
 </head>
 <body>
@@ -99,34 +150,31 @@
 
 <main>
 
-<!-- HERO -->
-<section class="phero phero--tall">
-  <div class="hero-media" aria-hidden="true">
-    <!-- SWAP-IN: drop real footage here and it replaces the drifting portrait.
-    <video class="hero-video" autoplay muted loop playsinline poster="../images/edward-portrait.jpg">
-      <source src="../videos/edward-desk-01.mp4" type="video/mp4">
-    </video>
-    -->
-    <div class="hero-media__img" style="background-image:url('../images/edward-portrait.jpg')"></div>
-    <div class="hero-media__duo"></div>
-    <div class="hero-media__vig"></div>
+<!-- HERO: GLYPH PORTAL (scroll-zoom through the name) -->
+<section class="gp" id="gp" aria-label="Festeryga">
+  <div class="gp__pin">
+    <div class="gp__field" aria-hidden="true"></div>
+    <div class="gp__scene" aria-hidden="true" style="background-image:url('../images/edward-portrait.jpg')"></div>
+    <div class="gp__stage">
+      <h1 class="gp__word"><span>FESTE</span><span class="gp__focus">R</span><span>YGA</span></h1>
+    </div>
+    <div class="grain grain-anim gp__grain" aria-hidden="true"></div>
+    <div class="gp__front">
+      <div class="gp__eyebrow">A HOUSTON TRIAL LAWYER</div>
+      <div class="gp__hint"><span class="gp__hintbar" aria-hidden="true"></span>SCROLL TO ENTER</div>
+    </div>
   </div>
+</section>
+
+<!-- TITLE CARD (portal landing) -->
+<section class="gp__card">
+  <div class="gp__card__img" aria-hidden="true" style="background-image:url('../images/edward-portrait.jpg')"></div>
+  <div class="gp__card__grade" aria-hidden="true"></div>
   <div class="grain grain-anim" aria-hidden="true"></div>
-  <div class="phero__grade" aria-hidden="true"></div>
-  <div class="phero__meta">
-    <div class="meta-row">
-      <span class="meta meta--ash">A HOUSTON TRIAL LAWYER</span>
-      <span class="meta meta--ash">PAGE 05 &nbsp;&middot;&nbsp; THE ATTORNEY</span>
-    </div>
-  </div>
-  <div class="phero__inner">
-    <h1 class="phero__title" id="heroTitle">FESTERYGA</h1>
-    <div class="phero__sub">FOUNDER &nbsp;&middot;&nbsp; ATTORNEY &nbsp;&middot;&nbsp; TEXAS TRIAL LAWYER</div>
-    <div class="phero__lower">
-      <span class="bar"></span>
-      <span class="name">Edward Festeryga</span>
-      <span class="role">Founding Attorney</span>
-    </div>
+  <div class="gp__card__in">
+    <div class="gp__card__sub">FOUNDER &nbsp;&middot;&nbsp; ATTORNEY &nbsp;&middot;&nbsp; TEXAS TRIAL LAWYER</div>
+    <h2 class="gp__card__name">Edward Festeryga</h2>
+    <div class="gp__card__role">Founding Attorney</div>
   </div>
 </section>
 
@@ -281,18 +329,40 @@
     ivb.src = 'https://player.vimeo.com/video/1219991563?background=1&autopause=0&muted=1&loop=1&dnt=1';
   }
 
-  /* Layer 2: hero title parallax (rAF-gated) */
-  var heroTitle = document.getElementById('heroTitle');
-  var vh = window.innerHeight, ticking = false;
-  window.addEventListener('resize', function () { vh = window.innerHeight; });
-  function onScroll() {
-    var y = window.pageYOffset;
-    if (heroTitle && y < vh) { heroTitle.style.transform = 'translateY(' + (y * 0.4) + 'px)'; }
-    ticking = false;
+  /* Glyph portal: scroll-zoom the camera through FESTERYGA into the page */
+  var gp = document.getElementById('gp');
+  if (gp) {
+    var gpWord = gp.querySelector('.gp__word');
+    var gpFocus = gp.querySelector('.gp__focus');
+    var gpFront = gp.querySelector('.gp__front');
+    var gpScene = gp.querySelector('.gp__scene');
+    var MAXS = window.matchMedia('(max-width: 760px)').matches ? 24 : 34;
+    var gpTick = false;
+
+    function gpOrigin() {
+      var wb = gpWord.getBoundingClientRect(), fb = gpFocus.getBoundingClientRect();
+      if (!wb.width || !fb.width) return;
+      gpWord.style.transformOrigin =
+        ((fb.left + fb.width / 2 - wb.left) / wb.width * 100) + '% ' +
+        ((fb.top + fb.height / 2 - wb.top) / wb.height * 100) + '%';
+    }
+    function gpRender() {
+      var top = gp.getBoundingClientRect().top;
+      var range = gp.offsetHeight - window.innerHeight;
+      var p = range > 0 ? Math.min(1, Math.max(0, -top / range)) : 0;
+      var e = p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+      var scale = Math.exp(Math.log(MAXS) * e);
+      gpWord.style.transform = 'scale(' + scale + ')';
+      gpFront.style.opacity = String(1 - Math.min(1, p / 0.16));
+      gpScene.style.opacity = String(Math.min(1, Math.max(0, (p - 0.55) / 0.3)));
+      gpWord.style.opacity = String(1 - Math.min(1, Math.max(0, (p - 0.8) / 0.16)));
+      gpTick = false;
+    }
+    function gpReq() { if (!gpTick) { window.requestAnimationFrame(gpRender); gpTick = true; } }
+    gpOrigin(); gpRender();
+    window.addEventListener('scroll', gpReq, { passive: true });
+    window.addEventListener('resize', function () { gpOrigin(); gpRender(); });
   }
-  window.addEventListener('scroll', function () {
-    if (!ticking) { window.requestAnimationFrame(onScroll); ticking = true; }
-  }, { passive: true });
 })();
 </script>
 </body>
