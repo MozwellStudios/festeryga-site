@@ -1,10 +1,44 @@
 <!DOCTYPE html>
+<!--
+  ===================================================================
+  HOMEPAGE CINEMATIC PATTERN INVENTORY  (studied from /index.html before build)
+  Reconciled per FESTERYGA-CODEX.md. Build-prompt: BUILD-PROMPT-01-ABOUT.md
+  ===================================================================
+  01 HERO (.cine)         Full-bleed Vimeo backdrop (data-vim) + .cine__grade overlay
+                          + .grain; meta rails top/bottom; Anton wordmark FESTERYGA;
+                          eyebrow + tagline + phone-as-type CTA. (Homepage animates
+                          intro->brand; codex Pattern 01 = letterboxed title + 0.6x parallax.)
+  02 GRAIN                .grain overlay, 8% opacity; grainShift keyframe drift.
+  03 DUOTONE MEDIA        filter: grayscale(1) contrast(1.08) brightness(0.4-0.5).
+  04 REVEAL ON SCROLL     IntersectionObserver @0.15; opacity+translateY(20px) -> 0.
+  05 CHAPTER/CARD RHYTHM  Section pauses on pure --black between content acts.
+  06 EF PROCESS (.proc)   Scroll-progress merlot rail + 3 step cols activating by scroll.
+  07 COVERAGE (.cvr)      Auto-rotating duotone slides + animated Anton title + nav fills.
+  08 CLOSING (.closing)   Full-bleed bg + ~85% --black overlay + inset hairlines +
+                          Anton ~120px end title + phone (JB Mono merlot) + address.
+  09 FOOTER (.credits)    Wordmark + merlot rule + 3 cols CONTACT/SITE/NOTES + address + (c).
+  10 TOKENS               9-color palette; Anton (display) / Newsreader (body, site reality
+                          over codex's Inter) / JetBrains Mono (meta). Merlot accents only.
+  11 HBO LOWER-THIRD      Vertical merlot bar + Anton name + JB Mono role over portraits.
+  12 PARALLAX             Hero title 0.6x (codex). Implemented here at 0.35x and MASKED by
+                          the opaque bottom letterbox bar so it can never clip into credits
+                          (the bottom-anchored-parallax bug that broke Results).
+
+  DEVIATIONS FROM CODEX / BUILD PROMPT (justified, per Edwin's direction this session):
+  - Film-slate vocabulary OFF (no FADE IN. / CUT TO / REEL.timecodes / CARD . ON BLACK /
+    INT. OFFICE . DAY / END TITLE / FADE TO BLACK). Edwin: "makes us look bad and incomplete."
+    Structural chapter watermarks + titles kept (editorial, not slate chrome).
+  - Hero titled EDWARD per spec (Edwin confirmed "letterboxed EDWARD, exactly as spec").
+  - Body font Newsreader, not Inter: matches homepage + sibling pages (homepage wins over codex).
+  - Video: Vimeo placeholder loop on hero (desktop+motion) over a Ken-Burns image fallback;
+    no Pexels downloads (repo .gitignore excludes videos/*.mp4; site uses Vimeo). Edwin confirmed.
+-->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<meta name="description" content="Edward Festeryga. Founder and attorney. A Houston trial lawyer.">
+<meta name="description" content="About Edward Festeryga. Founder and only attorney. A Houston trial lawyer who does not hand off the case you handed to him.">
 <title>About Edward · Festeryga Law</title>
 <script>document.documentElement.classList.add('js');</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,153 +46,138 @@
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../shared/styles.css">
 <style>
-  /* ---- depth pass (About prototype) ---- */
+  /* ============ ABOUT · cinematic build (BUILD-PROMPT-01) ============ */
 
-  /* Layer 1: ambient hero media. Real footage drops into the <video> swap below;
-     for the prototype the portrait drifts (Ken Burns) so the hero holds motion. */
-  .hero-media { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
-  .hero-media__img { position: absolute; inset: -8% -8% -8% -8%; background-size: cover; background-position: center;
-    filter: grayscale(1) contrast(1.08) brightness(0.6); animation: kenburns 26s ease-in-out infinite alternate; will-change: transform; }
-  .hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.1) brightness(0.72); }
-  .hero-media__duo { position: absolute; inset: 0; z-index: 1; background: linear-gradient(150deg, rgba(92,17,40,0.4) 0%, transparent 46%, rgba(4,6,12,0.5) 100%); mix-blend-mode: soft-light; }
-  .hero-media__vig { position: absolute; inset: 0; z-index: 2; pointer-events: none; background: radial-gradient(ellipse at center, transparent 38%, rgba(4,6,12,0.55) 100%); }
-  @keyframes kenburns { 0% { transform: scale(1.0) translate(0,0); } 100% { transform: scale(1.12) translate(-2%, -2%); } }
-
-  /* Ambient animated grain (slow drift) */
-  .grain-anim { animation: grain-shift 8s ease-in-out infinite alternate; }
-  @keyframes grain-shift { 0% { transform: translate(0,0); } 100% { transform: translate(-5%, -5%); } }
-
-  /* Layer 2: hero title parallax hook (JS sets transform) */
-  #heroTitle { will-change: transform; }
-
-  /* Layer 3: rich founder prose */
-  .founder { max-width: 66ch; margin: 0 auto; }
-  .founderprose { font-family: var(--f-body); font-size: clamp(18px, 1.7vw, 23px); line-height: 1.62; letter-spacing: -0.005em; color: rgba(239,234,222,0.95); }
-  .founderprose p + p { margin-top: 22px; }
-  .founderprose .lead { font-style: italic; color: var(--cream); }
-
-  /* Layer 4: pull-quote intercut */
-  .intercut { position: relative; overflow: hidden; background: var(--black); padding: clamp(72px, 11vw, 150px) 0; margin: clamp(48px, 6vw, 80px) 0; text-align: center; }
-  .intercut__vbg { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
-  .intercut__vbg iframe { position: absolute; top: 50%; left: 50%; width: 100vw; height: 56.25vw; min-height: 100%; min-width: 177.78vh; transform: translate(-50%, -50%); border: 0; filter: grayscale(1) contrast(1.05) brightness(0.42); }
-  .intercut__scrim { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(4,6,12,0.82), rgba(4,6,12,0.68)); }
-  .intercut__content { position: relative; z-index: 2; }
-  .intercut__rule { position: absolute; left: var(--pad); right: var(--pad); height: 1px; background: var(--iron); z-index: 2; }
-  .intercut__rule--top { top: 0; } .intercut__rule--bot { bottom: 0; }
-  .intercut__q { font-family: var(--f-anton); text-transform: uppercase; font-size: clamp(48px, 8vw, 92px); line-height: 0.98; letter-spacing: -0.02em; color: var(--cream); }
-  .intercut__bar { width: 40px; height: 3px; background: var(--merlot-br); margin: 26px auto 14px; }
-  .intercut__by { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.32em; color: rgba(200,193,176,0.7); text-transform: uppercase; }
-
-  /* Layer 5: fade-on-scroll (gated behind .js so content is visible if JS fails) */
+  /* motion primitives */
+  .grain-anim { animation: grainShift 8s ease-in-out infinite alternate; }
+  @keyframes grainShift { 0% { transform: translate(0,0); } 100% { transform: translate(-5%,-5%); } }
+  @keyframes abKen { from { transform: scale(1); } to { transform: scale(1.06); } }
   .fade-on-scroll { transition: opacity 700ms ease-out, transform 700ms ease-out; }
   .js .fade-on-scroll { opacity: 0; transform: translateY(20px); }
   .fade-on-scroll.visible { opacity: 1; transform: translateY(0); }
 
-  /* Layer 6: values hover reveal */
-  .passage--reveal .passage__b { max-height: 0; opacity: 0; overflow: hidden; transition: max-height 400ms ease-out, opacity 400ms ease-out; }
-  .passage--reveal:hover .passage__b, .passage--reveal:focus-within .passage__b { max-height: 200px; opacity: 1; }
-  .passage--reveal { transition: none; }
-  .passage--reveal:hover .passage__k, .passage--reveal:focus-within .passage__k { color: var(--merlot-br); }
-  .passage--reveal .passage__t { cursor: default; }
-  .values-hint { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.2em; color: var(--ash); text-transform: uppercase; margin-top: 18px; }
+  /* COLD OPEN manifesto card (clean, no slate chrome) */
+  .ab-cold { position: relative; background: var(--black); min-height: clamp(380px, 56vh, 520px); display: grid; place-items: center; text-align: center; padding: 60px var(--pad); }
+  .ab-cold__dot { width: 5px; height: 5px; border-radius: 50%; background: var(--merlot-br); margin-bottom: clamp(28px, 4vh, 40px); }
+  .ab-cold__thesis { font-family: var(--f-body); font-style: italic; font-size: clamp(23px, 3.1vw, 36px); line-height: 1.32; letter-spacing: -0.005em; color: rgba(239,234,222,0.9); max-width: 20ch; }
+  .ab-cold__rule { width: 48px; height: 2px; background: rgba(122,27,58,0.8); margin: clamp(30px, 4vh, 40px) auto 18px; }
+  .ab-cold__by { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.28em; color: var(--ash); text-transform: uppercase; }
+
+  /* HERO · letterboxed EDWARD */
+  .ab-hero { position: relative; background: var(--black); }
+  .ab-hero__stage { position: relative; height: clamp(620px, 96vh, 1000px); overflow: hidden; }
+  .ab-kb { position: absolute; inset: -6%; z-index: 0; background-size: cover; background-position: 50% 30%; filter: grayscale(1) contrast(1.08) brightness(0.46); animation: abKen 22s ease-in-out infinite alternate; will-change: transform; }
+  .ab-vbg { position: absolute; inset: 0; z-index: 1; overflow: hidden; pointer-events: none; opacity: 0; transition: opacity 1s ease; }
+  .ab-vbg.on { opacity: 0.3; }
+  .ab-vbg iframe { position: absolute; top: 50%; left: 50%; width: 100vw; height: 56.25vw; min-height: 100%; min-width: 177.78vh; transform: translate(-50%,-50%); border: 0; filter: grayscale(1) contrast(1.05) brightness(0.26); }
+  .ab-hero__grade { position: absolute; inset: 0; z-index: 2; pointer-events: none; background: linear-gradient(180deg, rgba(4,6,12,0.5) 0%, transparent 34%, rgba(4,6,12,0.88) 100%), radial-gradient(ellipse at 12% 100%, rgba(122,27,58,0.26), transparent 56%); }
+  .ab-hero .grain { z-index: 3; }
+  .ab-hero__inner { position: absolute; inset: 0; z-index: 4; display: grid; place-content: center; text-align: center; padding: 0 16px; }
+  .ab-hero__title { margin: 0; font-family: var(--f-anton); font-weight: 400; text-transform: uppercase; font-size: clamp(72px, 16vw, 300px); line-height: 0.84; letter-spacing: -0.045em; color: var(--cream); text-shadow: 0 6px 54px rgba(4,6,12,0.6); will-change: transform; }
+  .ab-hero__sub { margin-top: clamp(12px, 1.8vw, 24px); font-family: var(--f-anton); text-transform: uppercase; font-size: clamp(13px, 2vw, 36px); line-height: 1; letter-spacing: 0.08em; color: var(--merlot-br); }
+  .ab-bar { position: absolute; left: 0; right: 0; z-index: 6; height: clamp(50px, 8vh, 94px); background: var(--black); display: flex; align-items: center; justify-content: space-between; padding: 0 var(--pad); gap: 16px; }
+  .ab-bar--top { top: 0; } .ab-bar--bot { bottom: 0; }
+  .ab-bar span { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.26em; color: rgba(239,234,222,0.62); text-transform: uppercase; white-space: nowrap; }
+  .ab-bar a { color: inherit; text-decoration: none; }
+  .ab-bar--bot span:nth-child(2) { color: var(--merlot-br); }
+  @media (max-width: 680px) { .ab-bar--bot span:first-child, .ab-bar--bot span:last-child { display: none; } .ab-bar--bot { justify-content: center; } }
+
+  /* CHAPTER CARD */
+  .ab-chap { position: relative; background: var(--black); min-height: clamp(300px, 42vh, 400px); display: grid; place-items: center; text-align: center; overflow: hidden; }
+  .ab-chap::before, .ab-chap::after { content: ''; position: absolute; left: var(--pad); right: var(--pad); height: 1px; background: var(--iron); }
+  .ab-chap::before { top: 0; } .ab-chap::after { bottom: 0; }
+  .ab-chap__wm { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); font-family: var(--f-anton); font-size: clamp(150px, 30vw, 300px); line-height: 1; letter-spacing: -0.02em; color: rgba(239,234,222,0.07); pointer-events: none; }
+  .ab-chap__in { position: relative; z-index: 2; padding: 0 20px; }
+  .ab-chap__t { font-family: var(--f-anton); text-transform: uppercase; font-size: clamp(38px, 7vw, 96px); line-height: 1; letter-spacing: -0.015em; color: var(--cream); }
+  .ab-chap__d { margin-top: 16px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.26em; color: var(--ash); text-transform: uppercase; }
+
+  /* VOICEOVER split (portrait + prose) */
+  .ab-vo { position: relative; background: var(--black); }
+  .ab-vo__grid { display: grid; grid-template-columns: 1fr 1fr; min-height: clamp(620px, 86vh, 900px); }
+  .ab-vo__portrait { position: relative; overflow: hidden; background: var(--charcoal); }
+  .ab-vo__img { position: absolute; inset: -6%; background-size: cover; background-position: 50% 22%; filter: grayscale(1) contrast(1.08) brightness(0.56); animation: abKen 24s ease-in-out infinite alternate; will-change: transform; }
+  .ab-vo__pgrade { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 38%, rgba(4,6,12,0.82) 100%), linear-gradient(90deg, transparent 70%, rgba(4,6,12,0.5) 100%); }
+  .ab-vo__cap { position: absolute; left: clamp(24px, 4vw, 60px); bottom: clamp(30px, 5vh, 56px); z-index: 3; padding-left: 22px; }
+  .ab-vo__cap::before { content: ''; position: absolute; left: 0; top: 4px; width: 3px; height: 54px; background: var(--merlot-br); }
+  .ab-vo__capname { font-family: var(--f-anton); text-transform: uppercase; font-size: clamp(20px, 2vw, 26px); letter-spacing: 0.02em; color: var(--cream); }
+  .ab-vo__caprole { margin-top: 9px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.2em; color: rgba(200,193,176,0.85); text-transform: uppercase; }
+  .ab-vo__text { display: flex; flex-direction: column; justify-content: center; padding: clamp(52px, 6vw, 92px) var(--pad); }
+  .ab-vo__setup { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.3em; color: var(--merlot-dk); text-transform: uppercase; margin-bottom: 26px; }
+  .ab-vo__prose p { font-family: var(--f-body); font-weight: 500; font-size: clamp(17px, 1.5vw, 22px); line-height: 1.6; letter-spacing: -0.005em; color: rgba(239,234,222,0.95); max-width: 46ch; }
+  .ab-vo__prose p + p { margin-top: 20px; }
+  .ab-vo__prose .lead { font-style: italic; color: var(--cream); }
+  .ab-vo__sig { margin-top: 34px; display: flex; align-items: center; gap: 16px; }
+  .ab-vo__sig .bar { width: 60px; height: 2px; background: var(--merlot); flex: 0 0 auto; }
+  .ab-vo__sig .who { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.2em; color: var(--bone); text-transform: uppercase; }
+  @media (max-width: 860px) { .ab-vo__grid { grid-template-columns: 1fr; } .ab-vo__portrait { min-height: 62vh; } }
+
+  /* PULL QUOTE INTERCUT */
+  .ab-pq { position: relative; background: var(--black); padding: clamp(80px, 12vw, 150px) var(--pad); text-align: center; }
+  .ab-pq::before, .ab-pq::after { content: ''; position: absolute; left: var(--pad); right: var(--pad); height: 1px; background: var(--iron); }
+  .ab-pq::before { top: 0; } .ab-pq::after { bottom: 0; }
+  .ab-pq__q { font-family: var(--f-anton); text-transform: uppercase; font-size: clamp(44px, 8vw, 88px); line-height: 1.0; letter-spacing: -0.02em; color: var(--cream); }
+  .ab-pq__rule { width: 48px; height: 2px; background: rgba(122,27,58,0.8); margin: 30px auto 16px; }
+  .ab-pq__by { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.28em; color: var(--ash); text-transform: uppercase; }
+
+  /* CONTENT SECTIONS (method + promise) */
+  .ab-sec { position: relative; background: var(--black); padding: clamp(72px, 10vw, 140px) 0; }
+  .ab-sec--near { background: var(--near-black); }
+  .ab-sec__head { max-width: 820px; }
+  .ab-sec__setup { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.3em; color: var(--merlot-dk); text-transform: uppercase; }
+  .ab-sec__h { font-family: var(--f-anton); text-transform: uppercase; font-size: clamp(38px, 7vw, 84px); line-height: 0.98; letter-spacing: -0.015em; color: var(--cream); margin-top: 18px; }
+
+  .ab-pass { margin-top: clamp(40px, 5vw, 70px); }
+  .ab-pass__row { display: grid; grid-template-columns: minmax(160px, 0.5fr) 1.5fr; gap: clamp(20px, 4vw, 60px); padding: clamp(26px, 3vw, 40px) 0; border-top: 1px solid var(--iron); }
+  .ab-pass__row:last-child { border-bottom: 1px solid var(--iron); }
+  .ab-pass__k { font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.14em; color: var(--merlot-br); }
+  .ab-pass__b { font-family: var(--f-body); font-weight: 500; font-size: clamp(16px, 1.4vw, 19px); line-height: 1.6; color: var(--bone); max-width: 62ch; }
+  .ab-sec__close { margin-top: clamp(36px, 5vw, 60px); text-align: center; font-family: var(--f-body); font-style: italic; font-size: clamp(17px, 1.6vw, 22px); color: var(--bone); }
+  @media (max-width: 700px) { .ab-pass__row { grid-template-columns: 1fr; gap: 10px; } }
+
+  .ab-prom { margin-top: clamp(40px, 5vw, 70px); display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(28px, 4vw, 56px); }
+  .ab-prom__item { border-top: 2px solid var(--iron); padding-top: 22px; }
+  .ab-prom__n { font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.2em; color: var(--merlot); }
+  .ab-prom__t { font-family: var(--f-anton); text-transform: uppercase; font-size: clamp(20px, 2vw, 28px); line-height: 1.05; letter-spacing: -0.005em; color: var(--cream); margin: 16px 0 12px; }
+  .ab-prom__b { font-family: var(--f-body); font-weight: 500; font-size: clamp(15px, 1.3vw, 17px); line-height: 1.56; color: var(--bone); }
+  .ab-signed { margin-top: clamp(44px, 6vw, 72px); text-align: center; }
+  .ab-signed__s { font-family: var(--f-anton); text-transform: uppercase; font-size: clamp(22px, 3vw, 34px); letter-spacing: 0.02em; color: var(--cream); }
+  .ab-signed__by { margin-top: 12px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.24em; color: var(--ash); text-transform: uppercase; }
+  @media (max-width: 820px) { .ab-prom { grid-template-columns: 1fr; gap: 28px; } }
+
+  /* CLOSING */
+  .ab-close { position: relative; min-height: clamp(600px, 82vh, 820px); display: grid; place-items: center; text-align: center; overflow: hidden; background: var(--black); padding: clamp(80px, 11vw, 140px) var(--pad); }
+  .ab-close__bg { position: absolute; inset: -6%; z-index: 0; background-size: cover; background-position: center; filter: grayscale(1) contrast(1.08) brightness(0.4); }
+  .ab-close__ov { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(4,6,12,0.86), rgba(4,6,12,0.82)); }
+  .ab-close::before, .ab-close::after { content: ''; position: absolute; left: var(--pad); right: var(--pad); height: 1px; background: var(--iron); z-index: 2; }
+  .ab-close::before { top: clamp(44px, 6vh, 72px); } .ab-close::after { bottom: clamp(44px, 6vh, 72px); }
+  .ab-close .grain { z-index: 2; }
+  .ab-close__in { position: relative; z-index: 3; }
+  .ab-close__dot { width: 5px; height: 5px; border-radius: 50%; background: var(--merlot-br); margin: 0 auto 30px; }
+  .ab-close__t { font-family: var(--f-anton); text-transform: uppercase; font-size: clamp(40px, 9vw, 120px); line-height: 1.0; letter-spacing: -0.025em; color: var(--cream); text-wrap: balance; }
+  .ab-close__rule { width: 80px; height: 3px; background: rgba(122,27,58,0.8); margin: 34px auto 0; }
+  .ab-close__phone { display: inline-block; margin: 28px 0 12px; font-family: var(--f-mono); font-weight: 700; font-size: clamp(24px, 3.2vw, 34px); letter-spacing: 0.04em; color: var(--merlot-br); text-decoration: none; }
+  .ab-close__addr { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.22em; color: rgba(200,193,176,0.75); text-transform: uppercase; }
+  .ab-close__disc { margin-top: 20px; font-family: var(--f-body); font-style: italic; font-size: 13px; color: rgba(136,130,118,0.85); }
 
   @media (prefers-reduced-motion: reduce) {
-    .hero-media__img { animation: none; inset: 0; }
-    .grain-anim { animation: none; }
-    #heroTitle { transform: none !important; }
-    .fade-on-scroll { opacity: 1; transform: none; }
-  }
-  /* touch devices: expand all values (no hover) */
-  @media (hover: none) {
-    .passage--reveal .passage__b { max-height: 200px; opacity: 1; }
-  }
-
-  /* ---- Glyph portal hero: scroll-zoom through FESTERYGA ---- */
-  .gp { position: relative; background: var(--black); }
-  .js .gp { height: 320vh; }
-  .gp__pin { position: relative; min-height: 86vh; overflow: hidden; background: var(--black); isolation: isolate; }
-  .js .gp__pin { position: sticky; top: 0; height: 100vh; }
-  .gp__field { position: absolute; inset: 0; z-index: 0; pointer-events: none;
-    background: radial-gradient(ellipse at 50% 42%, rgba(122,27,58,0.16), transparent 60%),
-                radial-gradient(ellipse at 50% 122%, rgba(92,17,40,0.3), transparent 62%),
-                linear-gradient(180deg, #04060C 0%, #080B12 58%, #04060C 100%); }
-  .gp__scene { position: absolute; inset: -6%; z-index: 1; background-size: cover; background-position: 50% 28%;
-    filter: grayscale(1) contrast(1.08) brightness(0.5); opacity: 0; }
-  .gp__stage { position: absolute; inset: 0; z-index: 2; display: grid; place-items: center; padding: 0 16px; }
-  .gp__word { margin: 0; font-family: var(--f-anton); font-weight: 400; text-transform: uppercase; white-space: nowrap;
-    font-size: clamp(58px, 15.5vw, 232px); line-height: 0.86; letter-spacing: -0.02em;
-    background-image: url('../images/edward-portrait.jpg'); background-size: 128% auto; background-position: 50% 26%;
-    -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent;
-    filter: grayscale(1) contrast(1.06) brightness(1.1);
-    transform-origin: 50% 50%; will-change: transform, opacity; }
-  .gp__word span { display: inline; }
-  .gp__grain { z-index: 3; }
-  .gp__front { position: absolute; inset: 0; z-index: 4; pointer-events: none; }
-  .gp__eyebrow { position: absolute; top: clamp(22px, 9vh, 84px); left: 0; right: 0; text-align: center;
-    font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.34em; text-transform: uppercase; color: rgba(200,193,176,0.72); }
-  .gp__hint { position: absolute; bottom: clamp(24px, 6vh, 60px); left: 0; right: 0; text-align: center;
-    font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(200,193,176,0.6); }
-  .gp__hintbar { display: block; width: 1px; height: 38px; margin: 0 auto 16px; background: linear-gradient(var(--merlot-br), transparent); }
-
-  /* landing title card (portal lands here) */
-  .gp__card { position: relative; min-height: 86vh; overflow: hidden; display: flex; align-items: flex-end; background: var(--black); border-bottom: 1px solid var(--iron); }
-  .gp__card__img { position: absolute; inset: -6%; z-index: 0; background-size: cover; background-position: 50% 26%;
-    filter: grayscale(1) contrast(1.08) brightness(0.52); animation: kenburns 26s ease-in-out infinite alternate; }
-  .gp__card__grade { position: absolute; inset: 0; z-index: 1; pointer-events: none;
-    background: radial-gradient(ellipse at center, transparent 34%, rgba(4,6,12,0.6) 100%),
-                linear-gradient(180deg, rgba(4,6,12,0.32) 0%, transparent 32%, rgba(4,6,12,0.88) 100%); }
-  .gp__card__in { position: relative; z-index: 2; width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 var(--pad) clamp(40px, 7vh, 82px); }
-  .gp__card__sub { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--merlot-br); }
-  .gp__card__name { font-family: var(--f-anton); text-transform: uppercase; font-size: clamp(40px, 6.4vw, 104px); line-height: 0.92; letter-spacing: -0.01em; color: var(--cream); margin: 14px 0 0; }
-  .gp__card__role { font-family: var(--f-body); font-style: italic; font-size: clamp(16px, 1.6vw, 21px); color: var(--bone); margin-top: 10px; }
-
-  @media (prefers-reduced-motion: reduce) {
-    .gp, .js .gp { height: auto; }
-    .gp__pin, .js .gp__pin { position: relative; height: auto; min-height: 76vh; display: grid; }
-    .gp__word { transform: none !important; opacity: 1 !important; }
-    .gp__scene { opacity: 0; }
-    .gp__card__img { animation: none; }
-  }
-  @media (max-width: 760px) {
-    .js .gp { height: 250vh; }
-    .gp__word { background-size: 170% auto; }
-  }
-
-  /* ---- EF process module (ported from homepage) ---- */
-  .proc { position: relative; background: var(--near-black); overflow: hidden; padding: clamp(90px, 12vw, 180px) 0; }
-  .proc::before { content: ''; position: absolute; inset: 0; z-index: 0; background: radial-gradient(ellipse at 50% 0%, rgba(122,27,58,0.16), transparent 60%); pointer-events: none; }
-  .proc .grain { z-index: 1; }
-  .proc__inner { position: relative; z-index: 2; max-width: var(--maxw); margin: 0 auto; padding: 0 var(--pad); }
-  .proc__head { max-width: 760px; }
-  .proc__head .eyebrow { margin-bottom: 16px; display: inline-block; }
-  .proc__note { margin-top: 18px; max-width: 620px; font-family: var(--f-body); font-weight: 500; font-size: 16px; line-height: 1.6; color: rgba(200,193,176,0.85); }
-  .proc__track { position: relative; margin-top: clamp(44px, 6vw, 78px); }
-  .proc__rail { position: absolute; top: 8px; left: 0; right: 0; height: 4px; border-radius: 2px; background: rgba(239,234,222,0.16); }
-  .proc__fill { position: absolute; top: 8px; left: 0; height: 4px; width: 0%; border-radius: 2px; background: var(--merlot-br); box-shadow: 0 0 18px rgba(184,53,95,0.9); transition: width 0.12s linear; }
-  .proc__fill::after { content: ''; position: absolute; right: -5px; top: 50%; transform: translateY(-50%); width: 14px; height: 14px; border-radius: 50%; background: var(--merlot-br); box-shadow: 0 0 16px var(--merlot-br), 0 0 4px #fff inset; }
-  .proc__cols { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(28px, 4vw, 60px); }
-  .pcol { position: relative; opacity: 0.42; transition: opacity 0.5s var(--ease); }
-  .pcol.is-active { opacity: 1; }
-  .pcol__node { width: 20px; height: 20px; border-radius: 50%; background: var(--near-black); border: 2px solid rgba(239,234,222,0.2); display: flex; align-items: center; justify-content: center; }
-  .pcol__node::after { content: ''; width: 7px; height: 7px; border-radius: 50%; background: rgba(239,234,222,0.25); transition: background 0.4s var(--ease); }
-  .pcol.is-active .pcol__node { border-color: var(--merlot-br); }
-  .pcol.is-active .pcol__node::after { background: var(--merlot-br); }
-  .pcol__num { font-family: var(--f-mono); font-weight: 700; font-size: 12px; letter-spacing: 0.24em; color: var(--merlot); margin: 22px 0 12px; }
-  .pcol__title { font-family: var(--f-anton); text-transform: uppercase; font-weight: 400; font-size: clamp(20px, 2vw, 30px); line-height: 1.06; letter-spacing: -0.01em; color: var(--cream); }
-  .pcol__desc { margin-top: 12px; font-family: var(--f-body); font-weight: 500; font-size: 15px; line-height: 1.56; color: rgba(200,193,176,0.88); max-width: 340px; }
-  @media (max-width: 767px) {
-    .proc__rail { top: 0; bottom: 0; left: 9px; right: auto; width: 2px; height: auto; }
-    .proc__fill { display: none; }
-    .proc__cols { grid-template-columns: 1fr; gap: 34px; padding-left: 40px; }
-    .pcol { opacity: 1; }
-    .pcol__node { position: absolute; left: -40px; top: 2px; border-color: var(--merlot-br); }
-    .pcol__node::after { background: var(--merlot-br); }
+    .ab-kb, .ab-vo__img, .grain-anim { animation: none; }
+    .ab-hero__title { transform: none !important; }
+    .fade-on-scroll { opacity: 1 !important; transform: none !important; }
   }
 </style>
 </head>
 <body>
 
-<header class="nav">
+<!-- COLD OPEN -->
+<section class="ab-cold">
+  <span class="ab-cold__dot" aria-hidden="true"></span>
+  <p class="ab-cold__thesis">I don't hand off<br>the case you handed to me.</p>
+  <div class="ab-cold__rule" aria-hidden="true"></div>
+  <div class="ab-cold__by">EDWARD FESTERYGA &nbsp;&middot;&nbsp; HOUSTON, TX</div>
+</section>
+
+<!-- NAV -->
+<header class="nav" id="top">
   <div class="nav__primary">
     <a href="../index.html" class="nav__brand">FESTERYGA LAW</a>
     <div class="nav__right">
@@ -181,139 +200,163 @@
 
 <main>
 
-<!-- HERO: GLYPH PORTAL (scroll-zoom through the name) -->
-<section class="gp" id="gp" aria-label="Festeryga">
-  <div class="gp__pin">
-    <div class="gp__field" aria-hidden="true"></div>
-    <div class="gp__scene" aria-hidden="true" style="background-image:url('../images/edward-portrait.jpg')"></div>
-    <div class="gp__stage">
-      <h1 class="gp__word"><span>FESTE</span><span class="gp__focus">R</span><span>YGA</span></h1>
+<!-- HERO -->
+<section class="ab-hero">
+  <div class="ab-hero__stage">
+    <div class="ab-kb" style="background-image:url('../images/edward-portrait.jpg')" aria-hidden="true"></div>
+    <div class="ab-vbg" data-vim="1219991563" aria-hidden="true"><iframe title="" allow="autoplay; fullscreen; picture-in-picture" frameborder="0" tabindex="-1"></iframe></div>
+    <div class="ab-hero__grade" aria-hidden="true"></div>
+    <div class="grain grain-anim" aria-hidden="true"></div>
+    <div class="ab-bar ab-bar--top">
+      <span>A HOUSTON TRIAL LAWYER</span>
+      <span>FOUNDER &nbsp;&middot;&nbsp; ONLY ATTORNEY</span>
     </div>
-    <div class="grain grain-anim gp__grain" aria-hidden="true"></div>
-    <div class="gp__front">
-      <div class="gp__eyebrow">A HOUSTON TRIAL LAWYER</div>
-      <div class="gp__hint"><span class="gp__hintbar" aria-hidden="true"></span>SCROLL TO ENTER</div>
+    <div class="ab-hero__inner">
+      <h1 class="ab-hero__title" id="heroTitle">EDWARD</h1>
+      <div class="ab-hero__sub">FOUNDER &nbsp;&middot;&nbsp; ATTORNEY &nbsp;&middot;&nbsp; TEXAS TRIAL LAWYER</div>
+    </div>
+    <div class="ab-bar ab-bar--bot">
+      <span>HOUSTON, TX &nbsp;&middot;&nbsp; EST 2018</span>
+      <span><a href="tel:+17134144042">(713) 414-4042</a></span>
+      <span>ENG / ESP &nbsp;&middot;&nbsp; 24/7</span>
     </div>
   </div>
 </section>
 
-<!-- TITLE CARD (portal landing) -->
-<section class="gp__card">
-  <div class="gp__card__img" aria-hidden="true" style="background-image:url('../images/edward-portrait.jpg')"></div>
-  <div class="gp__card__grade" aria-hidden="true"></div>
-  <div class="grain grain-anim" aria-hidden="true"></div>
-  <div class="gp__card__in">
-    <div class="gp__card__sub">FOUNDER &nbsp;&middot;&nbsp; ATTORNEY &nbsp;&middot;&nbsp; TEXAS TRIAL LAWYER</div>
-    <h2 class="gp__card__name">Edward Festeryga</h2>
-    <div class="gp__card__role">Founding Attorney</div>
+<!-- CHAPTER I -->
+<section class="ab-chap fade-on-scroll">
+  <span class="ab-chap__wm" aria-hidden="true">I</span>
+  <div class="ab-chap__in">
+    <div class="ab-chap__t">THE STORY</div>
+    <div class="ab-chap__d">WHY FESTERYGA LAW</div>
   </div>
 </section>
 
-<!-- SECTION 2: FOUNDER STORY -->
-<section class="sec">
-  <div class="wrap">
-    <div class="founder">
-      <span class="setup fade-on-scroll">THE STORY</span>
-      <!-- PENDING EDWARD VERIFICATION · Rewritten by Mozwell in Edward's voice; final approval required before public launch -->
-      <div class="founderprose fade-on-scroll" style="margin-top:22px">
-        <p class="lead">I started this firm because I wanted every client I represent to have my full attention.</p>
-        <p>Not a case number. Not a file passed between paralegals. Not the voice of an intake specialist who does not know your name. My cell phone. My calendar. My time in front of the jury.</p>
-        <p>Before Festeryga Law, I worked inside the machinery of high-volume firms. I saw what happens when a serious injury case is treated as inventory instead of a person's life. The client loses. Every time.</p>
+<!-- CHAPTER I CONTENT · voiceover -->
+<section class="ab-vo">
+  <div class="ab-vo__grid">
+    <div class="ab-vo__portrait fade-on-scroll">
+      <div class="ab-vo__img" style="background-image:url('../images/edward-portrait.jpg')" aria-hidden="true"></div>
+      <div class="ab-vo__pgrade" aria-hidden="true"></div>
+      <div class="grain grain-anim" aria-hidden="true"></div>
+      <div class="ab-vo__cap">
+        <div class="ab-vo__capname">EDWARD FESTERYGA</div>
+        <div class="ab-vo__caprole">FOUNDER &amp; ATTORNEY &nbsp;&middot;&nbsp; FESTERYGA LAW</div>
       </div>
     </div>
-  </div>
-
-  <!-- Layer 4: pull-quote intercut (full-bleed) -->
-  <div class="intercut fade-on-scroll">
-    <div class="intercut__vbg" aria-hidden="true"><iframe title="" allow="autoplay; fullscreen; picture-in-picture" frameborder="0" tabindex="-1"></iframe></div>
-    <div class="intercut__scrim" aria-hidden="true"></div>
-    <div class="intercut__rule intercut__rule--top" aria-hidden="true"></div>
-    <div class="intercut__content">
-      <div class="intercut__q">ONE CASE<br>AT A TIME.</div>
-      <div class="intercut__bar" aria-hidden="true"></div>
-      <div class="intercut__by">EDWARD FESTERYGA &nbsp;&middot;&nbsp; FOUNDING ATTORNEY</div>
-    </div>
-    <div class="intercut__rule intercut__rule--bot" aria-hidden="true"></div>
-  </div>
-
-  <div class="wrap">
-    <div class="founder">
-      <div class="founderprose fade-on-scroll">
+    <div class="ab-vo__text fade-on-scroll">
+      <div class="ab-vo__setup">HE SAYS</div>
+      <!-- PENDING EDWARD VERIFICATION · prose written by Mozwell in Edward's voice; final approval required before public launch -->
+      <div class="ab-vo__prose">
+        <p class="lead">I started Festeryga Law because I wanted every client I represent to have my full attention.</p>
+        <p>Not a case number. Not a file passed between paralegals. Not the voice of an intake specialist who does not know your name. My cell phone. My calendar. My time in front of the jury.</p>
+        <p>Before this firm, I worked inside the machinery of high-volume injury practices. I saw what happens when a serious case is treated as inventory instead of a person's life. The client loses. Every time.</p>
         <p>I built this firm to be the alternative. One lawyer who reads every deposition. One lawyer who negotiates every settlement. One lawyer whose reputation is on the line when the case walks into court.</p>
         <p>If you hire me, you get me. That is the whole promise.</p>
       </div>
+      <div class="ab-vo__sig">
+        <span class="bar" aria-hidden="true"></span>
+        <span class="who">EDWARD FESTERYGA &nbsp;&middot;&nbsp; HOUSTON, TEXAS</span>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- SECTION 3: THE VALUES (hover reveal) -->
-<section class="sec sec--dark">
+<!-- PULL QUOTE INTERCUT -->
+<section class="ab-pq fade-on-scroll">
+  <div class="ab-pq__q">ONE CASE<br>AT A TIME.<br>ON ME.</div>
+  <div class="ab-pq__rule" aria-hidden="true"></div>
+  <div class="ab-pq__by">EDWARD FESTERYGA &nbsp;&middot;&nbsp; ON THE RECORD</div>
+</section>
+
+<!-- CHAPTER II -->
+<section class="ab-chap fade-on-scroll">
+  <span class="ab-chap__wm" aria-hidden="true">II</span>
+  <div class="ab-chap__in">
+    <div class="ab-chap__t">THE METHOD</div>
+    <div class="ab-chap__d">HOW A CASE GETS BUILT</div>
+  </div>
+</section>
+
+<!-- CHAPTER II CONTENT · the method -->
+<section class="ab-sec ab-sec--near">
   <div class="wrap">
-    <div class="sec-head fade-on-scroll">
-      <span class="setup">THE VALUES</span>
-      <h2 class="h-sec">HOW EDWARD WORKS.</h2>
-      <div class="values-hint">Hover to read</div>
+    <div class="ab-sec__head fade-on-scroll">
+      <div class="ab-sec__setup">ON PREPARATION</div>
+      <h2 class="ab-sec__h">EVERY CASE<br>IS BUILT<br>ONE DECISION<br>AT A TIME.</h2>
     </div>
-    <div class="passages">
-      <div class="passage passage--reveal fade-on-scroll" tabindex="0">
-        <div class="passage__k">01 &nbsp;&middot;&nbsp; ONE CASE AT A TIME</div>
-        <div><div class="passage__t">Volume is not the goal.</div><div class="passage__b">I take on what I can lead personally. Volume is not the goal.</div></div>
+    <!-- PENDING EDWARD VERIFICATION · prose written by Mozwell in Edward's voice -->
+    <div class="ab-pass">
+      <div class="ab-pass__row fade-on-scroll">
+        <div class="ab-pass__k">01 &nbsp;&middot;&nbsp; WHAT HAPPENED</div>
+        <div class="ab-pass__b">I start with the specific facts. The industry, the equipment, the maintenance records, the people on shift that day. What actually failed. Who had the duty to prevent it. The case is built from the ground up, not fitted to a template.</div>
       </div>
-      <div class="passage passage--reveal fade-on-scroll" tabindex="0">
-        <div class="passage__k">02 &nbsp;&middot;&nbsp; TRIAL-READY FROM DAY ONE</div>
-        <div><div class="passage__t">Built to be tried.</div><div class="passage__b">Every case is prepared as if it will be tried, whether it settles or not.</div></div>
+      <div class="ab-pass__row fade-on-scroll">
+        <div class="ab-pass__k">02 &nbsp;&middot;&nbsp; THE HARM CAUSED</div>
+        <div class="ab-pass__b">Then the full picture of what was lost. The medical future. The lost income. The daily life that will never be the same. I work with the medical experts, the economists, the vocational specialists who can tell that story to a jury in a way they will remember.</div>
       </div>
-      <div class="passage passage--reveal fade-on-scroll" tabindex="0">
-        <div class="passage__k">03 &nbsp;&middot;&nbsp; YOUR LAWYER, NOT YOUR LAW FIRM</div>
-        <div><div class="passage__t">You get Edward.</div><div class="passage__b">You will always know the person handling your case.</div></div>
+      <div class="ab-pass__row fade-on-scroll">
+        <div class="ab-pass__k">03 &nbsp;&middot;&nbsp; WHAT THE CASE REQUIRES</div>
+        <div class="ab-pass__b">Finally, the strategy. Which defendants belong on the papers. Which insurer will be forced to sit at the table. Which deposition we take first and what we need from it. Which expert carries the credibility to break the defense's story. Every decision is made with the case walking into court, whether it goes there or not.</div>
       </div>
+    </div>
+    <div class="ab-sec__close fade-on-scroll">The right result starts with understanding the whole case.</div>
+  </div>
+</section>
+
+<!-- CHAPTER III -->
+<section class="ab-chap fade-on-scroll">
+  <span class="ab-chap__wm" aria-hidden="true">III</span>
+  <div class="ab-chap__in">
+    <div class="ab-chap__t">THE PROMISE</div>
+    <div class="ab-chap__d">WHAT YOU ACTUALLY GET</div>
+  </div>
+</section>
+
+<!-- CHAPTER III CONTENT · the promise -->
+<section class="ab-sec">
+  <div class="wrap">
+    <div class="ab-sec__head fade-on-scroll">
+      <div class="ab-sec__setup">THE FESTERYGA STANDARD</div>
+      <h2 class="ab-sec__h">THREE PROMISES.<br>PUT IN WRITING.</h2>
+    </div>
+    <!-- PENDING EDWARD VERIFICATION · prose written by Mozwell in Edward's voice -->
+    <div class="ab-prom">
+      <div class="ab-prom__item fade-on-scroll">
+        <div class="ab-prom__n">01</div>
+        <div class="ab-prom__t">YOU GET EDWARD</div>
+        <div class="ab-prom__b">Direct access. A real bilingual team. Clear ownership of the case from first call through resolution.</div>
+      </div>
+      <div class="ab-prom__item fade-on-scroll">
+        <div class="ab-prom__n">02</div>
+        <div class="ab-prom__t">I FUND THE LEGAL FIGHT</div>
+        <div class="ab-prom__b">No upfront legal fee. The firm advances approved case expenses. I am paid only if there is a recovery.</div>
+      </div>
+      <div class="ab-prom__item fade-on-scroll">
+        <div class="ab-prom__n">03</div>
+        <div class="ab-prom__t">YOU SEE WHERE THE CASE STANDS</div>
+        <div class="ab-prom__b">Clear milestones. Organized documents. Transparent expense accounting. You will not have to call to find out what is happening.</div>
+      </div>
+    </div>
+    <div class="ab-signed fade-on-scroll">
+      <div class="ab-signed__s">SIGNED,</div>
+      <div class="ab-signed__by">EDWARD FESTERYGA &nbsp;&middot;&nbsp; FOUNDER &amp; ATTORNEY &nbsp;&middot;&nbsp; FESTERYGA LAW</div>
     </div>
   </div>
 </section>
 
-<!-- SECTION 4: THE EF PROCESS -->
-<section class="proc" id="process">
-  <div class="grain" aria-hidden="true"></div>
-  <div class="proc__inner">
-    <div class="proc__head fade-on-scroll">
-      <span class="eyebrow">THE METHOD</span>
-      <h2 class="h-sec">THE EF PROCESS</h2>
-      <p class="proc__note">Companies hide what hurts them. You need a lawyer who knows where the evidence is and how to get it. Three moves win the case.</p>
-    </div>
-    <div class="proc__track" id="procTrack">
-      <div class="proc__rail" aria-hidden="true"></div>
-      <div class="proc__fill" id="procFill" aria-hidden="true"></div>
-      <div class="proc__cols">
-        <div class="pcol" data-node="0.16">
-          <span class="pcol__node" aria-hidden="true"></span>
-          <div class="pcol__num">01</div>
-          <h3 class="pcol__title">Race to Collect the Evidence</h3>
-          <p class="pcol__desc">Evidence starts to disappear the moment a crash happens. Edward moves first. Forensic downloads, event data, and scene records, secured before anyone can bury them.</p>
-        </div>
-        <div class="pcol" data-node="0.5">
-          <span class="pcol__node" aria-hidden="true"></span>
-          <div class="pcol__num">02</div>
-          <h3 class="pcol__title">Litigation</h3>
-          <p class="pcol__desc">Edward uses advanced tools to surface what companies buried, and the legal process to force it into the open. He controls the record from filing to trial.</p>
-        </div>
-        <div class="pcol" data-node="0.84">
-          <span class="pcol__node" aria-hidden="true"></span>
-          <div class="pcol__num">03</div>
-          <h3 class="pcol__title">Trial Presentation</h3>
-          <p class="pcol__desc">Few lawyers actually try cases. Edward does. Expert animations and medical illustrations, built to connect the dots for a jury and carry the verdict.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="closer" id="closing">
-  <div class="closer__bg" aria-hidden="true"></div>
+<!-- CLOSING -->
+<section class="ab-close" id="closing">
+  <div class="ab-close__bg" style="background-image:url('../images/interstitial-bg.jpg')" aria-hidden="true"></div>
+  <div class="ab-close__ov" aria-hidden="true"></div>
   <div class="grain grain-anim" aria-hidden="true"></div>
-  <div class="closer__inner fade-on-scroll">
-    <h2 class="closer__title">WHEN IT'S EVERYTHING,<br>YOU GET <span class="uline">EDWARD</span>.</h2>
-    <a href="tel:+17134144042" class="closer__phone">(713) 414-4042</a>
-    <div class="closer__disc">Free consultation &nbsp;&middot;&nbsp; No fee unless we win &nbsp;&middot;&nbsp; English &amp; Espa&ntilde;ol</div>
+  <div class="ab-close__in fade-on-scroll">
+    <span class="ab-close__dot" aria-hidden="true"></span>
+    <h2 class="ab-close__t">WHEN IT'S EVERYTHING,<br>YOU GET EDWARD.</h2>
+    <div class="ab-close__rule" aria-hidden="true"></div>
+    <a href="tel:+17134144042" class="ab-close__phone">(713) 414-4042</a>
+    <div class="ab-close__addr">edward@festeryga.com &nbsp;&middot;&nbsp; 2525 NORTH LOOP W. SUITE 510C &nbsp;&middot;&nbsp; HOUSTON, TEXAS</div>
+    <div class="ab-close__disc">Free consultation &nbsp;&middot;&nbsp; No fee unless we win &nbsp;&middot;&nbsp; English &amp; Espa&ntilde;ol</div>
   </div>
 </section>
 
@@ -359,45 +402,12 @@
   </div>
 </footer>
 
-<script src="../shared/app.js" defer></script>
-<script>
-/* EF process module: scroll-progress rail + step activation */
-(function () {
-  var track = document.getElementById('procTrack');
-  if (!track) return;
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var fill = document.getElementById('procFill');
-  var cols = track.querySelectorAll('.pcol');
-  function clamp(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
-  if (reduce || window.matchMedia('(max-width: 767px)').matches) {
-    if (fill) fill.style.width = '100%';
-    cols.forEach(function (c) { c.classList.add('is-active'); });
-    return;
-  }
-  var ticking = false;
-  function render() {
-    ticking = false;
-    var r = track.getBoundingClientRect();
-    var vh = window.innerHeight;
-    var p = clamp((vh * 0.78 - r.top) / (vh * 0.46));
-    if (fill) fill.style.width = (p * 100).toFixed(1) + '%';
-    cols.forEach(function (c) {
-      var n = parseFloat(c.getAttribute('data-node')) || 0;
-      c.classList.toggle('is-active', p >= n - 0.02);
-    });
-  }
-  function onScroll() { if (!ticking) { ticking = true; window.requestAnimationFrame(render); } }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', render);
-  render();
-})();
-</script>
 <script>
 (function () {
   'use strict';
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* Layer 5: fade-on-scroll */
+  /* reveal on scroll */
   var faders = document.querySelectorAll('.fade-on-scroll');
   if (reduce || !('IntersectionObserver' in window)) {
     faders.forEach(function (el) { el.classList.add('visible'); });
@@ -410,45 +420,29 @@
 
   if (reduce) return;
 
-  /* intercut ambient video: placeholder Vimeo loop, desktop + motion only */
-  var ivb = document.querySelector('.intercut__vbg iframe');
-  if (ivb && window.matchMedia('(min-width: 1000px)').matches) {
-    ivb.src = 'https://player.vimeo.com/video/1219991563?background=1&autopause=0&muted=1&loop=1&dnt=1';
+  /* hero title parallax (0.35x), masked by the opaque bottom letterbox bar */
+  var title = document.getElementById('heroTitle');
+  var stage = document.querySelector('.ab-hero__stage');
+  if (title && stage) {
+    var ticking = false;
+    function render() {
+      ticking = false;
+      var r = stage.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > window.innerHeight) return;
+      title.style.transform = 'translateY(' + (-r.top * 0.35) + 'px)';
+    }
+    function onScroll() { if (!ticking) { ticking = true; window.requestAnimationFrame(render); } }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    render();
   }
 
-  /* Glyph portal: scroll-zoom the camera through FESTERYGA into the page */
-  var gp = document.getElementById('gp');
-  if (gp) {
-    var gpWord = gp.querySelector('.gp__word');
-    var gpFocus = gp.querySelector('.gp__focus');
-    var gpFront = gp.querySelector('.gp__front');
-    var gpScene = gp.querySelector('.gp__scene');
-    var MAXS = window.matchMedia('(max-width: 760px)').matches ? 24 : 34;
-    var gpTick = false;
-
-    function gpOrigin() {
-      var wb = gpWord.getBoundingClientRect(), fb = gpFocus.getBoundingClientRect();
-      if (!wb.width || !fb.width) return;
-      gpWord.style.transformOrigin =
-        ((fb.left + fb.width / 2 - wb.left) / wb.width * 100) + '% ' +
-        ((fb.top + fb.height / 2 - wb.top) / wb.height * 100) + '%';
-    }
-    function gpRender() {
-      var top = gp.getBoundingClientRect().top;
-      var range = gp.offsetHeight - window.innerHeight;
-      var p = range > 0 ? Math.min(1, Math.max(0, -top / range)) : 0;
-      var e = p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
-      var scale = Math.exp(Math.log(MAXS) * e);
-      gpWord.style.transform = 'scale(' + scale + ')';
-      gpFront.style.opacity = String(1 - Math.min(1, p / 0.16));
-      gpScene.style.opacity = String(Math.min(1, Math.max(0, (p - 0.55) / 0.3)));
-      gpWord.style.opacity = String(1 - Math.min(1, Math.max(0, (p - 0.8) / 0.16)));
-      gpTick = false;
-    }
-    function gpReq() { if (!gpTick) { window.requestAnimationFrame(gpRender); gpTick = true; } }
-    gpOrigin(); gpRender();
-    window.addEventListener('scroll', gpReq, { passive: true });
-    window.addEventListener('resize', function () { gpOrigin(); gpRender(); });
+  /* Vimeo backdrop loop (desktop + motion only) */
+  if (window.matchMedia('(min-width: 1000px)').matches) {
+    document.querySelectorAll('.ab-vbg[data-vim]').forEach(function (v) {
+      var id = v.getAttribute('data-vim');
+      var f = v.querySelector('iframe');
+      if (f && id) { f.src = 'https://player.vimeo.com/video/' + id + '?background=1&autopause=0&muted=1&loop=1&dnt=1'; v.classList.add('on'); }
+    });
   }
 })();
 </script>
