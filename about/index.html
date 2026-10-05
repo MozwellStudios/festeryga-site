@@ -123,6 +123,37 @@
     .js .gp { height: 250vh; }
     .gp__word { background-size: 170% auto; }
   }
+
+  /* ---- EF process module (ported from homepage) ---- */
+  .proc { position: relative; background: var(--near-black); overflow: hidden; padding: clamp(90px, 12vw, 180px) 0; }
+  .proc::before { content: ''; position: absolute; inset: 0; z-index: 0; background: radial-gradient(ellipse at 50% 0%, rgba(122,27,58,0.16), transparent 60%); pointer-events: none; }
+  .proc .grain { z-index: 1; }
+  .proc__inner { position: relative; z-index: 2; max-width: var(--maxw); margin: 0 auto; padding: 0 var(--pad); }
+  .proc__head { max-width: 760px; }
+  .proc__head .eyebrow { margin-bottom: 16px; display: inline-block; }
+  .proc__note { margin-top: 18px; max-width: 620px; font-family: var(--f-body); font-weight: 500; font-size: 16px; line-height: 1.6; color: rgba(200,193,176,0.85); }
+  .proc__track { position: relative; margin-top: clamp(44px, 6vw, 78px); }
+  .proc__rail { position: absolute; top: 8px; left: 0; right: 0; height: 4px; border-radius: 2px; background: rgba(239,234,222,0.16); }
+  .proc__fill { position: absolute; top: 8px; left: 0; height: 4px; width: 0%; border-radius: 2px; background: var(--merlot-br); box-shadow: 0 0 18px rgba(184,53,95,0.9); transition: width 0.12s linear; }
+  .proc__fill::after { content: ''; position: absolute; right: -5px; top: 50%; transform: translateY(-50%); width: 14px; height: 14px; border-radius: 50%; background: var(--merlot-br); box-shadow: 0 0 16px var(--merlot-br), 0 0 4px #fff inset; }
+  .proc__cols { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(28px, 4vw, 60px); }
+  .pcol { position: relative; opacity: 0.42; transition: opacity 0.5s var(--ease); }
+  .pcol.is-active { opacity: 1; }
+  .pcol__node { width: 20px; height: 20px; border-radius: 50%; background: var(--near-black); border: 2px solid rgba(239,234,222,0.2); display: flex; align-items: center; justify-content: center; }
+  .pcol__node::after { content: ''; width: 7px; height: 7px; border-radius: 50%; background: rgba(239,234,222,0.25); transition: background 0.4s var(--ease); }
+  .pcol.is-active .pcol__node { border-color: var(--merlot-br); }
+  .pcol.is-active .pcol__node::after { background: var(--merlot-br); }
+  .pcol__num { font-family: var(--f-mono); font-weight: 700; font-size: 12px; letter-spacing: 0.24em; color: var(--merlot); margin: 22px 0 12px; }
+  .pcol__title { font-family: var(--f-anton); text-transform: uppercase; font-weight: 400; font-size: clamp(20px, 2vw, 30px); line-height: 1.06; letter-spacing: -0.01em; color: var(--cream); }
+  .pcol__desc { margin-top: 12px; font-family: var(--f-body); font-weight: 500; font-size: 15px; line-height: 1.56; color: rgba(200,193,176,0.88); max-width: 340px; }
+  @media (max-width: 767px) {
+    .proc__rail { top: 0; bottom: 0; left: 9px; right: auto; width: 2px; height: auto; }
+    .proc__fill { display: none; }
+    .proc__cols { grid-template-columns: 1fr; gap: 34px; padding-left: 40px; }
+    .pcol { opacity: 1; }
+    .pcol__node { position: absolute; left: -40px; top: 2px; border-color: var(--merlot-br); }
+    .pcol__node::after { background: var(--merlot-br); }
+  }
 </style>
 </head>
 <body>
@@ -240,15 +271,39 @@
   </div>
 </section>
 
-<!-- SECTION 4: EF PROCESS TEASER -->
-<section class="sec">
-  <div class="wrap">
-    <a class="linkout fade-on-scroll" href="../about/ef-process/">
-      <span class="setup">THE METHOD</span>
-      <span class="linkout__t">THE FESTERYGA PROCESS</span>
-      <span class="linkout__flow">EVIDENCE PRESERVATION &nbsp;&rarr;&nbsp; LITIGATION &nbsp;&rarr;&nbsp; TRIAL</span>
-      <span class="linkout__cta">SEE HOW EDWARD BUILDS A CASE &rarr;</span>
-    </a>
+<!-- SECTION 4: THE EF PROCESS -->
+<section class="proc" id="process">
+  <div class="grain" aria-hidden="true"></div>
+  <div class="proc__inner">
+    <div class="proc__head fade-on-scroll">
+      <span class="eyebrow">THE METHOD</span>
+      <h2 class="h-sec">THE EF PROCESS</h2>
+      <p class="proc__note">Companies hide what hurts them. You need a lawyer who knows where the evidence is and how to get it. Three moves win the case.</p>
+    </div>
+    <div class="proc__track" id="procTrack">
+      <div class="proc__rail" aria-hidden="true"></div>
+      <div class="proc__fill" id="procFill" aria-hidden="true"></div>
+      <div class="proc__cols">
+        <div class="pcol" data-node="0.16">
+          <span class="pcol__node" aria-hidden="true"></span>
+          <div class="pcol__num">01</div>
+          <h3 class="pcol__title">Race to Collect the Evidence</h3>
+          <p class="pcol__desc">Evidence starts to disappear the moment a crash happens. Edward moves first. Forensic downloads, event data, and scene records, secured before anyone can bury them.</p>
+        </div>
+        <div class="pcol" data-node="0.5">
+          <span class="pcol__node" aria-hidden="true"></span>
+          <div class="pcol__num">02</div>
+          <h3 class="pcol__title">Litigation</h3>
+          <p class="pcol__desc">Edward uses advanced tools to surface what companies buried, and the legal process to force it into the open. He controls the record from filing to trial.</p>
+        </div>
+        <div class="pcol" data-node="0.84">
+          <span class="pcol__node" aria-hidden="true"></span>
+          <div class="pcol__num">03</div>
+          <h3 class="pcol__title">Trial Presentation</h3>
+          <p class="pcol__desc">Few lawyers actually try cases. Edward does. Expert animations and medical illustrations, built to connect the dots for a jury and carry the verdict.</p>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -305,6 +360,38 @@
 </footer>
 
 <script src="../shared/app.js" defer></script>
+<script>
+/* EF process module: scroll-progress rail + step activation */
+(function () {
+  var track = document.getElementById('procTrack');
+  if (!track) return;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fill = document.getElementById('procFill');
+  var cols = track.querySelectorAll('.pcol');
+  function clamp(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
+  if (reduce || window.matchMedia('(max-width: 767px)').matches) {
+    if (fill) fill.style.width = '100%';
+    cols.forEach(function (c) { c.classList.add('is-active'); });
+    return;
+  }
+  var ticking = false;
+  function render() {
+    ticking = false;
+    var r = track.getBoundingClientRect();
+    var vh = window.innerHeight;
+    var p = clamp((vh * 0.78 - r.top) / (vh * 0.46));
+    if (fill) fill.style.width = (p * 100).toFixed(1) + '%';
+    cols.forEach(function (c) {
+      var n = parseFloat(c.getAttribute('data-node')) || 0;
+      c.classList.toggle('is-active', p >= n - 0.02);
+    });
+  }
+  function onScroll() { if (!ticking) { ticking = true; window.requestAnimationFrame(render); } }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', render);
+  render();
+})();
+</script>
 <script>
 (function () {
   'use strict';

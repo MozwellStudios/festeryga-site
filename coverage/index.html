@@ -11,6 +11,39 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../shared/styles.css">
+<style>
+  /* ---- Coverage carousel (ported from homepage) ---- */
+  .cvr { position: relative; background: var(--near-black); }
+  .cvr__stage { position: relative; min-height: clamp(600px, 92vh, 920px); overflow: hidden; }
+  .cvr__slide { position: absolute; inset: 0; z-index: 0; background-size: cover; background-position: center; filter: grayscale(1) contrast(1.08) brightness(0.5); opacity: 0; transition: opacity 1.1s var(--ease), filter 0.7s var(--ease); }
+  .cvr__slide.is-active { opacity: 1; animation: cvrKen 7.5s ease-out forwards; }
+  .cvr__stage:hover .cvr__slide.is-active { filter: grayscale(0) contrast(1.05) brightness(0.74) saturate(1.06); }
+  @keyframes cvrKen { from { transform: scale(1.08); } to { transform: scale(1); } }
+  .cvr__grade { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(to top, rgba(4,6,12,0.94) 0%, rgba(4,6,12,0.28) 56%, rgba(4,6,12,0.55) 100%); }
+  .cvr__grade::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 12% 100%, rgba(122,27,58,0.32), transparent 55%); }
+  .cvr .grain { z-index: 1; }
+  .cvr__top { position: absolute; top: 40px; left: 0; right: 0; z-index: 3; display: flex; justify-content: space-between; align-items: center; }
+  .cvr__counter { font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.24em; color: rgba(200,193,176,0.8); }
+  .cvr__counter #cvrNum { color: var(--merlot-br); font-weight: 700; }
+  .cvr__counter-sep { margin: 0 8px; color: var(--ash); }
+  .cvr__content { position: absolute; left: 0; right: 0; bottom: clamp(50px, 8vh, 96px); z-index: 3; display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; }
+  .cvr__text { max-width: none; min-width: 0; }
+  .cvr__title { font-family: var(--f-anton); text-transform: uppercase; font-weight: 400; font-size: clamp(46px, 8vw, 128px); line-height: 0.9; letter-spacing: -0.02em; color: var(--cream); text-shadow: 0 4px 40px rgba(4,6,12,0.6); white-space: nowrap; }
+  .cvr__title .ch { display: inline-block; will-change: transform, opacity; }
+  .cvr__desc { margin-top: 22px; font-family: var(--f-body); font-weight: 500; font-size: 17px; line-height: 1.6; color: rgba(200,193,176,0.9); max-width: 460px; transition: opacity 0.5s var(--ease), transform 0.5s var(--ease); }
+  .cvr__nav { display: flex; flex-direction: column; gap: 16px; flex: 0 0 auto; }
+  .cvr__navitem { display: flex; align-items: center; gap: 16px; background: none; border: 0; padding: 4px 0; cursor: pointer; }
+  .cvr__navprog { position: relative; width: 66px; height: 2px; background: rgba(239,234,222,0.22); overflow: hidden; flex: 0 0 auto; }
+  .cvr__navfill { position: absolute; inset: 0; width: 0; background: var(--merlot-br); }
+  .cvr__navlabel { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.2em; color: var(--ash); text-transform: uppercase; transition: color 0.3s var(--ease); white-space: nowrap; }
+  .cvr__navitem.is-active .cvr__navlabel { color: var(--cream); }
+  .cvr__navitem:hover .cvr__navlabel { color: rgba(239,234,222,0.85); }
+  @media (max-width: 900px) {
+    .cvr__content { flex-direction: column; align-items: flex-start; gap: 28px; }
+    .cvr__nav { flex-direction: row; flex-wrap: wrap; gap: 12px 22px; }
+    .cvr__navprog { width: 44px; }
+  }
+</style>
 </head>
 <body>
 
@@ -73,57 +106,32 @@
   </div>
 </section>
 
-<!-- THE CITIES -->
-<section class="sec sec--dark sec-wm">
-  <span class="sec-wm__n" aria-hidden="true">02</span>
-  <div class="wrap">
-    <div class="sec-head fade-on-scroll">
-      <span class="setup">THE MAP</span>
-      <h2 class="h-sec">FIVE CITIES. ONE LAWYER.</h2>
+<!-- THE CITIES (cinematic carousel) -->
+<section class="cvr" id="coverage">
+  <div class="cvr__stage" id="cvrStage">
+    <div class="cvr__slide is-active" style="background-image:url('../images/results-bg.jpg')" aria-hidden="true"></div>
+    <div class="cvr__slide" style="background-image:url('../images/final-bg.jpg')" aria-hidden="true"></div>
+    <div class="cvr__slide" style="background-image:url('../images/15.jpg.jpeg')" aria-hidden="true"></div>
+    <div class="cvr__slide" style="background-image:url('../images/16.jpg.jpeg')" aria-hidden="true"></div>
+    <div class="cvr__slide" style="background-image:url('../images/interstitial-bg.jpg')" aria-hidden="true"></div>
+    <div class="cvr__grade" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="cvr__top wrap">
+      <span class="eyebrow">COVERAGE &nbsp;&middot;&nbsp; WHEREVER IT TAKES</span>
+      <span class="cvr__counter"><span id="cvrNum">01</span><span class="cvr__counter-sep">/</span><span id="cvrTotal">05</span></span>
     </div>
-    <div class="citygrid fade-on-scroll">
-      <button class="citycard" type="button">
-        <div>
-          <div class="citycard__name">HOUSTON</div>
-          <div class="citycard__desc">Home base. Where the firm was built and most cases are filed.</div>
-        </div>
-        <div class="citycard__foot">[ TK ] &middot; VERDICTS RECOVERED</div>
-      </button>
-      <button class="citycard" type="button">
-        <div>
-          <div class="citycard__name">AUSTIN</div>
-          <div class="citycard__desc">The capital. State matters and appellate work.</div>
-        </div>
-        <div class="citycard__foot">[ TK ] &middot; VERDICTS RECOVERED</div>
-      </button>
-      <button class="citycard" type="button">
-        <div>
-          <div class="citycard__name">DALLAS</div>
-          <div class="citycard__desc">North Texas. Trucking corridors and corporate defendants.</div>
-        </div>
-        <div class="citycard__foot">[ TK ] &middot; VERDICTS RECOVERED</div>
-      </button>
-      <button class="citycard" type="button">
-        <div>
-          <div class="citycard__name">SAN ANTONIO</div>
-          <div class="citycard__desc">South Texas. Industrial and refinery cases.</div>
-        </div>
-        <div class="citycard__foot">[ TK ] &middot; VERDICTS RECOVERED</div>
-      </button>
-      <button class="citycard" type="button">
-        <div>
-          <div class="citycard__name">EL PASO</div>
-          <div class="citycard__desc">West Texas. Border and cross-jurisdiction matters.</div>
-        </div>
-        <div class="citycard__foot">[ TK ] &middot; VERDICTS RECOVERED</div>
-      </button>
-      <div class="citycard" style="cursor:default">
-        <div>
-          <div class="citycard__name">+ TEXAS</div>
-          <div class="citycard__desc">Statewide. If the case is in Texas, Edward can take it.</div>
-        </div>
-        <div class="citycard__foot">STATEWIDE COVERAGE</div>
+    <div class="cvr__content wrap">
+      <div class="cvr__text">
+        <h2 class="cvr__title" id="cvrTitle">Houston</h2>
+        <p class="cvr__desc" id="cvrDesc">Home base. Where the firm was built and most cases are filed.</p>
       </div>
+      <nav class="cvr__nav" id="cvrNav" aria-label="Coverage cities">
+        <button class="cvr__navitem is-active" type="button" data-i="0"><span class="cvr__navprog"><span class="cvr__navfill"></span></span><span class="cvr__navlabel">Houston</span></button>
+        <button class="cvr__navitem" type="button" data-i="1"><span class="cvr__navprog"><span class="cvr__navfill"></span></span><span class="cvr__navlabel">Austin</span></button>
+        <button class="cvr__navitem" type="button" data-i="2"><span class="cvr__navprog"><span class="cvr__navfill"></span></span><span class="cvr__navlabel">Dallas</span></button>
+        <button class="cvr__navitem" type="button" data-i="3"><span class="cvr__navprog"><span class="cvr__navfill"></span></span><span class="cvr__navlabel">San Antonio</span></button>
+        <button class="cvr__navitem" type="button" data-i="4"><span class="cvr__navprog"><span class="cvr__navfill"></span></span><span class="cvr__navlabel">El Paso</span></button>
+      </nav>
     </div>
   </div>
 </section>
@@ -190,6 +198,66 @@
   </div>
 </footer>
 
+<script>
+/* Coverage carousel: auto-rotating city slides with animated title + nav */
+(function () {
+  var stage = document.getElementById('cvrStage');
+  if (!stage) return;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var slidesEls = stage.querySelectorAll('.cvr__slide');
+  var navItems = stage.querySelectorAll('.cvr__navitem');
+  var fills = stage.querySelectorAll('.cvr__navfill');
+  var titleEl = document.getElementById('cvrTitle');
+  var descEl = document.getElementById('cvrDesc');
+  var numEl = document.getElementById('cvrNum');
+  var cities = [
+    { name: 'Houston', desc: 'Home base. Where the firm was built and most cases are filed.' },
+    { name: 'Austin', desc: 'The capital. State matters and appellate work.' },
+    { name: 'Dallas', desc: 'North Texas. Trucking corridors and corporate defendants.' },
+    { name: 'San Antonio', desc: 'South Texas. Industrial and refinery cases.' },
+    { name: 'El Paso', desc: 'West Texas. Border and cross-jurisdiction matters.' }
+  ];
+  var n = cities.length, current = 0, timer = null, HOLD = 5600;
+  function pad(x) { return String(x + 1).padStart(2, '0'); }
+  function setTitle(text) {
+    if (reduce) { titleEl.textContent = text; return; }
+    titleEl.innerHTML = text.split('').map(function (c) {
+      return '<span class="ch" style="opacity:0;transform:translateY(22px);transition:opacity .55s var(--ease),transform .55s var(--ease)">' + (c === ' ' ? '&nbsp;' : c) + '</span>';
+    }).join('');
+    var chs = titleEl.querySelectorAll('.ch');
+    requestAnimationFrame(function () { requestAnimationFrame(function () {
+      chs.forEach(function (ch, i) { ch.style.transitionDelay = (i * 0.032) + 's'; ch.style.opacity = '1'; ch.style.transform = 'none'; });
+    }); });
+  }
+  function resetProgress(i) {
+    fills.forEach(function (f) { f.style.transition = 'none'; f.style.width = '0%'; });
+    if (reduce) { fills[i].style.width = '100%'; return; }
+    void fills[i].offsetWidth;
+    fills[i].style.transition = 'width ' + (HOLD / 1000) + 's linear';
+    fills[i].style.width = '100%';
+  }
+  function go(i) {
+    slidesEls[current].classList.remove('is-active');
+    navItems[current].classList.remove('is-active');
+    current = i;
+    slidesEls[i].classList.add('is-active');
+    navItems[i].classList.add('is-active');
+    var c = cities[i];
+    setTitle(c.name);
+    if (descEl) { descEl.style.opacity = '0'; descEl.style.transform = 'translateY(14px)'; setTimeout(function () { descEl.textContent = c.desc; descEl.style.opacity = '1'; descEl.style.transform = 'none'; }, reduce ? 0 : 260); }
+    if (numEl) numEl.textContent = pad(i);
+    resetProgress(i);
+    schedule();
+  }
+  function schedule() { clearTimeout(timer); if (!reduce) timer = setTimeout(function () { go((current + 1) % n); }, HOLD); }
+  navItems.forEach(function (b, i) { b.addEventListener('click', function () { go(i); }); });
+  if (!reduce) {
+    stage.addEventListener('mouseenter', function () { clearTimeout(timer); fills[current].style.transition = 'none'; });
+    stage.addEventListener('mouseleave', function () { resetProgress(current); schedule(); });
+  }
+  go(0);
+})();
+</script>
 <script src="../shared/cinematic.js" defer></script>
 </body>
 </html>
