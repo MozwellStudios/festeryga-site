@@ -41,6 +41,14 @@
 .vlb__close:hover { border-color: var(--merlot); background: rgba(122,27,58,0.2); }
   .vlb__close { font-family: var(--f-body); }
 
+  .quotes { background: var(--black); border-top: 1px solid var(--iron); padding: clamp(84px, 10vw, 140px) 0; }
+  .quotes .h-sec { margin: 0 0 clamp(32px, 4vw, 52px); }
+  .qgrid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(28px, 4vw, 56px); }
+  .qcard { margin: 0; border-top: 2px solid var(--merlot-br); padding-top: 22px; display: flex; flex-direction: column; gap: 18px; }
+  .qcard__q { margin: 0; font-family: var(--f-body); font-style: italic; font-size: clamp(18px, 1.5vw, 20px); line-height: 1.55; color: var(--cream); }
+  .qcard__by { font-size: 15px; color: var(--bone); }
+  .qcard__by b { display: block; font-weight: 600; color: var(--cream); font-style: normal; }
+  @media (max-width: 900px) { .qgrid { grid-template-columns: 1fr; max-width: 640px; } }
 </style>
 </head>
 <body>
@@ -103,6 +111,18 @@
   </div>
 </section>
 
+<!-- WRITTEN TESTIMONIALS: verbatim from festeryga.com (COPY-OUTLINE GREEN) -->
+<!-- PENDING EDWARD VERIFICATION: publication consent for each quote; Phil's spelling (Vimeo title "Witman", old site "Whitman"); Mildred + Julianna consent (COPY-OUTLINE discrepancy #2) -->
+<section class="quotes">
+  <div class="wrap">
+    <h2 class="h-sec">More from my clients.</h2>
+    <ul class="qgrid">
+      <li><figure class="qcard"><blockquote class="qcard__q">&ldquo;Edward helped me get my life back. He got me the money to get the care I needed. He got me the money to where I could live. He got me everything I could have hoped for.&rdquo;</blockquote><figcaption class="qcard__by"><b>Phil Witman</b>Client</figcaption></figure></li>
+      <li><figure class="qcard"><blockquote class="qcard__q">&ldquo;Whenever I asked for something, he had it. Whenever I called he answered. We received an offer of settlement that was more than I thought was possible.&rdquo;</blockquote><figcaption class="qcard__by"><b>Se&ntilde;ora Emely</b>Client</figcaption></figure></li>
+      <li><figure class="qcard"><blockquote class="qcard__q">&ldquo;I thought I had lost everything. I needed help and the contractor who was responsible for the excavation work would not take responsibility, they blamed me. Edward changed that. I was fighting for everything that had been taken from me and he gave everything.&rdquo;</blockquote><figcaption class="qcard__by"><b>Alberto Cabrera</b>Client, construction accident</figcaption></figure></li>
+    </ul>
+  </div>
+</section>
 <div class="vlb" id="vlb" role="dialog" aria-modal="true" aria-label="Client video" aria-hidden="true">
   <div class="vlb__inner">
     <button class="vlb__close" id="vlbClose" type="button" aria-label="Close video">&#215;</button>
