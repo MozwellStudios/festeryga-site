@@ -577,12 +577,13 @@ a.credits__line:hover { color: var(--cream); }
 .legal-row { display: flex; flex-wrap: wrap; gap: 4px 18px; margin-top: 12px; }
 .credits__foot { font-size: 14px; color: var(--bone); }
 </style>
+<link rel="stylesheet" href="shared/nav.css">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="nav">
   <div class="nav__primary">
-    <a href="home-v2.html" class="nav__brand" aria-current="page">FESTERYGA LAW</a>
+    <a href="home-v2.html" class="nav__brand">FESTERYGA LAW</a>
     <div class="nav__right">
       <a href="tel:+17134144042" class="nav__phone">(713) 414-4042</a>
       <a href="#closing" class="cta cta--merlot nav__cta">Contact</a>
@@ -590,10 +591,9 @@ a.credits__line:hover { color: var(--cream); }
   </div>
   <div class="nav__secondary">
     <nav class="nav__strip" aria-label="Site">
-      <a href="results/" class="nav__link">Results</a>
-      <a href="practice-areas/" class="nav__link">Practice areas</a>
-      <a href="coverage/" class="nav__link">Coverage</a>
       <a href="about/" class="nav__link">About</a>
+      <a href="practice-areas/" class="nav__link">Practice areas</a>
+      <a href="results/" class="nav__link">Results</a>
       <a href="client-stories/" class="nav__link">Client stories</a>
       <a href="recognition/" class="nav__link">Recognition</a>
     </nav>
@@ -949,12 +949,12 @@ a.credits__line:hover { color: var(--cream); }
       <div>
         <h2 class="credits__label">Site</h2>
         <div class="credits__rule" aria-hidden="true"></div>
-        <a class="credits__line" href="results/">Results</a>
+        <a class="credits__line" href="about/">About</a>
         <a class="credits__line" href="practice-areas/">Practice areas</a>
-        <a class="credits__line" href="coverage/">Coverage</a>
-        <a class="credits__line" href="about/">About Edward</a>
+        <a class="credits__line" href="results/">Results</a>
         <a class="credits__line" href="client-stories/">Client stories</a>
         <a class="credits__line" href="recognition/">Recognition</a>
+        <a class="credits__line" href="coverage/">Coverage</a>
       </div>
       <div>
         <h2 class="credits__label">Notes</h2>
@@ -1429,5 +1429,6 @@ a.credits__line:hover { color: var(--cream); }
   });
 })();
 </script>
+<script src="shared/nav.js"></script>
 </body>
 </html>

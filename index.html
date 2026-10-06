@@ -479,18 +479,18 @@ ul { list-style: none; }
   .count { min-width: 0 !important; }
 }
 </style>
+<link rel="stylesheet" href="shared/nav.css">
 </head>
 <body>
 
-<header class="nav">
+<header class="nav nav--classic">
   <div class="nav__inner">
     <span class="nav__brand">FESTERYGA LAW</span>
-    <nav class="nav__links">
-      <a href="results/" class="nav__link">RESULTS</a>
-      <a href="practice-areas/" class="nav__link">PRACTICE</a>
-      <a href="coverage/" class="nav__link">COVERAGE</a>
+    <nav class="nav__links" aria-label="Site">
       <a href="about/" class="nav__link">ABOUT</a>
-      <a href="client-stories/" class="nav__link">CLIENTS</a>
+      <a href="practice-areas/" class="nav__link">PRACTICE AREAS</a>
+      <a href="results/" class="nav__link">RESULTS</a>
+      <a href="client-stories/" class="nav__link">CLIENT STORIES</a>
       <a href="recognition/" class="nav__link">RECOGNITION</a>
     </nav>
     <div class="nav__right">
@@ -902,12 +902,12 @@ ul { list-style: none; }
       <div>
         <div class="credits__label">SITE</div>
         <div class="credits__rule" aria-hidden="true"></div>
-        <a class="credits__line" href="about/">About Edward</a>
-        <a class="credits__line" href="practice-areas/">Practice Areas</a>
+        <a class="credits__line" href="about/">About</a>
+        <a class="credits__line" href="practice-areas/">Practice areas</a>
         <a class="credits__line" href="results/">Results</a>
-        <a class="credits__line" href="client-stories/">Client Stories</a>
+        <a class="credits__line" href="client-stories/">Client stories</a>
         <a class="credits__line" href="recognition/">Recognition</a>
-        <a class="credits__line" href="#">Español</a>
+        <a class="credits__line" href="coverage/">Coverage</a>
       </div>
       <div>
         <div class="credits__label">NOTES</div>
@@ -1359,5 +1359,6 @@ ul { list-style: none; }
   })();
 })();
 </script>
+<script src="shared/nav.js"></script>
 </body>
 </html>

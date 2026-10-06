@@ -26,6 +26,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Libre+Franklin:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../shared/styles.css">
+<link rel="stylesheet" href="../shared/nav.css">
 <style>
   /* vbg (vimeo backdrop) */
 .vbg { position: absolute; inset: 0; z-index: 0; overflow: hidden; background-size: cover; background-position: center; }
@@ -253,12 +254,10 @@
     </div>
   </div>
   <div class="nav__secondary">
-    <nav class="nav__strip" aria-label="Sections">
-      <a href="../index.html" class="nav__link">Home</a>
-      <a href="../results/" class="nav__link">Results</a>
-      <a href="../practice-areas/" class="nav__link">Practice areas</a>
-      <a href="../coverage/" class="nav__link">Coverage</a>
+    <nav class="nav__strip" aria-label="Site">
       <a href="../about/" class="nav__link is-active" aria-current="page">About</a>
+      <a href="../practice-areas/" class="nav__link">Practice areas</a>
+      <a href="../results/" class="nav__link">Results</a>
       <a href="../client-stories/" class="nav__link">Client stories</a>
       <a href="../recognition/" class="nav__link">Recognition</a>
     </nav>
@@ -493,20 +492,19 @@
       <div>
         <div class="credits__label">Site</div>
         <div class="credits__rule" aria-hidden="true"></div>
-        <a class="credits__line" href="../index.html">Home</a>
-        <a class="credits__line" href="../results/">Results</a>
+        <a class="credits__line" href="../about/">About</a>
         <a class="credits__line" href="../practice-areas/">Practice areas</a>
-        <a class="credits__line" href="../coverage/">Coverage</a>
-        <a class="credits__line" href="../about/">About Edward</a>
+        <a class="credits__line" href="../results/">Results</a>
         <a class="credits__line" href="../client-stories/">Client stories</a>
         <a class="credits__line" href="../recognition/">Recognition</a>
+        <a class="credits__line" href="../coverage/">Coverage</a>
       </div>
       <div>
         <div class="credits__label">Notes</div>
         <div class="credits__rule" aria-hidden="true"></div>
         <span class="credits__line">Attorney advertising.</span>
         <span class="credits__line">Past results do not guarantee future outcomes.</span>
-        <span class="credits__line credits__line--legal ab-legal"><span>Privacy</span><span>Terms</span><span>Disclaimer</span><span>Sitemap</span></span>
+        <span class="credits__line credits__line--legal legal-row"><span>Privacy</span><span>Terms</span><span>Disclaimer</span><span>Sitemap</span></span>
       </div>
     </div>
     <div class="credits__foot">
@@ -950,5 +948,6 @@
   })();
 })();
 </script>
+<script src="../shared/nav.js"></script>
 </body>
 </html>
