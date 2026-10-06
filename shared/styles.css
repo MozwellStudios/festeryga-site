@@ -341,3 +341,38 @@ main a:focus-visible, main button:focus-visible, .credits a:focus-visible { outl
 .kb { animation: none; inset: 0; }
 .grain-anim { animation: none; }
 .js .fade-on-scroll { opacity: 1; transform: none; }
+
+/* ===== a11y layer (ui-ux-pro-max), approved 2026-10-06 =====
+   html-prefixed selectors outrank each page's own inline <style>. */
+:root { --merlot-tx: #D45C80; } /* merlot for small text: 5.4:1 on black */
+html { scroll-padding-top: 120px; }
+:focus-visible, main a:focus-visible, main button:focus-visible, .credits a:focus-visible { outline-color: var(--merlot-tx); }
+main:focus { outline: none; }
+.skip { position: absolute; left: 16px; top: -80px; z-index: 200; padding: 15px 18px; background: var(--cream); color: var(--black); font: 600 15px/1 var(--f-body); }
+.skip:focus { top: 12px; }
+
+/* nav: 44px targets, readable sentence-case labels */
+.nav__brand { display: inline-flex; align-items: center; min-height: 44px; font-size: 13px; letter-spacing: 0.24em; }
+.nav__phone { display: inline-flex; align-items: center; min-height: 44px; font-family: var(--f-body); font-weight: 600; font-size: 15px; letter-spacing: 0; }
+@media (max-width: 900px) { .nav__phone { display: none; } }
+.nav .nav__cta { min-height: 44px; padding: 0 20px; background: var(--merlot); border-color: var(--merlot); font-family: var(--f-body); font-weight: 600; font-size: 14px; letter-spacing: 0; text-transform: none; }
+.nav .nav__cta:hover { background: #9B2A4E; border-color: #9B2A4E; }
+.nav .nav__cta::after { content: none; }
+.nav__strip { height: auto; gap: 28px; }
+.nav__link { display: inline-flex; align-items: center; min-height: 44px; font-family: var(--f-body); font-weight: 500; font-size: 14px; letter-spacing: 0; text-transform: none; color: var(--bone); box-shadow: inset 0 -2px 0 transparent; transition: color 0.2s, box-shadow 0.2s; }
+.nav__link:hover, .nav__link.is-active { color: var(--cream); box-shadow: inset 0 -2px 0 var(--merlot-br); }
+
+/* small merlot text uses the readable tint; merlot stays for fills and rules */
+html .credits__label, html .crow__yr, html .hrow__yr, html .seal, html .pcol__num, html .vcard__role, html .label { color: var(--merlot-tx); }
+html .lrow .seal { font-size: 13px; letter-spacing: 0; }
+
+/* body text floor 16px; link targets 44px */
+html .mvv__p, html .mvv__valp, html .pcol__desc, html .cases__disc { font-size: 16px; }
+html .rclose__addr a, html .closing__addr a, html .rclose__phone, html .closing__phone { display: inline-flex; align-items: center; min-height: 44px; }
+html a.credits__line { display: flex; align-items: center; min-height: 44px; padding: 0; }
+
+/* coverage carousel: pause control (auto-rotation-controls) */
+html .cvr__top { justify-content: space-between; }
+.cvr__pause { min-height: 44px; padding: 0 18px; border: 1px solid rgba(239,234,222,0.4); background: rgba(4,6,12,0.55); color: var(--cream); font: 600 14px var(--f-body); cursor: pointer; transition: border-color 0.2s; }
+.cvr__pause:hover { border-color: var(--merlot-tx); }
+html .cvr__navitem { min-height: 44px; }

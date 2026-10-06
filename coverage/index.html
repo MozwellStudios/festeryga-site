@@ -61,29 +61,30 @@
 </style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 
 <header class="nav">
   <div class="nav__primary">
     <a href="../index.html" class="nav__brand">FESTERYGA LAW</a>
     <div class="nav__right">
       <a href="tel:+17134144042" class="nav__phone">(713) 414-4042</a>
-      <a href="#closing" class="cta cta--merlot nav__cta">CONTACT</a>
+      <a href="#closing" class="cta cta--merlot nav__cta">Contact</a>
     </div>
   </div>
   <div class="nav__secondary">
     <nav class="nav__strip" aria-label="Sections">
-      <a href="../index.html" class="nav__link">HOME</a>
-      <a href="../results/" class="nav__link">RESULTS</a>
-      <a href="../practice-areas/" class="nav__link">PRACTICE</a>
-      <a href="../coverage/" class="nav__link is-active" aria-current="page">COVERAGE</a>
-      <a href="../about/" class="nav__link">ABOUT</a>
-      <a href="../client-stories/" class="nav__link">STORIES</a>
-      <a href="../recognition/" class="nav__link">RECOGNITION</a>
+      <a href="../index.html" class="nav__link">Home</a>
+      <a href="../results/" class="nav__link">Results</a>
+      <a href="../practice-areas/" class="nav__link">Practice areas</a>
+      <a href="../coverage/" class="nav__link is-active" aria-current="page">Coverage</a>
+      <a href="../about/" class="nav__link">About</a>
+      <a href="../client-stories/" class="nav__link">Client stories</a>
+      <a href="../recognition/" class="nav__link">Recognition</a>
     </nav>
   </div>
 </header>
 
-<main>
+<main id="main" tabindex="-1">
 
 <!-- HERO: the cities themselves -->
 <section class="cvr" id="coverage">
@@ -97,6 +98,7 @@
     <div class="grain" aria-hidden="true"></div>
     <div class="cvr__top wrap">
       <h1 class="cvr__h1">Based in Houston. Taking cases across Texas.</h1>
+      <button class="cvr__pause" id="cvrPause" type="button" aria-pressed="false">Pause</button>
     </div>
     <div class="cvr__content wrap">
       <div class="cvr__text">
@@ -231,11 +233,19 @@
     resetProgress(i);
     schedule();
   }
-  function schedule() { clearTimeout(timer); if (!reduce) timer = setTimeout(function () { go((current + 1) % n); }, HOLD); }
+  var paused = reduce, pauseBtn = document.getElementById('cvrPause');
+  function schedule() { clearTimeout(timer); if (!paused) timer = setTimeout(function () { go((current + 1) % n); }, HOLD); }
+  function setPaused(v) {
+    paused = v; pauseBtn.setAttribute('aria-pressed', v ? 'true' : 'false'); pauseBtn.textContent = v ? 'Play' : 'Pause';
+    if (v) { clearTimeout(timer); fills[current].style.transition = 'none'; } else { resetProgress(current); schedule(); }
+  }
+  if (pauseBtn) { if (reduce) pauseBtn.hidden = true; pauseBtn.addEventListener('click', function () { setPaused(!paused); }); }
+  stage.addEventListener('focusin', function () { clearTimeout(timer); });
+  stage.addEventListener('focusout', function (e) { if (!stage.contains(e.relatedTarget) && !paused) schedule(); });
   navItems.forEach(function (b, i) { b.addEventListener('click', function () { go(i); }); });
   if (!reduce) {
     stage.addEventListener('mouseenter', function () { clearTimeout(timer); fills[current].style.transition = 'none'; });
-    stage.addEventListener('mouseleave', function () { resetProgress(current); schedule(); });
+    stage.addEventListener('mouseleave', function () { if (!paused) { resetProgress(current); schedule(); } });
   }
   go(0);
 })();
