@@ -591,12 +591,17 @@ a.credits__line:hover { color: var(--cream); }
   </div>
   <div class="nav__secondary">
     <nav class="nav__strip" aria-label="Site">
-      <a href="about/" class="nav__link">About</a>
+      <span class="nav__group"><a href="about/" class="nav__link">About</a><button class="nav__more" type="button" aria-expanded="false" aria-controls="navmenu-about"><span class="sr-only">About pages</span></button></span>
       <a href="practice-areas/" class="nav__link">Practice areas</a>
       <a href="results/" class="nav__link">Results</a>
       <a href="client-stories/" class="nav__link">Client stories</a>
       <a href="recognition/" class="nav__link">Recognition</a>
     </nav>
+  </div>
+  <div class="nav__menu" id="navmenu-about" hidden>
+    <a href="about/">The firm<span>The people behind the practice</span></a>
+    <a href="about/edward/">Meet Edward<span>Founding attorney</span></a>
+    <a href="about/edward/#process">The EF Process<span>How a case is built</span></a>
   </div>
 </header>
 <main id="main" tabindex="-1">
@@ -950,6 +955,7 @@ a.credits__line:hover { color: var(--cream); }
         <h2 class="credits__label">Site</h2>
         <div class="credits__rule" aria-hidden="true"></div>
         <a class="credits__line" href="about/">About</a>
+        <a class="credits__line" href="about/edward/">Meet Edward</a>
         <a class="credits__line" href="practice-areas/">Practice areas</a>
         <a class="credits__line" href="results/">Results</a>
         <a class="credits__line" href="client-stories/">Client stories</a>

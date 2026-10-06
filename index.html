@@ -487,7 +487,7 @@ ul { list-style: none; }
   <div class="nav__inner">
     <span class="nav__brand">FESTERYGA LAW</span>
     <nav class="nav__links" aria-label="Site">
-      <a href="about/" class="nav__link">ABOUT</a>
+      <span class="nav__group"><a href="about/" class="nav__link">ABOUT</a><button class="nav__more" type="button" aria-expanded="false" aria-controls="navmenu-about"><span class="sr-only">About pages</span></button></span>
       <a href="practice-areas/" class="nav__link">PRACTICE AREAS</a>
       <a href="results/" class="nav__link">RESULTS</a>
       <a href="client-stories/" class="nav__link">CLIENT STORIES</a>
@@ -497,6 +497,11 @@ ul { list-style: none; }
       <a href="tel:+17134144042" class="nav__phone">(713) 414-4042</a>
       <a href="#closing" class="cta cta--merlot nav__cta">CONTACT</a>
     </div>
+  </div>
+  <div class="nav__menu" id="navmenu-about" hidden>
+    <a href="about/">The firm<span>The people behind the practice</span></a>
+    <a href="about/edward/">Meet Edward<span>Founding attorney</span></a>
+    <a href="about/edward/#process">The EF Process<span>How a case is built</span></a>
   </div>
 </header>
 <main>
@@ -903,6 +908,7 @@ ul { list-style: none; }
         <div class="credits__label">SITE</div>
         <div class="credits__rule" aria-hidden="true"></div>
         <a class="credits__line" href="about/">About</a>
+        <a class="credits__line" href="about/edward/">Meet Edward</a>
         <a class="credits__line" href="practice-areas/">Practice areas</a>
         <a class="credits__line" href="results/">Results</a>
         <a class="credits__line" href="client-stories/">Client stories</a>
