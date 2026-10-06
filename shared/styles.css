@@ -15,8 +15,8 @@
   --ash:         #888276;
 
   --f-anton: 'Anton', 'Arial Narrow', sans-serif;
-  --f-body:  'Newsreader', Georgia, 'Times New Roman', serif;
-  --f-mono:  'JetBrains Mono', ui-monospace, monospace;
+  --f-body:  'Libre Franklin', 'Helvetica Neue', Arial, sans-serif;
+  --f-mono:  'Libre Franklin', 'Helvetica Neue', Arial, sans-serif; /* monospace retired: alias to body */
 
   --pad: 80px;
   --maxw: 1440px;
