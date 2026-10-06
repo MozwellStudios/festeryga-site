@@ -17,3 +17,9 @@
 .nav--classic .nav__more { width: 22px; height: 24px; min-height: 0; }
 .nav--classic .nav__menu a { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; }
 .nav--classic .nav__menu a span { font-size: 12px; letter-spacing: 0.02em; text-transform: none; }
+.nav__more .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+/* the original's longer link set (7 items) needs to stay on one line */
+.nav--classic .nav__link { white-space: nowrap; }
+@media (max-width: 1360px) { .nav--classic .nav__links { gap: 16px; } }
+@media (max-width: 1280px) { .nav--classic .nav__phone { display: none; } }
+@media (max-width: 1180px) { .nav--classic .nav__links { display: none; } }
