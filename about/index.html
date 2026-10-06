@@ -1,183 +1,212 @@
-<!DOCTYPE html>
 <!--
   ===================================================================
-  HOMEPAGE CINEMATIC PATTERN INVENTORY  (studied from /index.html before build)
-  Reconciled per FESTERYGA-CODEX.md. Build-prompt: BUILD-PROMPT-01-ABOUT.md
+  ABOUT EDWARD  ·  rebuilt from the REAL homepage patterns (/index.html)
+  Per BUILD-PROMPT-01-ABOUT_1.md. Previous letterbox/cold-open/chapter-card
+  build discarded (those patterns were not in the homepage).
   ===================================================================
-  01 HERO (.cine)         Full-bleed Vimeo backdrop (data-vim) + .cine__grade overlay
-                          + .grain; meta rails top/bottom; Anton wordmark FESTERYGA;
-                          eyebrow + tagline + phone-as-type CTA. (Homepage animates
-                          intro->brand; codex Pattern 01 = letterboxed title + 0.6x parallax.)
-  02 GRAIN                .grain overlay, 8% opacity; grainShift keyframe drift.
-  03 DUOTONE MEDIA        filter: grayscale(1) contrast(1.08) brightness(0.4-0.5).
-  04 REVEAL ON SCROLL     IntersectionObserver @0.15; opacity+translateY(20px) -> 0.
-  05 CHAPTER/CARD RHYTHM  Section pauses on pure --black between content acts.
-  06 EF PROCESS (.proc)   Scroll-progress merlot rail + 3 step cols activating by scroll.
-  07 COVERAGE (.cvr)      Auto-rotating duotone slides + animated Anton title + nav fills.
-  08 CLOSING (.closing)   Full-bleed bg + ~85% --black overlay + inset hairlines +
-                          Anton ~120px end title + phone (JB Mono merlot) + address.
-  09 FOOTER (.credits)    Wordmark + merlot rule + 3 cols CONTACT/SITE/NOTES + address + (c).
-  10 TOKENS               9-color palette; Anton (display) / Newsreader (body, site reality
-                          over codex's Inter) / JetBrains Mono (meta). Merlot accents only.
-  11 HBO LOWER-THIRD      Vertical merlot bar + Anton name + JB Mono role over portraits.
-  12 PARALLAX             Hero title 0.6x (codex). Implemented here at 0.35x and MASKED by
-                          the opaque bottom letterbox bar so it can never clip into credits
-                          (the bottom-anchored-parallax bug that broke Results).
-
-  DEVIATIONS FROM CODEX / BUILD PROMPT (justified, per Edwin's direction this session):
-  - Film-slate vocabulary OFF (no FADE IN. / CUT TO / REEL.timecodes / CARD . ON BLACK /
-    INT. OFFICE . DAY / END TITLE / FADE TO BLACK). Edwin: "makes us look bad and incomplete."
-    Structural chapter watermarks + titles kept (editorial, not slate chrome).
-  - Hero titled EDWARD per spec (Edwin confirmed "letterboxed EDWARD, exactly as spec").
-  - Body font Newsreader, not Inter: matches homepage + sibling pages (homepage wins over codex).
-  - Video: Vimeo placeholder loop on hero (desktop+motion) over a Ken-Burns image fallback;
-    no Pexels downloads (repo .gitignore excludes videos/*.mp4; site uses Vimeo). Edwin confirmed.
+  HOMEPAGE PATTERN INVENTORY (classes reused here, extracted from /index.html source):
+    .cine      homepage animated hero (NOT reused; About uses .atty hero instead)
+    .board     credentials scoreboard: canvas shader + .seal hex markers + .board__total
+               + .count count-up + .ledger/.lrow rows + .board__foot cta/disclaimer
+    .atty      portrait hero: .atty__stage parallax ghost words (data-para) + EF-On-Table cut
+               + .atty__cap (merlot rule + Anton name + mono role); then .atty__statement
+               pinned (sticky) scrub with .vbg Vimeo bg + h-mega scale/fade + .cta--merlot
+    .proc      3-column method timeline: .proc__rail + .proc__fill scroll fill + .pcol data-node
+    .pmq .cvr .exp .rec   homepage-only patterns, not reused here
+    .closing   full-bleed final-bg + hairlines + .closing__title w/ .uline + phone + cta + addr
+    .credits   footer (shared/styles.css), identical site-wide
+    TOKENS: 9-color palette + --merlot-br; fonts Anton / Newsreader (serif body) / JetBrains Mono
+    JS reused verbatim from homepage (all handlers guarded by element presence):
+      reveal-on-scroll, count-up, board WebGL shader, Vimeo .vbg loader,
+      .atty__stage parallax, .atty__statement pin-scrub, .proc scroll fill.
+  CTAs use .cta / .cta--merlot (bordered button + arrow), not phone-as-typography.
+  Office address 2525 North Loop W. Suite 510C. Zero em-dashes. Prose marked PENDING.
 -->
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<meta name="description" content="About Edward Festeryga. Founder and only attorney. A Houston trial lawyer who does not hand off the case you handed to him.">
-<title>About Edward · Festeryga Law</title>
+<meta name="description" content="About Edward Festeryga. Founder and only attorney at Festeryga Law, a Houston trial lawyer. He leads every case he takes, from first call to the courtroom.">
+<title>About Edward &middot; Festeryga Law</title>
 <script>document.documentElement.classList.add('js');</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../shared/styles.css">
 <style>
-  /* ============ ABOUT · cinematic build (BUILD-PROMPT-01) ============ */
+  /* uline */
+.uline { position: relative; display: inline-block; }
+.uline::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0.04em; height: 0.09em; background: var(--merlot-br); }
+  /* reveal */
+.js .reveal { opacity: 0; transform: translateY(22px); }
+.reveal { transition: opacity 0.85s var(--ease), transform 0.9s var(--ease); }
+.reveal.in { opacity: 1; transform: none; }
+.reveal[data-d="1"] { transition-delay: 0.1s; } .reveal[data-d="2"] { transition-delay: 0.2s; } .reveal[data-d="3"] { transition-delay: 0.3s; }
+  /* vbg (vimeo backdrop) */
+.vbg { position: absolute; inset: 0; z-index: 0; overflow: hidden; background-size: cover; background-position: center; }
+.vbg iframe { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100vw; height: 56.25vw; min-height: 100vh; min-width: 177.78vh; border: 0; pointer-events: none; }
+  /* board / seal / count / ticker / meet / voiceover / atty / proc */
+.board { position: relative; min-height: 920px; background: var(--black); overflow: hidden; display: flex; align-items: center; }
+.board__shader { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; display: block; background: var(--black); }
+.board__grade { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(ellipse at 50% 50%, transparent 30%, rgba(4,6,12,0.72) 100%); }
+.board__topfade { position: absolute; top: 0; left: 0; right: 0; height: 26vh; z-index: 1; pointer-events: none; background: linear-gradient(to bottom, var(--black) 8%, transparent); }
+.board .grain { z-index: 1; }
+.board__inner { position: relative; z-index: 3; width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 100px var(--pad); display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(40px, 6vw, 88px); align-items: center; }
+.board__lead { position: relative; z-index: 1; }
+.board__lead::before { content: ''; position: absolute; inset: -60px -80px; z-index: -1; background: radial-gradient(ellipse at 34% 50%, rgba(4,6,12,0.86), rgba(4,6,12,0.4) 60%, transparent 78%); }
+.seal { display: inline-flex; align-items: center; gap: 12px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.28em; color: var(--merlot-br); text-transform: uppercase; }
+.seal::before { content: ''; width: 15px; height: 15px; flex: 0 0 auto; clip-path: polygon(50% 0, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%); background: var(--merlot); }
+.board__label { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.32em; color: var(--bone); text-transform: uppercase; margin-top: 26px; }
+.board__total { display: inline-block; font-family: var(--f-anton); font-size: clamp(76px, 11.5vw, 180px); line-height: 0.9; letter-spacing: 0.01em; color: var(--cream); text-shadow: 0 6px 54px rgba(6,17,39,0.8); margin: 8px 0 0; padding-bottom: 16px; border-bottom: 6px solid var(--merlot-br); }
+.board__caption { display: block; margin-top: 24px; font-family: var(--f-anton); text-transform: uppercase; font-size: clamp(16px, 1.8vw, 26px); letter-spacing: 0.12em; color: var(--cream); }
+.board__prose { margin-top: 26px; font-family: var(--f-body); font-weight: 500; font-size: 16px; line-height: 1.6; color: rgba(200,193,176,0.9); max-width: 400px; }
+.ledger { display: flex; flex-direction: column; }
+.lrow { padding: 22px 6px 22px 0; border-bottom: 1px solid rgba(40,44,54,0.6); transition: padding-left 0.3s var(--ease), border-color 0.3s var(--ease); }
+.lrow:first-child { border-top: 2px solid var(--merlot); border-image: linear-gradient(90deg, var(--merlot), rgba(40,44,54,0.35)) 1; }
+.lrow:hover { padding-left: 10px; border-bottom-color: var(--merlot); }
+.lrow .seal { font-size: 10px; letter-spacing: 0.24em; }
+.lrow__amt { display: inline-block; font-family: var(--f-anton); font-size: clamp(32px, 4vw, 56px); line-height: 1; letter-spacing: 0.01em; color: var(--cream); margin: 12px 0 8px; }
+.lrow__desc { font-family: var(--f-body); font-weight: 500; font-size: 14px; letter-spacing: 0.02em; color: rgba(200,193,176,0.8); }
+.board__foot { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-top: 30px; }
+.board__disclaimer { font-family: var(--f-body); font-style: italic; font-size: 12px; color: rgba(136,130,118,0.75); max-width: 340px; }
+.count { display: inline-block; font-variant-numeric: tabular-nums; }
+.ticker { position: relative; overflow: hidden; background: var(--black); border-top: 1px solid var(--iron); border-bottom: 1px solid var(--iron); padding: clamp(18px, 2vw, 28px) 0;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+.ticker__track { display: inline-flex; align-items: center; white-space: nowrap; animation: ticker 34s linear infinite; }
+.ticker:hover .ticker__track { animation-play-state: paused; }
+@keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.ticker__item { display: inline-flex; align-items: center; gap: clamp(14px, 1.6vw, 26px); padding-left: clamp(18px, 2vw, 38px);
+  font-family: var(--f-anton); text-transform: uppercase; font-size: clamp(20px, 2.3vw, 34px); letter-spacing: 0.01em; }
+.ticker__amt { color: var(--cream); font-variant-numeric: tabular-nums; }
+.ticker__lbl { color: rgba(200,193,176,0.7); }
+.ticker__item::after { content: '\00B7'; color: var(--merlot); margin-left: clamp(14px, 1.6vw, 26px); }
+.meet { position: relative; background: var(--black); }
+.meet__grid { display: grid; grid-template-columns: 1fr 1fr; min-height: 880px; }
+.meet__portrait { position: relative; overflow: hidden; min-height: 520px; }
+.meet__portrait .duo { background-image: url('../images/edward-portrait.jpg'); }
+.meet__caption { position: absolute; left: 60px; bottom: 120px; z-index: 3; display: flex; gap: 20px; }
+.meet__bar { width: 3px; height: 60px; background: var(--merlot); flex: 0 0 auto; }
+.meet__name { font-family: var(--f-anton); text-transform: uppercase; font-size: 26px; letter-spacing: 0.02em; color: var(--cream); line-height: 1; }
+.meet__role { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.22em; color: rgba(200,193,176,0.85); text-transform: uppercase; margin-top: 20px; }
+.meet__content { padding: 110px var(--pad) 110px 60px; display: flex; flex-direction: column; justify-content: center; }
+.meet__content .eyebrow { margin-bottom: 24px; }
+.meet__h { margin-bottom: 34px; }
+.voiceover p { font-family: var(--f-body); font-weight: 500; font-size: 20px; line-height: 1.62; letter-spacing: -0.005em; color: rgba(239,234,222,0.95); max-width: 560px; }
+.voiceover p + p { margin-top: 20px; }
+.meet__actions { margin-top: 48px; }
+@media (max-width: 1023px) { .meet__grid { grid-template-columns: 1fr; min-height: 0; } .meet__portrait { min-height: 72vh; } .meet__content { padding: 70px var(--pad); } }
+.atty { position: relative; background: var(--black); }
+.atty__stage { position: relative; height: 100vh; min-height: 640px; overflow: hidden; display: flex; align-items: flex-end; justify-content: center; }
+.atty__bg { position: absolute; inset: -22% 0; z-index: 0; background: url('../images/interstitial-bg.jpg') center/cover; filter: grayscale(1) contrast(1.12) brightness(0.5); will-change: transform; }
+.atty__bg::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 42%, rgba(4,6,12,0) 0%, rgba(4,6,12,0.5) 58%, rgba(4,6,12,0.92) 100%); }
+.atty__spot { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(ellipse 46% 62% at 50% 45%, rgba(214,205,188,0.16), transparent 64%); }
+.atty__word { position: absolute; top: 40%; z-index: 1; margin: 0; font-family: var(--f-anton); font-weight: 400; font-size: clamp(50px, 10vw, 172px); line-height: 0.9; letter-spacing: -0.02em; color: rgba(239,234,222,0.06); -webkit-text-stroke: 1.2px rgba(239,234,222,0.44); white-space: nowrap; pointer-events: none; user-select: none; will-change: transform; }
+.atty__word--l { right: 57%; text-align: right; }
+.atty__word--r { right: 5%; text-align: right; }
+@media (max-width: 767px) { .atty__word { font-size: 15vw; } .atty__word--l { right: auto; left: var(--pad); text-align: left; } .atty__word--r { right: var(--pad); } }
+.atty__cut { position: relative; z-index: 2; height: 90%; max-height: 96vh; width: auto; max-width: none; object-fit: contain; object-position: bottom center; filter: contrast(1.05) drop-shadow(0 30px 70px rgba(0,0,0,0.75)); will-change: transform; }
+.atty__cue { position: absolute; left: 50%; bottom: 30px; z-index: 4; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 9px; }
+.atty__cue .meta { color: rgba(200,193,176,0.55); }
+.atty__cue span.bar { display: block; width: 1px; height: 26px; background: linear-gradient(to bottom, var(--merlot-br), transparent); }
+.atty__glow { position: absolute; left: 0; right: 0; bottom: 0; z-index: 1; height: 42%; background: radial-gradient(ellipse at 50% 100%, rgba(122,27,58,0.5), transparent 68%); pointer-events: none; }
+.atty__scrim { position: absolute; left: 0; right: 0; bottom: 0; z-index: 3; height: 52%; background: linear-gradient(to top, var(--black) 10%, rgba(4,6,12,0.72) 40%, transparent); pointer-events: none; }
+.atty__cap { position: absolute; left: 0; right: 0; bottom: clamp(52px, 9vh, 108px); z-index: 4; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px; padding: 0 var(--pad); will-change: transform; }
+.atty__caprule { width: 46px; height: 2px; background: var(--merlot-br); }
+.atty__capname { font-family: var(--f-anton); text-transform: uppercase; font-size: clamp(30px, 4.8vw, 70px); line-height: 1; letter-spacing: -0.01em; color: var(--cream); text-shadow: 0 4px 34px rgba(4,6,12,0.75); }
+.atty__caprole { font-family: var(--f-mono); font-size: clamp(10px, 1vw, 12px); letter-spacing: 0.28em; color: rgba(200,193,176,0.82); text-transform: uppercase; }
+.atty__statement { position: relative; z-index: 2; background: var(--black); }
+.atty__statement.stmt--live { height: 195vh; }
+.atty__pin { position: sticky; top: 0; min-height: 100vh; overflow: hidden; display: flex; align-items: center; justify-content: center; background: var(--black); padding: 48px var(--pad); }
+.atty__pinvid { z-index: 0; filter: grayscale(1) contrast(1.06) brightness(0.42); background-image: url('../images/accidents-happen.jpg.jpeg'); }
+.atty__pingrade { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(ellipse at 50% 46%, rgba(4,6,12,0.5) 0%, rgba(4,6,12,0.88) 82%); }
+.stmt--live .atty__pinvid, .stmt--live .atty__pingrade { opacity: 0; }
+.atty__inner { position: relative; z-index: 2; max-width: 820px; margin: 0 auto; text-align: center; }
+.atty__h { margin: 24px auto 30px; transform-origin: center; will-change: transform, filter, opacity; }
+.atty__lede { max-width: 640px; margin: 0 auto; font-family: var(--f-body); font-weight: 500; font-size: 19px; line-height: 1.64; color: rgba(239,234,222,0.92); }
+.atty__statement .meet__actions { margin-top: 44px; display: flex; justify-content: center; }
+.stmt--live .eyebrow, .stmt--live .atty__h, .stmt--live .atty__lede, .stmt--live .meet__actions { opacity: 0; }
+@media (max-width: 767px) {
+  .atty__cap { left: var(--pad); bottom: 30px; }
+  .atty__lede { font-size: 17px; }
+}
+.proc { position: relative; background: var(--near-black); overflow: hidden; padding: clamp(100px, 14vw, 210px) 0; }
+.proc::before { content: ''; position: absolute; inset: 0; z-index: 0; background: radial-gradient(ellipse at 50% 0%, rgba(122,27,58,0.16), transparent 60%); pointer-events: none; }
+.proc .grain { z-index: 1; }
+.proc__inner { position: relative; z-index: 2; max-width: var(--maxw); margin: 0 auto; padding: 0 var(--pad); }
+.proc__head { max-width: 760px; }
+.proc__head .eyebrow { margin-bottom: 16px; display: inline-block; }
+.proc__note { margin-top: 18px; max-width: 620px; font-family: var(--f-body); font-weight: 500; font-size: 16px; line-height: 1.6; color: rgba(200,193,176,0.85); }
+.proc__track { position: relative; margin-top: clamp(44px, 6vw, 78px); }
+.proc__rail { position: absolute; top: 8px; left: 0; right: 0; height: 4px; border-radius: 2px; background: rgba(239,234,222,0.16); }
+.proc__fill { position: absolute; top: 8px; left: 0; height: 4px; width: 0%; border-radius: 2px; background: var(--merlot-br); box-shadow: 0 0 18px rgba(184,53,95,0.9); transition: width 0.12s linear; }
+.proc__fill::after { content: ''; position: absolute; right: -5px; top: 50%; transform: translateY(-50%); width: 14px; height: 14px; border-radius: 50%; background: var(--merlot-br); box-shadow: 0 0 16px var(--merlot-br), 0 0 4px #fff inset; }
+.proc__cols { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(28px, 4vw, 60px); }
+.pcol { position: relative; opacity: 0.42; transition: opacity 0.5s var(--ease); }
+.pcol.is-active { opacity: 1; }
+.pcol__node { width: 20px; height: 20px; border-radius: 50%; background: var(--near-black); border: 2px solid rgba(239,234,222,0.2); display: flex; align-items: center; justify-content: center; }
+.pcol__node::after { content: ''; width: 7px; height: 7px; border-radius: 50%; background: rgba(239,234,222,0.25); transition: background 0.4s var(--ease); }
+.pcol.is-active .pcol__node { border-color: var(--merlot-br); }
+.pcol.is-active .pcol__node::after { background: var(--merlot-br); }
+.pcol__num { font-family: var(--f-mono); font-weight: 700; font-size: 12px; letter-spacing: 0.24em; color: var(--merlot); margin: 22px 0 12px; }
+.pcol__title { font-family: var(--f-anton); text-transform: uppercase; font-weight: 400; font-size: clamp(20px, 2vw, 30px); line-height: 1.06; letter-spacing: -0.01em; color: var(--cream); }
+.pcol__desc { margin-top: 12px; font-family: var(--f-body); font-weight: 500; font-size: 15px; line-height: 1.56; color: rgba(200,193,176,0.88); max-width: 340px; }
+@media (max-width: 767px) {
+  .proc__rail { top: 0; bottom: 0; left: 9px; right: auto; width: 2px; height: auto; }
+  .proc__fill { display: none; }
+  .proc__cols { grid-template-columns: 1fr; gap: 34px; padding-left: 40px; }
+  .pcol { opacity: 1; }
+  .pcol__node { position: absolute; left: -40px; top: 2px; border-color: var(--merlot-br); }
+  .pcol__node::after { background: var(--merlot-br); }
+}
+  /* closing */
+.closing { position: relative; min-height: 700px; background: var(--black); overflow: hidden; display: flex; align-items: center; }
+.closing__bg { position: absolute; inset: 0; z-index: 0; background: url('../images/final-bg.jpg') center/cover; opacity: 0.42; filter: grayscale(1) contrast(1.06); }
+.closing__bg::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 46%, rgba(4,6,12,0.52) 0%, rgba(4,6,12,0.9) 78%); }
+.closing::before { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(ellipse at 50% 112%, rgba(122,27,58,0.42), transparent 58%); }
+.closing .grain { z-index: 1; }
+.closing__title .uline::after { height: 0.07em; bottom: 0.02em; }
+.closing__meta { position: absolute; top: 30px; left: 0; right: 0; z-index: 3; }
+.closing__rule-top, .closing__rule-bot { position: absolute; left: var(--pad); right: var(--pad); height: 1px; background: var(--iron); z-index: 3; }
+.closing__rule-top { top: 0; } .closing__rule-bot { bottom: 0; }
+.closing__inner { position: relative; z-index: 3; width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 120px var(--pad); text-align: center; }
+.closing__title { font-family: var(--f-anton); text-transform: uppercase; font-size: clamp(44px, 8vw, 116px); line-height: 1.06; letter-spacing: -0.025em; color: var(--cream); }
+.closing__phone { font-family: var(--f-mono); font-weight: 700; font-size: clamp(22px, 3.2vw, 32px); letter-spacing: 0.04em; color: var(--merlot); margin-top: 50px; display: inline-block; }
+.closing__actions { margin-top: 40px; display: flex; justify-content: center; }
+.closing__addr { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.24em; color: rgba(200,193,176,0.7); text-transform: uppercase; margin-top: 34px; }
 
-  /* motion primitives */
-  .grain-anim { animation: grainShift 8s ease-in-out infinite alternate; }
-  @keyframes grainShift { 0% { transform: translate(0,0); } 100% { transform: translate(-5%,-5%); } }
-  @keyframes abKen { from { transform: scale(1); } to { transform: scale(1.06); } }
-  .fade-on-scroll { transition: opacity 700ms ease-out, transform 700ms ease-out; }
-  .js .fade-on-scroll { opacity: 0; transform: translateY(20px); }
-  .fade-on-scroll.visible { opacity: 1; transform: translateY(0); }
-
-  /* COLD OPEN manifesto card (clean, no slate chrome) */
-  .ab-cold { position: relative; background: var(--black); min-height: clamp(380px, 56vh, 520px); display: grid; place-items: center; text-align: center; padding: 60px var(--pad); }
-  .ab-cold__dot { width: 5px; height: 5px; border-radius: 50%; background: var(--merlot-br); margin-bottom: clamp(28px, 4vh, 40px); }
-  .ab-cold__thesis { font-family: var(--f-body); font-style: italic; font-size: clamp(23px, 3.1vw, 36px); line-height: 1.32; letter-spacing: -0.005em; color: rgba(239,234,222,0.9); max-width: 20ch; }
-  .ab-cold__rule { width: 48px; height: 2px; background: rgba(122,27,58,0.8); margin: clamp(30px, 4vh, 40px) auto 18px; }
-  .ab-cold__by { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.28em; color: var(--ash); text-transform: uppercase; }
-
-  /* HERO · letterboxed EDWARD */
-  .ab-hero { position: relative; background: var(--black); }
-  .ab-hero__stage { position: relative; height: clamp(620px, 96vh, 1000px); overflow: hidden; }
-  .ab-kb { position: absolute; inset: -6%; z-index: 0; background-size: cover; background-position: 50% 30%; filter: grayscale(1) contrast(1.08) brightness(0.46); animation: abKen 22s ease-in-out infinite alternate; will-change: transform; }
-  .ab-vbg { position: absolute; inset: 0; z-index: 1; overflow: hidden; pointer-events: none; opacity: 0; transition: opacity 1s ease; }
-  .ab-vbg.on { opacity: 0.3; }
-  .ab-vbg iframe { position: absolute; top: 50%; left: 50%; width: 100vw; height: 56.25vw; min-height: 100%; min-width: 177.78vh; transform: translate(-50%,-50%); border: 0; filter: grayscale(1) contrast(1.05) brightness(0.26); }
-  .ab-hero__grade { position: absolute; inset: 0; z-index: 2; pointer-events: none; background: linear-gradient(180deg, rgba(4,6,12,0.5) 0%, transparent 34%, rgba(4,6,12,0.88) 100%), radial-gradient(ellipse at 12% 100%, rgba(122,27,58,0.26), transparent 56%); }
-  .ab-hero .grain { z-index: 3; }
-  .ab-hero__inner { position: absolute; inset: 0; z-index: 4; display: grid; place-content: center; text-align: center; padding: 0 16px; }
-  .ab-hero__title { margin: 0; font-family: var(--f-anton); font-weight: 400; text-transform: uppercase; font-size: clamp(72px, 16vw, 300px); line-height: 0.84; letter-spacing: -0.045em; color: var(--cream); text-shadow: 0 6px 54px rgba(4,6,12,0.6); will-change: transform; }
-  .ab-hero__sub { margin-top: clamp(12px, 1.8vw, 24px); font-family: var(--f-anton); text-transform: uppercase; font-size: clamp(13px, 2vw, 36px); line-height: 1; letter-spacing: 0.08em; color: var(--merlot-br); }
-  .ab-bar { position: absolute; left: 0; right: 0; z-index: 6; height: clamp(50px, 8vh, 94px); background: var(--black); display: flex; align-items: center; justify-content: space-between; padding: 0 var(--pad); gap: 16px; }
-  .ab-bar--top { top: 0; } .ab-bar--bot { bottom: 0; }
-  .ab-bar span { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.26em; color: rgba(239,234,222,0.62); text-transform: uppercase; white-space: nowrap; }
-  .ab-bar a { color: inherit; text-decoration: none; }
-  .ab-bar--bot span:nth-child(2) { color: var(--merlot-br); }
-  @media (max-width: 680px) { .ab-bar--bot span:first-child, .ab-bar--bot span:last-child { display: none; } .ab-bar--bot { justify-content: center; } }
-
-  /* CHAPTER CARD */
-  .ab-chap { position: relative; background: var(--black); min-height: clamp(300px, 42vh, 400px); display: grid; place-items: center; text-align: center; overflow: hidden; }
-  .ab-chap::before, .ab-chap::after { content: ''; position: absolute; left: var(--pad); right: var(--pad); height: 1px; background: var(--iron); }
-  .ab-chap::before { top: 0; } .ab-chap::after { bottom: 0; }
-  .ab-chap__wm { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); font-family: var(--f-anton); font-size: clamp(150px, 30vw, 300px); line-height: 1; letter-spacing: -0.02em; color: rgba(239,234,222,0.07); pointer-events: none; }
-  .ab-chap__in { position: relative; z-index: 2; padding: 0 20px; }
-  .ab-chap__t { font-family: var(--f-anton); text-transform: uppercase; font-size: clamp(38px, 7vw, 96px); line-height: 1; letter-spacing: -0.015em; color: var(--cream); }
-  .ab-chap__d { margin-top: 16px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.26em; color: var(--ash); text-transform: uppercase; }
-
-  /* VOICEOVER split (portrait + prose) */
-  .ab-vo { position: relative; background: var(--black); }
-  .ab-vo__grid { display: grid; grid-template-columns: 1fr 1fr; min-height: clamp(620px, 86vh, 900px); }
-  .ab-vo__portrait { position: relative; overflow: hidden; background: var(--charcoal); }
-  .ab-vo__img { position: absolute; inset: -6%; background-size: cover; background-position: 50% 22%; filter: grayscale(1) contrast(1.08) brightness(0.56); animation: abKen 24s ease-in-out infinite alternate; will-change: transform; }
-  .ab-vo__pgrade { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 38%, rgba(4,6,12,0.82) 100%), linear-gradient(90deg, transparent 70%, rgba(4,6,12,0.5) 100%); }
-  .ab-vo__cap { position: absolute; left: clamp(24px, 4vw, 60px); bottom: clamp(30px, 5vh, 56px); z-index: 3; padding-left: 22px; }
-  .ab-vo__cap::before { content: ''; position: absolute; left: 0; top: 4px; width: 3px; height: 54px; background: var(--merlot-br); }
-  .ab-vo__capname { font-family: var(--f-anton); text-transform: uppercase; font-size: clamp(20px, 2vw, 26px); letter-spacing: 0.02em; color: var(--cream); }
-  .ab-vo__caprole { margin-top: 9px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.2em; color: rgba(200,193,176,0.85); text-transform: uppercase; }
-  .ab-vo__text { display: flex; flex-direction: column; justify-content: center; padding: clamp(52px, 6vw, 92px) var(--pad); }
-  .ab-vo__setup { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.3em; color: var(--merlot-dk); text-transform: uppercase; margin-bottom: 26px; }
-  .ab-vo__prose p { font-family: var(--f-body); font-weight: 500; font-size: clamp(17px, 1.5vw, 22px); line-height: 1.6; letter-spacing: -0.005em; color: rgba(239,234,222,0.95); max-width: 46ch; }
-  .ab-vo__prose p + p { margin-top: 20px; }
-  .ab-vo__prose .lead { font-style: italic; color: var(--cream); }
-  .ab-vo__sig { margin-top: 34px; display: flex; align-items: center; gap: 16px; }
-  .ab-vo__sig .bar { width: 60px; height: 2px; background: var(--merlot); flex: 0 0 auto; }
-  .ab-vo__sig .who { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.2em; color: var(--bone); text-transform: uppercase; }
-  @media (max-width: 860px) { .ab-vo__grid { grid-template-columns: 1fr; } .ab-vo__portrait { min-height: 62vh; } }
-
-  /* PULL QUOTE INTERCUT */
-  .ab-pq { position: relative; background: var(--black); padding: clamp(80px, 12vw, 150px) var(--pad); text-align: center; }
-  .ab-pq::before, .ab-pq::after { content: ''; position: absolute; left: var(--pad); right: var(--pad); height: 1px; background: var(--iron); }
-  .ab-pq::before { top: 0; } .ab-pq::after { bottom: 0; }
-  .ab-pq__q { font-family: var(--f-anton); text-transform: uppercase; font-size: clamp(44px, 8vw, 88px); line-height: 1.0; letter-spacing: -0.02em; color: var(--cream); }
-  .ab-pq__rule { width: 48px; height: 2px; background: rgba(122,27,58,0.8); margin: 30px auto 16px; }
-  .ab-pq__by { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.28em; color: var(--ash); text-transform: uppercase; }
-
-  /* CONTENT SECTIONS (method + promise) */
-  .ab-sec { position: relative; background: var(--black); padding: clamp(72px, 10vw, 140px) 0; }
-  .ab-sec--near { background: var(--near-black); }
-  .ab-sec__head { max-width: 820px; }
-  .ab-sec__setup { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.3em; color: var(--merlot-dk); text-transform: uppercase; }
-  .ab-sec__h { font-family: var(--f-anton); text-transform: uppercase; font-size: clamp(38px, 7vw, 84px); line-height: 0.98; letter-spacing: -0.015em; color: var(--cream); margin-top: 18px; }
-
-  .ab-pass { margin-top: clamp(40px, 5vw, 70px); }
-  .ab-pass__row { display: grid; grid-template-columns: minmax(160px, 0.5fr) 1.5fr; gap: clamp(20px, 4vw, 60px); padding: clamp(26px, 3vw, 40px) 0; border-top: 1px solid var(--iron); }
-  .ab-pass__row:last-child { border-bottom: 1px solid var(--iron); }
-  .ab-pass__k { font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.14em; color: var(--merlot-br); }
-  .ab-pass__b { font-family: var(--f-body); font-weight: 500; font-size: clamp(16px, 1.4vw, 19px); line-height: 1.6; color: var(--bone); max-width: 62ch; }
-  .ab-sec__close { margin-top: clamp(36px, 5vw, 60px); text-align: center; font-family: var(--f-body); font-style: italic; font-size: clamp(17px, 1.6vw, 22px); color: var(--bone); }
-  @media (max-width: 700px) { .ab-pass__row { grid-template-columns: 1fr; gap: 10px; } }
-
-  .ab-prom { margin-top: clamp(40px, 5vw, 70px); display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(28px, 4vw, 56px); }
-  .ab-prom__item { border-top: 2px solid var(--iron); padding-top: 22px; }
-  .ab-prom__n { font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.2em; color: var(--merlot); }
-  .ab-prom__t { font-family: var(--f-anton); text-transform: uppercase; font-size: clamp(20px, 2vw, 28px); line-height: 1.05; letter-spacing: -0.005em; color: var(--cream); margin: 16px 0 12px; }
-  .ab-prom__b { font-family: var(--f-body); font-weight: 500; font-size: clamp(15px, 1.3vw, 17px); line-height: 1.56; color: var(--bone); }
-  .ab-signed { margin-top: clamp(44px, 6vw, 72px); text-align: center; }
-  .ab-signed__s { font-family: var(--f-anton); text-transform: uppercase; font-size: clamp(22px, 3vw, 34px); letter-spacing: 0.02em; color: var(--cream); }
-  .ab-signed__by { margin-top: 12px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.24em; color: var(--ash); text-transform: uppercase; }
-  @media (max-width: 820px) { .ab-prom { grid-template-columns: 1fr; gap: 28px; } }
-
-  /* CLOSING */
-  .ab-close { position: relative; min-height: clamp(600px, 82vh, 820px); display: grid; place-items: center; text-align: center; overflow: hidden; background: var(--black); padding: clamp(80px, 11vw, 140px) var(--pad); }
-  .ab-close__bg { position: absolute; inset: -6%; z-index: 0; background-size: cover; background-position: center; filter: grayscale(1) contrast(1.08) brightness(0.4); }
-  .ab-close__ov { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(4,6,12,0.86), rgba(4,6,12,0.82)); }
-  .ab-close::before, .ab-close::after { content: ''; position: absolute; left: var(--pad); right: var(--pad); height: 1px; background: var(--iron); z-index: 2; }
-  .ab-close::before { top: clamp(44px, 6vh, 72px); } .ab-close::after { bottom: clamp(44px, 6vh, 72px); }
-  .ab-close .grain { z-index: 2; }
-  .ab-close__in { position: relative; z-index: 3; }
-  .ab-close__dot { width: 5px; height: 5px; border-radius: 50%; background: var(--merlot-br); margin: 0 auto 30px; }
-  .ab-close__t { font-family: var(--f-anton); text-transform: uppercase; font-size: clamp(40px, 9vw, 120px); line-height: 1.0; letter-spacing: -0.025em; color: var(--cream); text-wrap: balance; }
-  .ab-close__rule { width: 80px; height: 3px; background: rgba(122,27,58,0.8); margin: 34px auto 0; }
-  .ab-close__phone { display: inline-block; margin: 28px 0 12px; font-family: var(--f-mono); font-weight: 700; font-size: clamp(24px, 3.2vw, 34px); letter-spacing: 0.04em; color: var(--merlot-br); text-decoration: none; }
-  .ab-close__addr { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.22em; color: rgba(200,193,176,0.75); text-transform: uppercase; }
-  .ab-close__disc { margin-top: 20px; font-family: var(--f-body); font-style: italic; font-size: 13px; color: rgba(136,130,118,0.85); }
-
+  /* ---- About-specific additions (built from homepage patterns) ---- */
+  @media (max-width: 1023px) { .board__inner { grid-template-columns: 1fr; gap: 48px; } }
+  .ab-promises { position: relative; background: var(--near-black); padding: clamp(90px, 13vw, 180px) 0; }
+  .ab-promises__head { max-width: 900px; margin: 0 auto; text-align: center; }
+  .ab-promises__head .eyebrow { color: var(--merlot-br); }
+  .ab-promises__ledger { max-width: 980px; margin: clamp(44px, 6vw, 72px) auto 0; }
+  .ab-promises .lrow { padding: 30px 6px; }
+  .ab-promtitle { font-family: var(--f-anton); text-transform: uppercase; font-size: clamp(22px, 2.4vw, 34px) !important; line-height: 1.04; letter-spacing: -0.005em; color: var(--cream); margin: 10px 0 10px !important; }
+  .ab-promises .lrow .seal { color: var(--merlot); }
+  .ab-promises .lrow__desc { max-width: 70ch; }
+  .ab-sign { text-align: center; margin-top: clamp(44px, 6vw, 72px); }
+  .ab-sign__s { display: block; font-family: var(--f-body); font-style: italic; font-size: clamp(17px, 1.6vw, 21px); color: var(--bone); }
+  .ab-sign__n { display: inline-block; margin-top: 10px; font-family: var(--f-anton); text-transform: uppercase; font-size: clamp(22px, 2.4vw, 30px); letter-spacing: 0.02em; color: var(--cream); }
+  .ab-why { position: relative; background: var(--black); padding: clamp(100px, 14vw, 210px) 0; }
+  .ab-why__in { max-width: 820px; margin: 0 auto; text-align: center; }
+  .ab-why__in .h-mega { margin-top: 14px; }
+  .ab-why__vo { max-width: 660px; margin: clamp(30px, 4vw, 46px) auto 0; text-align: left; }
+  .ab-why__vo p { max-width: none; }
+  .ab-why__cta { margin-top: clamp(40px, 5vw, 60px); }
   @media (prefers-reduced-motion: reduce) {
-    .ab-kb, .ab-vo__img, .grain-anim { animation: none; }
-    .ab-hero__title { transform: none !important; }
-    .fade-on-scroll { opacity: 1 !important; transform: none !important; }
+    .reveal { opacity: 1 !important; transform: none !important; }
+    .atty__word, .atty__cut, .atty__bg, .atty__cap, .atty__spot { transform: none !important; }
+    .ticker__track { animation: none !important; }
   }
+
 </style>
 </head>
 <body>
 
-<!-- COLD OPEN -->
-<section class="ab-cold">
-  <span class="ab-cold__dot" aria-hidden="true"></span>
-  <p class="ab-cold__thesis">I don't hand off<br>the case you handed to me.</p>
-  <div class="ab-cold__rule" aria-hidden="true"></div>
-  <div class="ab-cold__by">EDWARD FESTERYGA &nbsp;&middot;&nbsp; HOUSTON, TX</div>
-</section>
-
-<!-- NAV -->
-<header class="nav" id="top">
+<header class="nav">
   <div class="nav__primary">
     <a href="../index.html" class="nav__brand">FESTERYGA LAW</a>
     <div class="nav__right">
@@ -200,166 +229,190 @@
 
 <main>
 
-<!-- HERO -->
-<section class="ab-hero">
-  <div class="ab-hero__stage">
-    <div class="ab-kb" style="background-image:url('../images/edward-portrait.jpg')" aria-hidden="true"></div>
-    <div class="ab-vbg" data-vim="1219991563" aria-hidden="true"><iframe title="" allow="autoplay; fullscreen; picture-in-picture" frameborder="0" tabindex="-1"></iframe></div>
-    <div class="ab-hero__grade" aria-hidden="true"></div>
-    <div class="grain grain-anim" aria-hidden="true"></div>
-    <div class="ab-bar ab-bar--top">
-      <span>A HOUSTON TRIAL LAWYER</span>
-      <span>FOUNDER &nbsp;&middot;&nbsp; ONLY ATTORNEY</span>
+<!-- SECTION 01 + 02 · HERO + STATEMENT (.atty) -->
+<section class="atty" id="meet">
+  <div class="atty__stage">
+    <div class="atty__bg" data-para="100" data-scale="0.1" aria-hidden="true"></div>
+    <div class="atty__spot" data-para="60" aria-hidden="true"></div>
+    <h2 class="atty__word atty__word--l" data-para="300" aria-hidden="true">EDWARD</h2>
+    <h2 class="atty__word atty__word--r" data-para="300" aria-hidden="true">FESTERYGA</h2>
+    <img class="atty__cut" data-para="40" src="../images/EF-On-Table-1.png" alt="Edward Festeryga, founding attorney, standing over a table" width="1500" height="1600">
+    <div class="atty__glow" aria-hidden="true"></div>
+    <div class="atty__scrim" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="atty__cap" data-para="26">
+      <span class="atty__caprule" aria-hidden="true"></span>
+      <span class="atty__capname">EDWARD FESTERYGA</span>
+      <span class="atty__caprole">FOUNDER &amp; ATTORNEY &nbsp;&middot;&nbsp; HOUSTON, TEXAS</span>
     </div>
-    <div class="ab-hero__inner">
-      <h1 class="ab-hero__title" id="heroTitle">EDWARD</h1>
-      <div class="ab-hero__sub">FOUNDER &nbsp;&middot;&nbsp; ATTORNEY &nbsp;&middot;&nbsp; TEXAS TRIAL LAWYER</div>
-    </div>
-    <div class="ab-bar ab-bar--bot">
-      <span>HOUSTON, TX &nbsp;&middot;&nbsp; EST 2018</span>
-      <span><a href="tel:+17134144042">(713) 414-4042</a></span>
-      <span>ENG / ESP &nbsp;&middot;&nbsp; 24/7</span>
-    </div>
+    <div class="atty__cue" aria-hidden="true"><span class="meta">SCROLL</span><span class="bar"></span></div>
   </div>
-</section>
-
-<!-- CHAPTER I -->
-<section class="ab-chap fade-on-scroll">
-  <span class="ab-chap__wm" aria-hidden="true">I</span>
-  <div class="ab-chap__in">
-    <div class="ab-chap__t">THE STORY</div>
-    <div class="ab-chap__d">WHY FESTERYGA LAW</div>
-  </div>
-</section>
-
-<!-- CHAPTER I CONTENT · voiceover -->
-<section class="ab-vo">
-  <div class="ab-vo__grid">
-    <div class="ab-vo__portrait fade-on-scroll">
-      <div class="ab-vo__img" style="background-image:url('../images/edward-portrait.jpg')" aria-hidden="true"></div>
-      <div class="ab-vo__pgrade" aria-hidden="true"></div>
-      <div class="grain grain-anim" aria-hidden="true"></div>
-      <div class="ab-vo__cap">
-        <div class="ab-vo__capname">EDWARD FESTERYGA</div>
-        <div class="ab-vo__caprole">FOUNDER &amp; ATTORNEY &nbsp;&middot;&nbsp; FESTERYGA LAW</div>
-      </div>
-    </div>
-    <div class="ab-vo__text fade-on-scroll">
-      <div class="ab-vo__setup">HE SAYS</div>
-      <!-- PENDING EDWARD VERIFICATION · prose written by Mozwell in Edward's voice; final approval required before public launch -->
-      <div class="ab-vo__prose">
-        <p class="lead">I started Festeryga Law because I wanted every client I represent to have my full attention.</p>
-        <p>Not a case number. Not a file passed between paralegals. Not the voice of an intake specialist who does not know your name. My cell phone. My calendar. My time in front of the jury.</p>
-        <p>Before this firm, I worked inside the machinery of high-volume injury practices. I saw what happens when a serious case is treated as inventory instead of a person's life. The client loses. Every time.</p>
-        <p>I built this firm to be the alternative. One lawyer who reads every deposition. One lawyer who negotiates every settlement. One lawyer whose reputation is on the line when the case walks into court.</p>
-        <p>If you hire me, you get me. That is the whole promise.</p>
-      </div>
-      <div class="ab-vo__sig">
-        <span class="bar" aria-hidden="true"></span>
-        <span class="who">EDWARD FESTERYGA &nbsp;&middot;&nbsp; HOUSTON, TEXAS</span>
+  <div class="atty__statement">
+    <div class="atty__pin">
+      <div class="vbg atty__pinvid" data-vim="1219991274" aria-hidden="true"><iframe title="" allow="autoplay; fullscreen; picture-in-picture" frameborder="0" tabindex="-1"></iframe></div>
+      <div class="atty__pingrade" aria-hidden="true"></div>
+      <div class="atty__inner">
+        <span class="eyebrow">THE FOUNDER</span>
+        <h2 class="h-mega atty__h">WHEN I TAKE YOUR CASE,<br>I LEAD IT.</h2>
+        <!-- PENDING EDWARD VERIFICATION of personal statement -->
+        <p class="atty__lede">I'm Edward Festeryga. When I accept your case, I personally lead the strategy, the negotiations, the preparation, and the litigation. You are not passed from intake to a case manager and left wondering who is responsible.<br><br>You have direct access to me, backed by a real team that keeps the work organized, the communication clear, and the case moving. We serve clients in English and Espa&ntilde;ol.</p>
+        <div class="meet__actions"><a href="#closing" class="cta cta--merlot">SCHEDULE A FREE CONSULTATION</a></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PULL QUOTE INTERCUT -->
-<section class="ab-pq fade-on-scroll">
-  <div class="ab-pq__q">ONE CASE<br>AT A TIME.<br>ON ME.</div>
-  <div class="ab-pq__rule" aria-hidden="true"></div>
-  <div class="ab-pq__by">EDWARD FESTERYGA &nbsp;&middot;&nbsp; ON THE RECORD</div>
-</section>
-
-<!-- CHAPTER II -->
-<section class="ab-chap fade-on-scroll">
-  <span class="ab-chap__wm" aria-hidden="true">II</span>
-  <div class="ab-chap__in">
-    <div class="ab-chap__t">THE METHOD</div>
-    <div class="ab-chap__d">HOW A CASE GETS BUILT</div>
+<!-- SECTION 03 · THE RECORD (.board credentials) -->
+<section class="board">
+  <canvas class="board__shader" id="boardShader" aria-hidden="true"></canvas>
+  <div class="board__grade" aria-hidden="true"></div>
+  <div class="board__topfade" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="board__inner">
+    <div class="board__lead reveal">
+      <span class="seal">ON THE RECORD</span>
+      <div class="board__label">YEARS IN PRACTICE</div>
+      <div class="board__total">[ TK ]</div>
+      <div class="board__caption">BUILDING FOR TRIAL SINCE 2018</div>
+      <!-- PENDING EDWARD VERIFICATION -->
+      <p class="board__prose">A trial lawyer from day one. The firm was built around the cases most firms refuse. The ones where the facts take work, the harms are life-changing, and the defendants have resources.</p>
+    </div>
+    <div class="ledger reveal" data-d="1">
+      <div class="lrow">
+        <span class="seal">BAR ADMISSIONS</span>
+        <div class="lrow__amt">[ TK ]</div>
+        <div class="lrow__desc">State Bar of Texas &middot; Federal District Courts &middot; [ TK ]</div>
+      </div>
+      <div class="lrow">
+        <span class="seal">EDUCATION</span>
+        <div class="lrow__amt">[ TK ]</div>
+        <div class="lrow__desc">J.D. &middot; [ TK ]</div>
+      </div>
+      <div class="lrow">
+        <span class="seal">CASES TRIED</span>
+        <div class="lrow__amt">[ TK ]</div>
+        <div class="lrow__desc">Jury trials &middot; Bench trials &middot; Pre-trial litigation</div>
+      </div>
+      <div class="lrow">
+        <span class="seal">AREAS OF FOCUS</span>
+        <div class="lrow__amt">13</div>
+        <div class="lrow__desc">From refinery incidents to insurance disputes</div>
+      </div>
+      <div class="board__foot">
+        <a href="../results/" class="cta">SEE THE FULL RECORD</a>
+        <p class="board__disclaimer">Credentials held for verification. See Recognition for honors and memberships.</p>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- CHAPTER II CONTENT · the method -->
-<section class="ab-sec ab-sec--near">
+<!-- SECTION 04 · THE METHOD (.proc) -->
+<section class="proc" id="process">
+  <div class="grain" aria-hidden="true"></div>
+  <div class="proc__inner">
+    <div class="proc__head reveal">
+      <span class="eyebrow">HOW I WORK</span>
+      <h2 class="h-sec">A CASE IS BUILT<br>ONE DECISION AT A TIME.</h2>
+      <!-- PENDING EDWARD VERIFICATION -->
+      <p class="proc__note">No layers of staff between you and your lawyer. Here is how a case moves, from the first call to the courtroom.</p>
+    </div>
+    <div class="proc__track" id="procTrack">
+      <div class="proc__rail" aria-hidden="true"></div>
+      <div class="proc__fill" id="procFill" aria-hidden="true"></div>
+      <div class="proc__cols">
+        <div class="pcol" data-node="0.16">
+          <span class="pcol__node" aria-hidden="true"></span>
+          <div class="pcol__num">01</div>
+          <h3 class="pcol__title">I take the call myself.</h3>
+          <p class="pcol__desc">When you call Festeryga Law, you reach a real person. If I can speak with you then, I do. If I can't, you get me back same-day. The first conversation is free and confidential, in English or Espa&ntilde;ol.</p>
+        </div>
+        <div class="pcol" data-node="0.5">
+          <span class="pcol__node" aria-hidden="true"></span>
+          <div class="pcol__num">02</div>
+          <h3 class="pcol__title">Direct access throughout.</h3>
+          <p class="pcol__desc">No layers of staff between you and your lawyer. You get my phone number. I document the strategy, account for every expense, and keep you informed as the case develops. Clear milestones, organized records.</p>
+        </div>
+        <div class="pcol" data-node="0.84">
+          <span class="pcol__node" aria-hidden="true"></span>
+          <div class="pcol__num">03</div>
+          <h3 class="pcol__title">The lawyer the jury sees is me.</h3>
+          <p class="pcol__desc">I don't hand off a case I've built. If we file, I file. If we try it, I try it. The relationship we built from day one is the relationship that walks into the courtroom.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 05 · THE THREE PROMISES (.ledger) -->
+<section class="ab-promises">
   <div class="wrap">
-    <div class="ab-sec__head fade-on-scroll">
-      <div class="ab-sec__setup">ON PREPARATION</div>
-      <h2 class="ab-sec__h">EVERY CASE<br>IS BUILT<br>ONE DECISION<br>AT A TIME.</h2>
+    <div class="ab-promises__head reveal">
+      <span class="eyebrow">THE FESTERYGA STANDARD</span>
+      <h2 class="h-mega">THREE PROMISES.<br>PUT IN WRITING.</h2>
     </div>
-    <!-- PENDING EDWARD VERIFICATION · prose written by Mozwell in Edward's voice -->
-    <div class="ab-pass">
-      <div class="ab-pass__row fade-on-scroll">
-        <div class="ab-pass__k">01 &nbsp;&middot;&nbsp; WHAT HAPPENED</div>
-        <div class="ab-pass__b">I start with the specific facts. The industry, the equipment, the maintenance records, the people on shift that day. What actually failed. Who had the duty to prevent it. The case is built from the ground up, not fitted to a template.</div>
+    <!-- PENDING EDWARD VERIFICATION of The Three Promises -->
+    <div class="ledger ab-promises__ledger reveal" data-d="1">
+      <div class="lrow">
+        <span class="seal">01</span>
+        <div class="lrow__amt ab-promtitle">YOU GET EDWARD</div>
+        <div class="lrow__desc">Direct access. A real bilingual team. Clear ownership of the case from first call through resolution.</div>
       </div>
-      <div class="ab-pass__row fade-on-scroll">
-        <div class="ab-pass__k">02 &nbsp;&middot;&nbsp; THE HARM CAUSED</div>
-        <div class="ab-pass__b">Then the full picture of what was lost. The medical future. The lost income. The daily life that will never be the same. I work with the medical experts, the economists, the vocational specialists who can tell that story to a jury in a way they will remember.</div>
+      <div class="lrow">
+        <span class="seal">02</span>
+        <div class="lrow__amt ab-promtitle">I FUND THE LEGAL FIGHT</div>
+        <div class="lrow__desc">No upfront legal fee. The firm advances approved case expenses. I am paid only if there is a recovery.</div>
       </div>
-      <div class="ab-pass__row fade-on-scroll">
-        <div class="ab-pass__k">03 &nbsp;&middot;&nbsp; WHAT THE CASE REQUIRES</div>
-        <div class="ab-pass__b">Finally, the strategy. Which defendants belong on the papers. Which insurer will be forced to sit at the table. Which deposition we take first and what we need from it. Which expert carries the credibility to break the defense's story. Every decision is made with the case walking into court, whether it goes there or not.</div>
-      </div>
-    </div>
-    <div class="ab-sec__close fade-on-scroll">The right result starts with understanding the whole case.</div>
-  </div>
-</section>
-
-<!-- CHAPTER III -->
-<section class="ab-chap fade-on-scroll">
-  <span class="ab-chap__wm" aria-hidden="true">III</span>
-  <div class="ab-chap__in">
-    <div class="ab-chap__t">THE PROMISE</div>
-    <div class="ab-chap__d">WHAT YOU ACTUALLY GET</div>
-  </div>
-</section>
-
-<!-- CHAPTER III CONTENT · the promise -->
-<section class="ab-sec">
-  <div class="wrap">
-    <div class="ab-sec__head fade-on-scroll">
-      <div class="ab-sec__setup">THE FESTERYGA STANDARD</div>
-      <h2 class="ab-sec__h">THREE PROMISES.<br>PUT IN WRITING.</h2>
-    </div>
-    <!-- PENDING EDWARD VERIFICATION · prose written by Mozwell in Edward's voice -->
-    <div class="ab-prom">
-      <div class="ab-prom__item fade-on-scroll">
-        <div class="ab-prom__n">01</div>
-        <div class="ab-prom__t">YOU GET EDWARD</div>
-        <div class="ab-prom__b">Direct access. A real bilingual team. Clear ownership of the case from first call through resolution.</div>
-      </div>
-      <div class="ab-prom__item fade-on-scroll">
-        <div class="ab-prom__n">02</div>
-        <div class="ab-prom__t">I FUND THE LEGAL FIGHT</div>
-        <div class="ab-prom__b">No upfront legal fee. The firm advances approved case expenses. I am paid only if there is a recovery.</div>
-      </div>
-      <div class="ab-prom__item fade-on-scroll">
-        <div class="ab-prom__n">03</div>
-        <div class="ab-prom__t">YOU SEE WHERE THE CASE STANDS</div>
-        <div class="ab-prom__b">Clear milestones. Organized documents. Transparent expense accounting. You will not have to call to find out what is happening.</div>
+      <div class="lrow">
+        <span class="seal">03</span>
+        <div class="lrow__amt ab-promtitle">YOU SEE WHERE THE CASE STANDS</div>
+        <div class="lrow__desc">Clear milestones. Organized documents. Transparent expense accounting. You will not have to call to find out what is happening.</div>
       </div>
     </div>
-    <div class="ab-signed fade-on-scroll">
-      <div class="ab-signed__s">SIGNED,</div>
-      <div class="ab-signed__by">EDWARD FESTERYGA &nbsp;&middot;&nbsp; FOUNDER &amp; ATTORNEY &nbsp;&middot;&nbsp; FESTERYGA LAW</div>
+    <div class="ab-sign reveal">
+      <span class="ab-sign__s">Signed,</span>
+      <span class="ab-sign__n">EDWARD FESTERYGA</span>
     </div>
   </div>
 </section>
 
-<!-- CLOSING -->
-<section class="ab-close" id="closing">
-  <div class="ab-close__bg" style="background-image:url('../images/interstitial-bg.jpg')" aria-hidden="true"></div>
-  <div class="ab-close__ov" aria-hidden="true"></div>
-  <div class="grain grain-anim" aria-hidden="true"></div>
-  <div class="ab-close__in fade-on-scroll">
-    <span class="ab-close__dot" aria-hidden="true"></span>
-    <h2 class="ab-close__t">WHEN IT'S EVERYTHING,<br>YOU GET EDWARD.</h2>
-    <div class="ab-close__rule" aria-hidden="true"></div>
-    <a href="tel:+17134144042" class="ab-close__phone">(713) 414-4042</a>
-    <div class="ab-close__addr">edward@festeryga.com &nbsp;&middot;&nbsp; 2525 NORTH LOOP W. SUITE 510C &nbsp;&middot;&nbsp; HOUSTON, TEXAS</div>
-    <div class="ab-close__disc">Free consultation &nbsp;&middot;&nbsp; No fee unless we win &nbsp;&middot;&nbsp; English &amp; Espa&ntilde;ol</div>
+<!-- SECTION 06 · WHY FESTERYGA LAW (voiceover) -->
+<section class="ab-why">
+  <div class="wrap ab-why__in reveal">
+    <span class="eyebrow">THE REASON</span>
+    <h2 class="h-mega">WHY FESTERYGA LAW.</h2>
+    <!-- PENDING EDWARD VERIFICATION -->
+    <div class="voiceover ab-why__vo">
+      <p>I started Festeryga Law because I wanted every client I represent to have my full attention.</p>
+      <p>Not a case number. Not a file passed between paralegals. Not the voice of an intake specialist who does not know your name.</p>
+      <p>Before this firm, I worked inside the machinery of high-volume injury practices. I saw what happens when a serious case is treated as inventory instead of a person's life. The client loses. Every time.</p>
+      <p>I built Festeryga Law to be the alternative. One lawyer who reads every deposition. One lawyer who negotiates every settlement. One lawyer whose reputation is on the line when the case walks into court.</p>
+      <p>If you hire me, you get me. That is the whole promise.</p>
+    </div>
+    <div class="ab-why__cta"><a href="#closing" class="cta">TALK WITH EDWARD</a></div>
   </div>
 </section>
 
+<!-- SECTION 07 · CLOSING (.closing, mirrors homepage) -->
+<section class="closing" id="closing">
+  <div class="closing__bg" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="closing__rule-top" aria-hidden="true"></div>
+  <div class="closing__meta wrap">
+    <div class="meta-row">
+      <span class="meta meta--ash">CLOSING &nbsp;&middot;&nbsp; END TITLE</span>
+      <span class="meta meta--ash">FREE &nbsp;&middot;&nbsp; CONFIDENTIAL &nbsp;&middot;&nbsp; 24/7</span>
+    </div>
+  </div>
+  <div class="closing__inner reveal">
+    <h2 class="closing__title">WHEN IT'S EVERYTHING,<br>YOU GET <span class="uline">EDWARD</span>.</h2>
+    <a href="tel:+17134144042" class="closing__phone">(713) 414-4042</a>
+    <div class="closing__actions">
+      <a href="tel:+17134144042" class="cta cta--merlot">SCHEDULE A FREE CONSULTATION</a>
+    </div>
+    <div class="closing__addr">edward@festeryga.com &nbsp;&middot;&nbsp; HOUSTON, TEXAS</div>
+  </div>
+  <div class="closing__rule-bot" aria-hidden="true"></div>
+</section>
 </main>
 
 <footer class="credits">
@@ -406,44 +459,434 @@
 (function () {
   'use strict';
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  /* reveal on scroll */
-  var faders = document.querySelectorAll('.fade-on-scroll');
+  var mobile = window.matchMedia('(max-width: 1000px)');
+  var reveals = document.querySelectorAll('.reveal');
   if (reduce || !('IntersectionObserver' in window)) {
-    faders.forEach(function (el) { el.classList.add('visible'); });
+    reveals.forEach(function (el) { el.classList.add('in'); });
   } else {
     var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
-    }, { threshold: 0.15 });
-    faders.forEach(function (el) { io.observe(el); });
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.12 });
+    reveals.forEach(function (el) { io.observe(el); });
   }
-
-  if (reduce) return;
-
-  /* hero title parallax (0.35x), masked by the opaque bottom letterbox bar */
-  var title = document.getElementById('heroTitle');
-  var stage = document.querySelector('.ab-hero__stage');
-  if (title && stage) {
+  (function () {
+    var counters = document.querySelectorAll('.count[data-count]');
+    if (!counters.length) return;
+    function money(n) { return '$' + n.toLocaleString('en-US'); }
+    function finalText(el) { return money(parseInt(el.getAttribute('data-count'), 10)) + (el.getAttribute('data-suffix') || ''); }
+    function lockWidths() {
+      counters.forEach(function (el) {
+        el.textContent = finalText(el);
+        el.style.display = 'inline-block';
+        el.style.textAlign = 'left';
+        el.style.minWidth = Math.ceil(el.getBoundingClientRect().width) + 'px';
+      });
+    }
+    function run(el) {
+      var target = parseInt(el.getAttribute('data-count'), 10);
+      var suffix = el.getAttribute('data-suffix') || '';
+      if (!target) return;
+      var dur = 1900, t0 = null;
+      function frame(now) {
+        if (t0 === null) t0 = now;
+        var p = Math.min((now - t0) / dur, 1);
+        var eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = money(Math.round(eased * target)) + (p < 1 ? '' : suffix);
+        if (p < 1) window.requestAnimationFrame(frame);
+      }
+      window.requestAnimationFrame(frame);
+    }
+    function start() {
+      lockWidths();
+      if (reduce || !('IntersectionObserver' in window)) return; 
+      var cio = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) { run(e.target); cio.unobserve(e.target); } });
+      }, { threshold: 0.4 });
+      counters.forEach(function (el) { cio.observe(el); });
+    }
+    if (document.fonts && document.fonts.ready) { document.fonts.ready.then(start); } else { start(); }
+  })();
+  (function () {
+    var canvas = document.getElementById('boardShader');
+    if (!canvas) return;
+    var gl = canvas.getContext('webgl', { antialias: true });
+    if (!gl) return;
+    var VS = 'attribute vec2 position; varying vec2 vUv; void main(){ vUv = position*0.5+0.5; gl_Position = vec4(position,0.0,1.0); }';
+    var FS = [
+      'precision highp float; varying vec2 vUv;',
+      'uniform vec2 u_resolution; uniform float u_time; uniform float u_grain; uniform vec3 u_colors[3];',
+      'vec3 mod289(vec3 x){return x-floor(x*(1.0/289.0))*289.0;} vec2 mod289(vec2 x){return x-floor(x*(1.0/289.0))*289.0;}',
+      'vec3 permute(vec3 x){return mod289(((x*34.0)+1.0)*x);}',
+      'float snoise(vec2 v){ const vec4 C=vec4(0.211324865405187,0.366025403784439,-0.577350269189626,0.024390243902439);',
+      ' vec2 i=floor(v+dot(v,C.yy)); vec2 x0=v-i+dot(i,C.xx); vec2 i1=(x0.x>x0.y)?vec2(1.0,0.0):vec2(0.0,1.0);',
+      ' vec4 x12=x0.xyxy+C.xxzz; x12.xy-=i1; i=mod289(i);',
+      ' vec3 p=permute(permute(i.y+vec3(0.0,i1.y,1.0))+i.x+vec3(0.0,i1.x,1.0));',
+      ' vec3 m=max(0.5-vec3(dot(x0,x0),dot(x12.xy,x12.xy),dot(x12.zw,x12.zw)),0.0); m=m*m; m=m*m;',
+      ' vec3 x=2.0*fract(p*C.www)-1.0; vec3 h=abs(x)-0.5; vec3 ox=floor(x+0.5); vec3 a0=x-ox;',
+      ' m*=1.79284291400159-0.85373472095314*(a0*a0+h*h);',
+      ' vec3 g; g.x=a0.x*x0.x+h.x*x0.y; g.yz=a0.yz*x12.xz+h.yz*x12.yw; return 130.0*dot(m,g); }',
+      'void main(){ vec2 uv=vUv; float ratio=u_resolution.x/u_resolution.y; vec2 p=uv*vec2(ratio,1.0); float t=u_time*0.2;',
+      ' float n1=snoise(p*0.5+t); float n2=snoise(p*0.9-t*0.5+n1); float light=pow(abs(n2),2.6)*0.34;',
+      ' vec3 col=vec3(0.015,0.008,0.011);',
+      ' col+=u_colors[0]*smoothstep(0.15,1.0,n1)*0.32; col+=u_colors[1]*light;',
+      ' float grain=fract(sin(dot(uv,vec2(12.9898,78.233)))*43758.5453+u_time); col+=(grain-0.5)*u_grain*0.35;',
+      ' float dist=length(uv-0.5); col*=smoothstep(1.25,0.15,dist);',
+      ' gl_FragColor=vec4(col,1.0); }'
+    ].join('\n');
+    function sh(type, src) { var s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); return s; }
+    var prog = gl.createProgram();
+    gl.attachShader(prog, sh(gl.VERTEX_SHADER, VS));
+    gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, FS));
+    gl.linkProgram(prog); gl.useProgram(prog);
+    var buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+    var pos = gl.getAttribLocation(prog, 'position'); gl.enableVertexAttribArray(pos); gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+    var uRes = gl.getUniformLocation(prog, 'u_resolution'), uTime = gl.getUniformLocation(prog, 'u_time'), uGrain = gl.getUniformLocation(prog, 'u_grain'), uColors = gl.getUniformLocation(prog, 'u_colors');
+    var colors = new Float32Array([0.478, 0.106, 0.227, 0.361, 0.067, 0.157, 0.722, 0.208, 0.373]); 
+    function resize() { var dpr = Math.min(window.devicePixelRatio || 1, 1.5); canvas.width = Math.max(1, canvas.clientWidth * dpr); canvas.height = Math.max(1, canvas.clientHeight * dpr); gl.viewport(0, 0, canvas.width, canvas.height); }
+    resize(); window.addEventListener('resize', resize);
+    function frame(time) {
+      gl.uniform2f(uRes, canvas.width, canvas.height);
+      gl.uniform1f(uTime, time * 0.001 * 0.3);
+      gl.uniform1f(uGrain, 0.5);
+      gl.uniform3fv(uColors, colors);
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    }
+    if (reduce) { frame(6000); return; }
+    var raf = null, live = false;
+    function loop(t) { frame(t); raf = window.requestAnimationFrame(loop); }
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting && !live) { live = true; raf = window.requestAnimationFrame(loop); }
+          else if (!e.isIntersecting && live) { live = false; window.cancelAnimationFrame(raf); }
+        });
+      }, { threshold: 0 }).observe(canvas);
+    } else { raf = window.requestAnimationFrame(loop); }
+  })();
+  (function () {
+    var vbgs = document.querySelectorAll('.vbg[data-vim]');
+    if (reduce || mobile.matches) return;
+    vbgs.forEach(function (v) {
+      var frame = v.querySelector('iframe'); if (!frame || frame.src) return;
+      frame.src = 'https://player.vimeo.com/video/' + v.getAttribute('data-vim') + '?background=1&autopause=0&muted=1&loop=1&dnt=1';
+    });
+  })();
+  (function () {
+    var sec = document.getElementById('top');
+    if (!sec || !sec.classList.contains('cine') || reduce) return;
+    var introEls = sec.querySelectorAll('[data-cine="intro"]');
+    var media = sec.querySelector('.cine__media');
+    var whenEl = sec.querySelector('[data-cine="when"]');
+    var brandEls = sec.querySelectorAll('[data-cine="brand"]');
+    var grid = sec.querySelector('.cine__grid');
+    var cue = sec.querySelector('[data-cine="cue"]');
+    if (!media || !whenEl) return;
+    sec.classList.add('cine--live');
+    function clamp(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
+    function map(p, a, b) { return clamp((p - a) / (b - a)); }
+    function lerp(a, b, t) { return a + (b - a) * t; }
+    function eOut(t) { return 1 - Math.pow(1 - t, 3); }
+    function eInOut(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+    var vh = window.innerHeight, insX0, insY0;
+    function sizes() {
+      vh = window.innerHeight;
+      var m = window.innerWidth < 760;
+      insX0 = m ? 8 : 32;   
+      insY0 = m ? 26 : 20;
+    }
+    sizes();
     var ticking = false;
     function render() {
       ticking = false;
-      var r = stage.getBoundingClientRect();
-      if (r.bottom < 0 || r.top > window.innerHeight) return;
-      title.style.transform = 'translateY(' + (-r.top * 0.35) + 'px)';
+      var total = sec.offsetHeight - vh;
+      if (total <= 0) return;
+      var p = clamp(-sec.getBoundingClientRect().top / total);
+      var iP = map(p, 0, 0.20);
+      var iOp = 1 - iP;
+      introEls.forEach(function (el) {
+        el.style.opacity = iOp.toFixed(3);
+        el.style.transform = 'translateY(' + (-34 * iP).toFixed(1) + 'px) scale(' + (1 + 0.16 * iP).toFixed(3) + ')';
+        el.style.filter = iP > 0.001 ? 'blur(' + (20 * iP).toFixed(1) + 'px)' : 'none';
+        el.style.visibility = iOp <= 0.01 ? 'hidden' : 'visible';
+      });
+      if (grid) grid.style.opacity = (1 - map(p, 0.06, 0.34)).toFixed(3);
+      if (cue) cue.style.opacity = (1 - map(p, 0, 0.12)).toFixed(3);
+      var c = eInOut(map(p, 0.05, 0.40));
+      var insY = lerp(insY0, 0, c), insX = lerp(insX0, 0, c), rad = lerp(24, 0, c);
+      var clip = 'inset(' + insY.toFixed(2) + '% ' + insX.toFixed(2) + '% ' + insY.toFixed(2) + '% ' + insX.toFixed(2) + '% round ' + rad.toFixed(1) + 'px)';
+      media.style.clipPath = clip;
+      media.style.webkitClipPath = clip;
+      media.style.transform = 'translateY(' + lerp(0.10 * vh, 0, c).toFixed(1) + 'px)';
+      media.style.opacity = map(p, 0.03, 0.11).toFixed(3);
+      var wIn = eOut(map(p, 0.40, 0.53));
+      var wOut = map(p, 0.63, 0.73);
+      var wOp = wIn * (1 - wOut);
+      whenEl.style.opacity = wOp.toFixed(3);
+      whenEl.style.transform = 'translate(-50%,-50%) translateY(' + (lerp(46, 0, wIn) + lerp(0, -46, wOut)).toFixed(1) + 'px)';
+      whenEl.style.filter = (wOp > 0.01 && wOp < 0.99) ? 'blur(' + (lerp(12, 0, wIn) + lerp(0, 12, wOut)).toFixed(1) + 'px)' : 'none';
+      whenEl.style.visibility = wOp <= 0.01 ? 'hidden' : 'visible';
+      var bP = eOut(map(p, 0.73, 0.92));
+      brandEls.forEach(function (el) {
+        el.style.opacity = bP.toFixed(3);
+        el.style.transform = 'translateY(' + lerp(34, 0, bP).toFixed(1) + 'px) scale(' + lerp(0.95, 1, bP).toFixed(3) + ')';
+        el.style.visibility = bP <= 0.01 ? 'hidden' : 'visible';
+      });
     }
     function onScroll() { if (!ticking) { ticking = true; window.requestAnimationFrame(render); } }
     window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', function () { sizes(); render(); });
     render();
-  }
-
-  /* Vimeo backdrop loop (desktop + motion only) */
-  if (window.matchMedia('(min-width: 1000px)').matches) {
-    document.querySelectorAll('.ab-vbg[data-vim]').forEach(function (v) {
-      var id = v.getAttribute('data-vim');
-      var f = v.querySelector('iframe');
-      if (f && id) { f.src = 'https://player.vimeo.com/video/' + id + '?background=1&autopause=0&muted=1&loop=1&dnt=1'; v.classList.add('on'); }
-    });
-  }
+  })();
+  (function () {
+    var stage = document.getElementById('cvrStage');
+    if (!stage) return;
+    var slidesEls = stage.querySelectorAll('.cvr__slide');
+    var navItems = stage.querySelectorAll('.cvr__navitem');
+    var fills = stage.querySelectorAll('.cvr__navfill');
+    var titleEl = document.getElementById('cvrTitle');
+    var descEl = document.getElementById('cvrDesc');
+    var numEl = document.getElementById('cvrNum');
+    var cities = [
+      { name: 'Houston', desc: 'Home base. Where the firm was built and most cases are filed.' },
+      { name: 'Austin', desc: 'The capital. State matters and appellate work.' },
+      { name: 'Dallas', desc: 'North Texas. Trucking corridors and corporate defendants.' },
+      { name: 'San Antonio', desc: 'South Texas. Industrial and refinery cases.' },
+      { name: 'El Paso', desc: 'West Texas. Border and cross-jurisdiction matters.' }
+    ];
+    var n = cities.length, current = 0, timer = null, HOLD = 5600;
+    function pad(x) { return String(x + 1).padStart(2, '0'); }
+    function setTitle(text) {
+      if (reduce) { titleEl.textContent = text; return; }
+      titleEl.innerHTML = text.split('').map(function (c) {
+        return '<span class="ch" style="opacity:0;transform:translateY(22px);transition:opacity .55s var(--ease),transform .55s var(--ease)">' + (c === ' ' ? '&nbsp;' : c) + '</span>';
+      }).join('');
+      var chs = titleEl.querySelectorAll('.ch');
+      requestAnimationFrame(function () { requestAnimationFrame(function () {
+        chs.forEach(function (ch, i) { ch.style.transitionDelay = (i * 0.032) + 's'; ch.style.opacity = '1'; ch.style.transform = 'none'; });
+      }); });
+    }
+    function resetProgress(i) {
+      fills.forEach(function (f) { f.style.transition = 'none'; f.style.width = '0%'; });
+      if (reduce) { fills[i].style.width = '100%'; return; }
+      void fills[i].offsetWidth;
+      fills[i].style.transition = 'width ' + (HOLD / 1000) + 's linear';
+      fills[i].style.width = '100%';
+    }
+    function go(i) {
+      slidesEls[current].classList.remove('is-active');
+      navItems[current].classList.remove('is-active');
+      current = i;
+      slidesEls[i].classList.add('is-active');
+      navItems[i].classList.add('is-active');
+      var c = cities[i];
+      setTitle(c.name);
+      if (descEl) { descEl.style.opacity = '0'; descEl.style.transform = 'translateY(14px)'; setTimeout(function () { descEl.textContent = c.desc; descEl.style.opacity = '1'; descEl.style.transform = 'none'; }, reduce ? 0 : 260); }
+      if (numEl) numEl.textContent = pad(i);
+      resetProgress(i);
+      schedule();
+    }
+    function schedule() { clearTimeout(timer); if (!reduce) timer = setTimeout(function () { go((current + 1) % n); }, HOLD); }
+    navItems.forEach(function (b, i) { b.addEventListener('click', function () { go(i); }); });
+    if (!reduce) {
+      stage.addEventListener('mouseenter', function () { clearTimeout(timer); fills[current].style.transition = 'none'; });
+      stage.addEventListener('mouseleave', function () { resetProgress(current); schedule(); });
+    }
+    go(0);
+  })();
+  (function () {
+    var vp = document.getElementById('pmqViewport');
+    if (!vp) return;
+    var items = vp.querySelectorAll('.pmq-item');
+    if (reduce) { items.forEach(function (it) { it.style.opacity = '0.85'; }); return; }
+    var raf = null, live = false;
+    function update() {
+      var r = vp.getBoundingClientRect();
+      var cy = r.top + r.height / 2, maxD = r.height / 2;
+      var nearest = null, nearestD = Infinity;
+      items.forEach(function (it) {
+        var ir = it.getBoundingClientRect();
+        var d = Math.abs(cy - (ir.top + ir.height / 2));
+        it.style.opacity = (1 - Math.min(d / maxD, 1) * 0.78).toFixed(3);
+        if (d < nearestD) { nearestD = d; nearest = it; }
+      });
+      items.forEach(function (it) { it.classList.toggle('is-read', it === nearest); });
+      raf = window.requestAnimationFrame(update);
+    }
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting && !live) { live = true; update(); }
+          else if (!e.isIntersecting && live) { live = false; window.cancelAnimationFrame(raf); }
+        });
+      }, { threshold: 0 }).observe(vp);
+    } else { update(); }
+  })();
+  (function () {
+    var sec = document.getElementById('client');
+    if (!sec || !sec.classList.contains('exp')) return;
+    var scroll = sec.querySelector('.exp__scroll');
+    var bg = sec.querySelector('.exp__bg');
+    var media = document.getElementById('expMedia');
+    var grade = sec.querySelector('.exp__media-grade');
+    var wordA = sec.querySelector('[data-exp="a"]');
+    var wordB = sec.querySelector('[data-exp="b"]');
+    var resolve = sec.querySelector('[data-exp="resolve"]');
+    var cue = sec.querySelector('[data-exp="cue"]');
+    var play = document.getElementById('expPlay');
+    if (reduce) { if (resolve) resolve.style.opacity = '1'; return; }
+    sec.classList.add('exp--live');
+    function clamp(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
+    function map(p, a, b) { return clamp((p - a) / (b - a)); }
+    function lerp(a, b, t) { return a + (b - a) * t; }
+    function eOut(t) { return 1 - Math.pow(1 - t, 3); }
+    var vh = window.innerHeight, smallW, smallH;
+    function sizes() { vh = window.innerHeight; var m = window.innerWidth < 760; smallW = m ? 250 : 340; smallH = m ? 350 : 440; }
+    sizes();
+    var ticking = false;
+    function render() {
+      ticking = false;
+      var total = scroll.offsetHeight - vh;
+      if (total <= 0) return;
+      var p = clamp(-scroll.getBoundingClientRect().top / total);
+      var e = eOut(p);
+      media.style.width = lerp(smallW, window.innerWidth, e).toFixed(0) + 'px';
+      media.style.height = lerp(smallH, vh, e).toFixed(0) + 'px';
+      media.style.borderRadius = lerp(16, 0, e).toFixed(1) + 'px';
+      if (grade) grade.style.opacity = lerp(0.42, 0.08, p).toFixed(3);
+      if (bg) bg.style.opacity = (1 - map(p, 0, 0.85)).toFixed(3);
+      var tx = map(p, 0, 0.9) * 22;
+      var tf = (1 - map(p, 0.62, 0.92)).toFixed(3);
+      wordA.style.transform = 'translateX(-' + tx.toFixed(1) + 'vw)'; wordA.style.opacity = tf;
+      wordB.style.transform = 'translateX(' + tx.toFixed(1) + 'vw)'; wordB.style.opacity = tf;
+      if (resolve) resolve.style.opacity = map(p, 0.6, 0.92).toFixed(3);
+      if (play) { var po = map(p, 0.72, 0.98); play.style.opacity = po.toFixed(3); play.style.pointerEvents = po > 0.5 ? 'auto' : 'none'; }
+      if (cue) cue.style.opacity = (1 - map(p, 0, 0.14)).toFixed(3);
+    }
+    function onScroll() { if (!ticking) { ticking = true; window.requestAnimationFrame(render); } }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', function () { sizes(); render(); });
+    render();
+  })();
+  (function () {
+    var vlb = document.getElementById('vlb');
+    var frame = document.getElementById('vlbVideo');
+    var closeBtn = document.getElementById('vlbClose');
+    var cards = document.querySelectorAll('.vidcard');
+    if (!vlb || !frame) return;
+    function open(id) {
+      frame.src = 'https://player.vimeo.com/video/' + id + '?autoplay=1&title=0&byline=0&portrait=0&dnt=1';
+      vlb.classList.add('is-open'); vlb.setAttribute('aria-hidden', 'false');
+    }
+    function shut() {
+      vlb.classList.remove('is-open'); vlb.setAttribute('aria-hidden', 'true');
+      frame.src = '';
+    }
+    var openers = document.querySelectorAll('.vidcard, .exp__play');
+    openers.forEach(function (c) { c.addEventListener('click', function () { var id = c.getAttribute('data-vimeo'); if (id) open(id); }); });
+    if (closeBtn) closeBtn.addEventListener('click', shut);
+    vlb.addEventListener('click', function (e) { if (e.target === vlb) shut(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && vlb.classList.contains('is-open')) shut(); });
+  })();
+  (function () {
+    var stage = document.querySelector('.atty__stage');
+    if (!stage || reduce) return;
+    var layers = stage.querySelectorAll('[data-para]');
+    var cue = stage.querySelector('.atty__cue');
+    var raf = null, live = false;
+    function clamp(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
+    function upd() {
+      var r = stage.getBoundingClientRect();
+      var vh = window.innerHeight;
+      var p = clamp((vh - r.top) / (vh + r.height));
+      var d = 0.5 - p;
+      layers.forEach(function (el) {
+        var amp = parseFloat(el.getAttribute('data-para')) || 0;
+        var y = (d * amp * 2).toFixed(1);
+        var sc = el.getAttribute('data-scale');
+        if (el.classList.contains('atty__word')) el.style.transform = 'translateY(' + y + 'px)';
+        else if (sc) el.style.transform = 'translateY(' + y + 'px) scale(' + (1 + parseFloat(sc) * (0.5 + p)).toFixed(3) + ')';
+        else el.style.transform = 'translateY(' + y + 'px)';
+      });
+      if (cue) cue.style.opacity = (1 - clamp((p - 0.4) / 0.25)).toFixed(3);
+      raf = window.requestAnimationFrame(upd);
+    }
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting && !live) { live = true; upd(); }
+          else if (!e.isIntersecting && live) { live = false; window.cancelAnimationFrame(raf); }
+        });
+      }, { threshold: 0 }).observe(stage);
+    } else { upd(); }
+  })();
+  (function () {
+    var st = document.querySelector('.atty__statement');
+    if (!st) return;
+    var h = st.querySelector('.atty__h');
+    if (reduce || !h || mobile.matches) return; 
+    var copy = [st.querySelector('.eyebrow'), st.querySelector('.atty__lede'), st.querySelector('.meet__actions')];
+    var pinvid = st.querySelector('.atty__pinvid');
+    var pingrade = st.querySelector('.atty__pingrade');
+    st.classList.add('stmt--live');
+    function clamp(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
+    function map(p, a, b) { return clamp((p - a) / (b - a)); }
+    function lerp(a, b, t) { return a + (b - a) * t; }
+    function eOut(t) { return 1 - Math.pow(1 - t, 3); }
+    var ticking = false;
+    function render() {
+      ticking = false;
+      var total = st.offsetHeight - window.innerHeight;
+      if (total <= 0) return;
+      var p = clamp(-st.getBoundingClientRect().top / total);
+      var tp = map(p, 0.05, 0.42), te = eOut(tp);
+      h.style.opacity = clamp(tp * 1.3).toFixed(3);
+      h.style.transform = 'scale(' + lerp(1.26, 1, te).toFixed(3) + ')';
+      h.style.filter = (tp > 0.001 && tp < 0.995) ? 'blur(' + lerp(24, 0, te).toFixed(1) + 'px)' : 'none';
+      copy.forEach(function (el, i) {
+        if (!el) return;
+        var s = 0.44 + i * 0.09;
+        var cp = map(p, s, s + 0.26);
+        el.style.opacity = cp.toFixed(3);
+        el.style.transform = 'translateY(' + lerp(30, 0, cp).toFixed(1) + 'px)';
+      });
+      var vf = map(p, 0.46, 0.78).toFixed(3);
+      if (pinvid) pinvid.style.opacity = vf;
+      if (pingrade) pingrade.style.opacity = vf;
+    }
+    function onScroll() { if (!ticking) { ticking = true; window.requestAnimationFrame(render); } }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', render);
+    render();
+  })();
+  (function () {
+    var track = document.getElementById('procTrack');
+    if (!track) return;
+    var fill = document.getElementById('procFill');
+    var cols = track.querySelectorAll('.pcol');
+    function clamp(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
+    if (reduce || window.matchMedia('(max-width: 767px)').matches) {
+      if (fill) fill.style.width = '100%';
+      cols.forEach(function (c) { c.classList.add('is-active'); });
+      return;
+    }
+    var ticking = false;
+    function render() {
+      ticking = false;
+      var r = track.getBoundingClientRect();
+      var vh = window.innerHeight;
+      var p = clamp((vh * 0.78 - r.top) / (vh * 0.46));
+      if (fill) fill.style.width = (p * 100).toFixed(1) + '%';
+      cols.forEach(function (c) {
+        var n = parseFloat(c.getAttribute('data-node')) || 0;
+        c.classList.toggle('is-active', p >= n - 0.02);
+      });
+    }
+    function onScroll() { if (!ticking) { ticking = true; window.requestAnimationFrame(render); } }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', render);
+    render();
+  })();
 })();
 </script>
 </body>
