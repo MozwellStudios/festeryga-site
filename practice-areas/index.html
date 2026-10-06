@@ -4,80 +4,41 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<meta name="description" content="Practice areas. Refinery, truck, chemical plant, offshore, and more. Festeryga Law, a Houston trial lawyer.">
-<title>Practice Areas · Festeryga Law</title>
+<meta name="description" content="Thirteen kinds of serious injury cases Edward Festeryga takes on across Texas, from refinery explosions to insurance disputes.">
+<title>Practice Areas &middot; Festeryga Law</title>
 <script>document.documentElement.classList.add('js');</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Libre+Franklin:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../shared/styles.css">
 <style>
-  /* Interactive case-type list (hover-reveal). Vanilla, documentary-graded. */
-  .ilist { position: relative; overflow: hidden; border-top: 1px solid var(--iron); }
-  .ilist__row {
-    position: relative; z-index: 3; display: grid;
-    grid-template-columns: 54px minmax(200px, 1.05fr) 148px 1.75fr;
-    gap: clamp(16px, 2.4vw, 40px); align-items: center;
-    width: 100%; text-align: left; text-decoration: none;
-    padding: clamp(20px, 2.4vw, 30px) clamp(14px, 2vw, 26px);
-    border-bottom: 1px solid var(--iron);
-    transition: padding-left 0.4s cubic-bezier(.22,1,.36,1);
-  }
-  .ilist__num, .ilist__name, .ilist__tag, .ilist__desc {
-    transition: color 0.4s ease;
-  }
-  .ilist__num { font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.14em; color: var(--merlot-br); }
-  .ilist__name { font-family: var(--f-anton); text-transform: uppercase; font-size: clamp(19px, 2.3vw, 33px); line-height: 1; letter-spacing: 0.01em; color: var(--cream); }
-  .ilist__tag { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ash); }
-  .ilist__desc { font-family: var(--f-body); font-size: clamp(14px, 1.25vw, 17px); line-height: 1.5; color: var(--bone); }
-  .ilist__thumb { display: none; }
 
-  /* highlight bar + floating preview (added by JS on fine pointers) */
+  .plist { background: var(--black); padding: 0 0 clamp(84px, 10vw, 140px); }
+  .ilist { position: relative; overflow: hidden; list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--iron); }
+  .ilist__row { position: relative; z-index: 3; display: grid; grid-template-columns: minmax(220px, 1.1fr) 120px 1.7fr; gap: clamp(16px, 2.4vw, 40px); align-items: center; padding: clamp(20px, 2.4vw, 28px) clamp(14px, 2vw, 26px); border-bottom: 1px solid var(--iron); transition: padding-left 0.4s cubic-bezier(.22,1,.36,1); }
+  .ilist__name, .ilist__tag, .ilist__desc { transition: color 0.4s ease; }
+  .ilist__name { font-family: var(--f-anton); text-transform: uppercase; font-size: clamp(19px, 2.2vw, 31px); line-height: 1.02; letter-spacing: 0.01em; color: var(--cream); }
+  .ilist__tag { font-family: var(--f-body); font-size: 14px; font-weight: 500; color: var(--ash); }
+  .ilist__desc { font-family: var(--f-body); font-size: clamp(15px, 1.25vw, 17px); line-height: 1.5; color: var(--bone); }
   .ilist__hl { position: absolute; left: 0; right: 0; top: 0; height: 0; z-index: 1; opacity: 0; background: var(--cream); will-change: transform, height; transition: transform 0.42s cubic-bezier(.22,1,.36,1), height 0.42s cubic-bezier(.22,1,.36,1), opacity 0.3s ease; }
   .ilist__media { position: absolute; top: 0; left: 0; z-index: 5; pointer-events: none; width: clamp(224px, 20vw, 316px); height: clamp(300px, 27vw, 420px); will-change: transform; }
   .ilist__img { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; visibility: hidden; clip-path: inset(46% 22%); filter: grayscale(1) contrast(1.06) brightness(0.6); box-shadow: 0 34px 90px rgba(0,0,0,0.6); transition: clip-path 0.56s cubic-bezier(.22,1,.36,1), opacity 0.46s ease; }
-  .ilist__img::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(122,27,58,0.28), rgba(4,6,12,0.18)); mix-blend-mode: multiply; }
   .ilist__img.is-on { opacity: 1; visibility: visible; clip-path: inset(0%); }
-
-  /* active row: cream bar slides behind, text inverts to near-black */
-  .ilist.js-on .ilist__row:hover,
-  .ilist.js-on .ilist__row:focus-visible { padding-left: clamp(22px, 2.6vw, 38px); outline: none; }
-  .ilist__row.is-active .ilist__num { color: var(--merlot-dk); }
+  .ilist.js-on .ilist__row:hover { padding-left: clamp(22px, 2.6vw, 38px); }
   .ilist__row.is-active .ilist__name { color: var(--black); }
   .ilist__row.is-active .ilist__tag { color: #4a3038; }
   .ilist__row.is-active .ilist__desc { color: #2a161c; }
+  @media (hover: none), (pointer: coarse) { .ilist__media, .ilist__hl { display: none !important; } }
+  @media (max-width: 760px) {
+    .ilist__row { grid-template-columns: 1fr; gap: 6px; padding: 22px 0; }
+    .ilist__desc { margin-top: 4px; }
+  }
 
-  /* touch / coarse pointers + narrow screens: stacked cards, no JS motion */
-  @media (hover: none), (pointer: coarse) {
-    .ilist__media, .ilist__hl { display: none !important; }
-  }
-  @media (hover: none), (pointer: coarse), (max-width: 760px) {
-    .ilist__row {
-      grid-template-columns: 1fr 38%;
-      grid-template-areas: "num thumb" "name thumb" "tag thumb" "desc thumb";
-      gap: 6px clamp(16px, 4vw, 26px); align-items: start;
-      padding: clamp(18px, 4vw, 26px) 0;
-    }
-    .ilist__num { grid-area: num; }
-    .ilist__name { grid-area: name; margin-top: 2px; }
-    .ilist__tag { grid-area: tag; margin-top: 4px; }
-    .ilist__desc { grid-area: desc; margin-top: 8px; }
-    .ilist__thumb {
-      display: block; grid-area: thumb; grid-row: 1 / -1; align-self: center;
-      width: 100%; aspect-ratio: 3 / 4; object-fit: cover;
-      filter: grayscale(1) contrast(1.06) brightness(0.72);
-    }
-    .ilist__row.is-active .ilist__num { color: var(--merlot-br); }
-    .ilist__row.is-active .ilist__name { color: var(--cream); }
-    .ilist__row.is-active .ilist__tag { color: var(--ash); }
-    .ilist__row.is-active .ilist__desc { color: var(--bone); }
-  }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<header class="nav" id="top">
+<header class="nav">
   <div class="nav__primary">
     <a href="../index.html" class="nav__brand">FESTERYGA LAW</a>
     <div class="nav__right">
@@ -89,7 +50,7 @@
     <nav class="nav__strip" aria-label="Sections">
       <a href="../index.html" class="nav__link">HOME</a>
       <a href="../results/" class="nav__link">RESULTS</a>
-      <a href="../practice-areas/" class="nav__link is-active">PRACTICE</a>
+      <a href="../practice-areas/" class="nav__link is-active" aria-current="page">PRACTICE</a>
       <a href="../coverage/" class="nav__link">COVERAGE</a>
       <a href="../about/" class="nav__link">ABOUT</a>
       <a href="../client-stories/" class="nav__link">STORIES</a>
@@ -100,161 +61,48 @@
 
 <main>
 
-<!-- HERO -->
-<section class="chero">
-  <div class="vcover" data-vim="1219991274" aria-hidden="true">
-    <div class="kb" style="background-image:url('../images/hero-bg.jpg')"></div>
-    <iframe title="" allow="autoplay; fullscreen; picture-in-picture" frameborder="0" tabindex="-1"></iframe>
-  </div>
-  <div class="chero__scrim" aria-hidden="true"></div>
-  <div class="grain grain-anim" aria-hidden="true"></div>
-  <div class="chero__inner">
-    <h1 class="chero__title" data-parallax-hero>PRACTICE</h1>
-    <div class="chero__sub">AREAS &middot; ACROSS TEXAS</div>
-  </div>
-  <div class="chero__credits">
-    <span>HOUSTON, TX &middot; EST 2018</span>
-    <span>(713) 414-4042</span>
-    <span>ENG / ESP &middot; 24/7</span>
-  </div>
-</section>
-
-<!-- THE METHOD -->
-<section class="sec sec-wm" style="border-top:0">
-  <span class="sec-wm__n" aria-hidden="true">01</span>
+<!-- HERO: his own line, straight into the list -->
+<section class="intro">
   <div class="wrap">
-    <div class="sec-head fade-on-scroll">
-      <span class="setup">THE METHOD</span>
-      <h2 class="h-sec">EVERY CASE COMES DOWN TO THREE THINGS.</h2>
-    </div>
-    <div class="passages">
-      <div class="passage fade-on-scroll">
-        <span class="passage__k">01 &middot; CASE TYPE</span>
-        <div>
-          <h3 class="passage__t">What happened.</h3>
-          <p class="passage__b">The industry and the incident. Refinery, truck, chemical plant, defective product. What happened dictates who is responsible.</p>
-        </div>
-      </div>
-      <div class="passage fade-on-scroll">
-        <span class="passage__k">02 &middot; INJURY</span>
-        <div>
-          <h3 class="passage__t">What was lost.</h3>
-          <p class="passage__b">The harm caused. Burns, brain, spine, wrongful death. What was lost dictates what the case is worth.</p>
-        </div>
-      </div>
-      <div class="passage fade-on-scroll">
-        <span class="passage__k">03 &middot; LOCATION</span>
-        <div>
-          <h3 class="passage__t">Where it is filed.</h3>
-          <p class="passage__b">Houston, Austin, Dallas, San Antonio, El Paso. Local courts, local juries, local rules.</p>
-        </div>
-      </div>
-    </div>
+    <h1 class="intro__h">I take the cases other firms pass on.</h1>
+    <p class="intro__p">Refinery blasts, oil rig injuries, truck collisions: the ones where a family's future is on the line.</p>
   </div>
 </section>
 
-<!-- THE CASE TYPES -->
-<section class="sec sec--dark">
+<!-- THE 13 CASE TYPES -->
+<section class="plist">
   <div class="wrap">
-    <div class="sec-head fade-on-scroll">
-      <span class="setup">CASE TYPES</span>
-      <h2 class="h-sec">WHAT EDWARD TRIES.</h2>
-    </div>
-    <div class="ilist fade-on-scroll" id="pracList">
-      <a class="ilist__row" href="../practice-areas/" data-img="../images/interstitial-bg.jpg">
-        <span class="ilist__num">01</span>
-        <span class="ilist__name">Refinery and Petrochemical Incidents</span>
-        <span class="ilist__tag">Harris County</span>
-        <span class="ilist__desc">Blast burns, toxic exposure, and OSHA violations on the plant floor.</span>
-        <img class="ilist__thumb" src="../images/interstitial-bg.jpg" alt="" aria-hidden="true" loading="lazy">
-      </a>
-      <a class="ilist__row" href="../practice-areas/" data-img="../images/results-bg.jpg">
-        <span class="ilist__num">02</span>
-        <span class="ilist__name">Oil Rig and Offshore Accidents</span>
-        <span class="ilist__tag">Jones Act</span>
-        <span class="ilist__desc">Maritime law, platform falls, and crew-transfer injuries offshore.</span>
-        <img class="ilist__thumb" src="../images/results-bg.jpg" alt="" aria-hidden="true" loading="lazy">
-      </a>
-      <a class="ilist__row" href="../practice-areas/" data-img="../images/hero-bg.jpg">
-        <span class="ilist__num">03</span>
-        <span class="ilist__name">Chemical Plant Accidents</span>
-        <span class="ilist__tag">Gulf Coast</span>
-        <span class="ilist__desc">Releases, explosions, and the chemical-burn and respiratory injury that follow.</span>
-        <img class="ilist__thumb" src="../images/hero-bg.jpg" alt="" aria-hidden="true" loading="lazy">
-      </a>
-      <a class="ilist__row" href="../practice-areas/" data-img="../images/IMG_2975-2048x1365.jpg.jpeg">
-        <span class="ilist__num">04</span>
-        <span class="ilist__name">Commercial Truck Collisions</span>
-        <span class="ilist__tag">FMCSA</span>
-        <span class="ilist__desc">Eighteen-wheelers, logbook fraud, and carrier and broker liability.</span>
-        <img class="ilist__thumb" src="../images/IMG_2975-2048x1365.jpg.jpeg" alt="" aria-hidden="true" loading="lazy">
-      </a>
-      <a class="ilist__row" href="../practice-areas/" data-img="../images/accidents-happen.jpg.jpeg">
-        <span class="ilist__num">05</span>
-        <span class="ilist__name">Serious Vehicle Collisions</span>
-        <span class="ilist__tag">State Court</span>
-        <span class="ilist__desc">High-speed, impaired, commercial-fleet, and rideshare crashes.</span>
-        <img class="ilist__thumb" src="../images/accidents-happen.jpg.jpeg" alt="" aria-hidden="true" loading="lazy">
-      </a>
-      <a class="ilist__row" href="../practice-areas/" data-img="../images/16.jpg.jpeg">
-        <span class="ilist__num">06</span>
-        <span class="ilist__name">Defective Products</span>
-        <span class="ilist__tag">Product Liability</span>
-        <span class="ilist__desc">Design defects, failure to warn, and dangerous industrial machinery.</span>
-        <img class="ilist__thumb" src="../images/16.jpg.jpeg" alt="" aria-hidden="true" loading="lazy">
-      </a>
-      <a class="ilist__row" href="../practice-areas/" data-img="../images/final-bg.jpg">
-        <span class="ilist__num">07</span>
-        <span class="ilist__name">Wrongful Death</span>
-        <span class="ilist__tag">Survival Action</span>
-        <span class="ilist__desc">Families who lost a provider. The case the record is built on.</span>
-        <img class="ilist__thumb" src="../images/final-bg.jpg" alt="" aria-hidden="true" loading="lazy">
-      </a>
-      <a class="ilist__row" href="../practice-areas/" data-img="../images/15.jpg.jpeg">
-        <span class="ilist__num">08</span>
-        <span class="ilist__name">Insurance Disputes</span>
-        <span class="ilist__tag">Bad Faith</span>
-        <span class="ilist__desc">Denied claims, delay tactics, and the coverage litigation that forces payment.</span>
-        <img class="ilist__thumb" src="../images/15.jpg.jpeg" alt="" aria-hidden="true" loading="lazy">
-      </a>
-    </div>
-    <p class="meta meta--ash" style="margin-top:24px">Representative case types. Placeholder content for client review.</p>
+    <h2 class="sr-only">Case types</h2>
+    <!-- PENDING EDWARD VERIFICATION of new case-type descriptions -->
+    <ul class="ilist" id="pracList">
+      <li class="ilist__row" data-img="../images/client-portrait.jpg"><span class="ilist__name">Personal injury</span><span class="ilist__tag"></span><span class="ilist__desc">Serious injuries caused by someone else's negligence, on the road, at work, or on someone's property.</span></li>
+      <li class="ilist__row" data-img="../images/hero-bg.jpg"><span class="ilist__name">Refinery and petrochemical incidents</span><span class="ilist__tag"></span><span class="ilist__desc">Blast burns, toxic exposure, and OSHA violations on the plant floor.</span></li>
+      <li class="ilist__row" data-img="../images/hero-bg.jpg"><span class="ilist__name">Oil rig and offshore accidents</span><span class="ilist__tag">Jones Act</span><span class="ilist__desc">Maritime law, platform falls, and crew-transfer injuries offshore.</span></li>
+      <li class="ilist__row" data-img="../images/hero-bg.jpg"><span class="ilist__name">Chemical plant accidents</span><span class="ilist__tag"></span><span class="ilist__desc">Releases, explosions, and the chemical burns and respiratory injuries that follow.</span></li>
+      <li class="ilist__row" data-img="../images/accidents-happen.jpg.jpeg"><span class="ilist__name">Commercial truck collisions</span><span class="ilist__tag">FMCSA</span><span class="ilist__desc">Eighteen-wheelers, logbook violations, and carrier and broker liability.</span></li>
+      <li class="ilist__row" data-img="../images/accidents-happen.jpg.jpeg"><span class="ilist__name">Vehicle collisions</span><span class="ilist__tag"></span><span class="ilist__desc">High-speed, impaired, commercial-fleet, and rideshare crashes.</span></li>
+      <li class="ilist__row" data-img="../images/hero-bg.jpg"><span class="ilist__name">Aviation accidents</span><span class="ilist__tag"></span><span class="ilist__desc">Private, charter, and helicopter crashes, and the maintenance and pilot failures behind them.</span></li>
+      <li class="ilist__row" data-img="../images/accidents-happen.jpg.jpeg"><span class="ilist__name">Railroad accidents</span><span class="ilist__tag">FELA</span><span class="ilist__desc">Crossing collisions and injuries to rail workers.</span></li>
+      <li class="ilist__row" data-img="../images/hero-bg.jpg"><span class="ilist__name">Industrial injuries</span><span class="ilist__tag"></span><span class="ilist__desc">Plant, warehouse, and construction-site injuries, from falls to equipment failures.</span></li>
+      <li class="ilist__row" data-img="../images/interstitial-bg.jpg"><span class="ilist__name">Product liability</span><span class="ilist__tag"></span><span class="ilist__desc">Design defects, failures to warn, and dangerous machinery.</span></li>
+      <li class="ilist__row" data-img="../images/interstitial-bg.jpg"><span class="ilist__name">Wrongful death</span><span class="ilist__tag">Survival action</span><span class="ilist__desc">Families who lost someone to another's negligence.</span></li>
+      <li class="ilist__row" data-img="../images/interstitial-bg.jpg"><span class="ilist__name">Insurance disputes</span><span class="ilist__tag">Bad faith</span><span class="ilist__desc">Denied claims, delay tactics, and the coverage litigation that forces payment.</span></li>
+      <li class="ilist__row" data-img="../images/client-portrait.jpg"><span class="ilist__name">Catastrophic injuries</span><span class="ilist__tag"></span><span class="ilist__desc">Brain, spine, and burn injuries that change the rest of a life.</span></li>
+    </ul>
   </div>
 </section>
 
-<!-- FEATURED PULL-QUOTE -->
-<section class="qcut">
-  <div class="vcover" data-vim="1219991563" aria-hidden="true">
-    <iframe title="" allow="autoplay; fullscreen; picture-in-picture" frameborder="0" tabindex="-1"></iframe>
-  </div>
-  <div class="qcut__scrim" aria-hidden="true"></div>
-  <div class="grain grain-anim" aria-hidden="true"></div>
-  <div class="qcut__in fade-on-scroll">
-    <div class="qcut__q">THE HARDER THE CASE,<br>THE MORE IT MATTERS.</div>
-    <div class="qcut__bar" aria-hidden="true"></div>
-    <div class="qcut__by">EDWARD FESTERYGA &nbsp;&middot;&nbsp; FOUNDING ATTORNEY</div>
-  </div>
-</section>
-
-<!-- BREADTH BAND -->
-<section class="band">
-  <div class="grain grain-anim" aria-hidden="true"></div>
-  <div class="wrap fade-on-scroll">
-    <div class="band__fig">ALL OF TEXAS</div>
-    <div class="band__note">ONE TRIAL LAWYER, EVERY VENUE</div>
-  </div>
-</section>
-
-<!-- CLOSING -->
+<!-- CLOSING: the phone number is the action -->
 <section class="rclose" id="closing">
   <div class="kb" style="background-image:url('../images/interstitial-bg.jpg')" aria-hidden="true"></div>
   <div class="rclose__scrim" aria-hidden="true"></div>
-  <div class="grain grain-anim" aria-hidden="true"></div>
-  <div class="rclose__in fade-on-scroll">
-    <h2 class="rclose__t">NOT SURE WHERE<br>YOUR CASE FITS?</h2>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="rclose__in">
+    <h2 class="rclose__t">Not sure where<br>your case fits?</h2>
     <div class="rclose__bar" aria-hidden="true"></div>
     <a href="tel:+17134144042" class="rclose__phone">(713) 414-4042</a>
-    <div class="rclose__addr">edward@festeryga.com &nbsp;&middot;&nbsp; HOUSTON, TEXAS</div>
+    <p class="rclose__note">Free and confidential, in English or Espa&ntilde;ol. Answered 24/7.</p>
+    <div class="rclose__addr"><a href="mailto:edward@festeryga.com">edward@festeryga.com</a></div>
   </div>
 </section>
 
@@ -265,37 +113,35 @@
     <div class="credits__logo">FESTERYGA LAW</div>
     <div class="credits__cols">
       <div>
-        <div class="credits__label">CONTACT</div>
+        <div class="credits__label">Contact</div>
         <div class="credits__rule" aria-hidden="true"></div>
-        <span class="credits__line credits__line--mono">(713) 414-4042</span>
-        <span class="credits__line credits__line--mono">edward@festeryga.com</span>
+        <a class="credits__line credits__line--mono" href="tel:+17134144042">(713) 414-4042</a>
+        <a class="credits__line credits__line--mono" href="mailto:edward@festeryga.com">edward@festeryga.com</a>
         <span class="credits__line">2525 North Loop W., Suite 510C</span>
         <span class="credits__line">Houston, Texas 77008</span>
       </div>
       <div>
-        <div class="credits__label">SITE</div>
+        <div class="credits__label">Site</div>
         <div class="credits__rule" aria-hidden="true"></div>
         <a class="credits__line" href="../index.html">Home</a>
         <a class="credits__line" href="../results/">Results</a>
-        <a class="credits__line" href="../practice-areas/">Practice Areas</a>
+        <a class="credits__line" href="../practice-areas/">Practice areas</a>
         <a class="credits__line" href="../coverage/">Coverage</a>
         <a class="credits__line" href="../about/">About Edward</a>
-        <a class="credits__line" href="../client-stories/">Client Stories</a>
+        <a class="credits__line" href="../client-stories/">Client stories</a>
         <a class="credits__line" href="../recognition/">Recognition</a>
       </div>
       <div>
-        <div class="credits__label">NOTES</div>
+        <div class="credits__label">Notes</div>
         <div class="credits__rule" aria-hidden="true"></div>
         <span class="credits__line">Attorney advertising.</span>
-        <span class="credits__line">Past results do not guarantee</span>
-        <span class="credits__line">future outcomes.</span>
-        <span class="credits__line credits__line--legal" style="margin-top:18px">PRIVACY &nbsp;&middot;&nbsp; TERMS</span>
-        <span class="credits__line credits__line--legal">DISCLAIMER &nbsp;&middot;&nbsp; SITEMAP</span>
+        <span class="credits__line">Past results do not guarantee future outcomes.</span>
+        <span class="credits__line credits__line--legal legal-row"><span>Privacy</span><span>Terms</span><span>Disclaimer</span><span>Sitemap</span></span>
       </div>
     </div>
     <div class="credits__foot">
-      <span>HOUSTON, TEXAS</span>
-      <span>&copy; 2026 FESTERYGA LAW</span>
+      <span>Houston, Texas</span>
+      <span>&copy; 2026 Festeryga Law</span>
     </div>
   </div>
 </footer>
@@ -376,6 +222,5 @@
   });
 })();
 </script>
-<script src="../shared/cinematic.js" defer></script>
 </body>
 </html>

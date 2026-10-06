@@ -303,3 +303,41 @@ a.credits__line:hover { color: var(--cream); }
   [data-parallax-hero], [data-parallax-slow], .bignum { transform: none !important; }
   .fade-on-scroll { opacity: 1; transform: none; }
 }
+
+/* ==========================================================================
+   INNER PAGES · frontend-design skill layer (Edwin, 2026-10-06)
+   Loaded by every page except the homepage. Markup carries sentence case;
+   these rules drop the monospace tracking, arrows, and ambient motion.
+   ========================================================================== */
+.credits__label, .credits__line--legal, .credits__foot, .credits__line--mono, .rclose__addr,
+.label { font-family: var(--f-body); text-transform: none; letter-spacing: 0; }
+.credits__label { font-size: 14px; font-weight: 600; }
+.credits__line--legal { font-size: 13px; }
+.credits__foot { font-size: 13px; }
+.legal-row { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 18px; }
+.label { display: block; font-size: 15px; font-weight: 600; color: var(--merlot-br); }
+
+/* page CTAs say what happens; no arrow (the nav keeps its own) */
+main .cta { font-family: var(--f-body); font-size: 15px; font-weight: 600; letter-spacing: 0; text-transform: none; padding: 15px 24px; }
+main .cta::after { content: none; }
+main a:focus-visible, main button:focus-visible, .credits a:focus-visible { outline: 2px solid var(--merlot-br); outline-offset: 4px; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+/* page intro: the page's own subject, left-aligned, no label above it */
+.intro { position: relative; overflow: hidden; isolation: isolate; background: var(--black); padding: clamp(120px, 15vw, 200px) 0 clamp(64px, 8vw, 110px); }
+.intro__bg { position: absolute; inset: 0; z-index: 0; background-size: cover; background-position: center; filter: grayscale(1) contrast(1.06) brightness(0.32); }
+.intro__scrim { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(4,6,12,0.55) 0%, rgba(4,6,12,0.35) 45%, var(--black) 100%); }
+.intro > .wrap { position: relative; z-index: 2; }
+.intro__h { font-family: var(--f-anton); text-transform: uppercase; font-weight: 400; font-size: clamp(46px, 7.4vw, 118px); line-height: 0.95; letter-spacing: -0.015em; color: var(--cream); max-width: 16ch; text-wrap: balance; margin: 0; }
+.intro__p { margin-top: clamp(20px, 2.4vw, 30px); font-family: var(--f-body); font-size: clamp(17px, 1.5vw, 20px); line-height: 1.6; color: rgba(239,234,222,0.9); max-width: 56ch; }
+
+/* closing: the phone number is the action */
+.rclose__phone { font-family: var(--f-body); font-weight: 600; letter-spacing: 0; font-variant-numeric: lining-nums tabular-nums; text-decoration: none; }
+.rclose__note { margin-top: 14px; font-family: var(--f-body); font-size: 16px; line-height: 1.5; color: var(--bone); }
+.rclose__addr { margin-top: 24px; font-size: 15px; color: rgba(200,193,176,0.75); }
+.rclose__addr a { color: inherit; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(200,193,176,0.35); }
+
+/* motion: still images, static grain, no fade-in on every block */
+.kb { animation: none; inset: 0; }
+.grain-anim { animation: none; }
+.js .fade-on-scroll { opacity: 1; transform: none; }
