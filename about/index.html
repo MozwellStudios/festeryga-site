@@ -13,14 +13,30 @@
 <link rel="stylesheet" href="../shared/styles.css">
 <link rel="stylesheet" href="../shared/nav.css">
 <style>
-  /* split hero: Edward at work on the right, the premise on the left */
-  .ahx { background: var(--black); padding: clamp(56px, 8vw, 110px) 0 clamp(72px, 9vw, 120px); }
-  .ahx__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 80px); align-items: center; }
-  .ahx__h { margin: 0; font-family: var(--f-anton); text-transform: uppercase; font-weight: 400; font-size: clamp(46px, 6.6vw, 104px); line-height: 0.95; letter-spacing: -0.015em; color: var(--cream); text-wrap: balance; }
-  .ahx__p { margin: clamp(22px, 2.4vw, 30px) 0 0; font-size: clamp(17px, 1.5vw, 20px); line-height: 1.6; color: rgba(239,234,222,0.9); max-width: 48ch; }
-  .ahx__fig { position: relative; margin: 0; aspect-ratio: 4 / 3; overflow: hidden; background: var(--charcoal); }
-  .ahx__fig img { width: 100%; height: 100%; object-fit: cover; object-position: 30% center; filter: grayscale(1) contrast(1.06) brightness(0.78); }
-  .ahx__fig::after { content: ''; position: absolute; inset: 0; background: linear-gradient(160deg, rgba(92,17,40,0.32), transparent 55%); mix-blend-mode: soft-light; pointer-events: none; }
+  /* cinematic hero: Edward at work fills the frame (left), the premise sits over the darkened window side (right) */
+  .ahx { position: relative; overflow: hidden; isolation: isolate; background: var(--black); min-height: clamp(560px, calc(100svh - 108px), 940px); display: flex; align-items: stretch; }
+  .ahx__media { position: absolute; top: 0; left: 0; right: 0; bottom: -18%; z-index: 0; will-change: transform; }
+  .ahx__img { width: 100%; height: 100%; object-fit: cover; object-position: 30% 12%; filter: grayscale(1) contrast(1.08) brightness(0.66); transform: scale(1.06); transition: transform 2.4s var(--ease); }
+  .ahx.is-in .ahx__img { transform: scale(1); }
+  .ahx__tint { position: absolute; inset: 0; z-index: 1; background: linear-gradient(160deg, rgba(92,17,40,0.42), transparent 55%); mix-blend-mode: soft-light; pointer-events: none; }
+  .ahx__scrim { position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background: linear-gradient(270deg, rgba(4,6,12,0.94) 0%, rgba(4,6,12,0.8) 34%, rgba(4,6,12,0.2) 62%, rgba(4,6,12,0.05) 100%),
+                linear-gradient(0deg, var(--black) 0%, rgba(4,6,12,0) 28%); }
+  .ahx .grain { z-index: 2; }
+  .ahx__in { position: relative; z-index: 3; width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 80px); align-items: center; padding-top: clamp(56px, 8vw, 110px); padding-bottom: clamp(56px, 8vw, 110px); }
+  .ahx__cap { align-self: end; display: flex; flex-direction: column; gap: 10px; font-size: 15px; color: var(--bone); }
+  .ahx__cap::before { content: ''; width: 46px; height: 2px; background: var(--merlot-br); }
+  .ahx__cap b { font-weight: 600; color: var(--cream); }
+  .ahx__h { margin: 0; font-family: var(--f-anton); text-transform: uppercase; font-weight: 400; font-size: clamp(50px, 7.2vw, 116px); line-height: 0.94; letter-spacing: -0.015em; color: var(--cream); text-wrap: balance; text-shadow: 0 4px 40px rgba(4,6,12,0.5); }
+  .ahx__p { margin: clamp(22px, 2.4vw, 30px) 0 0; font-size: clamp(17px, 1.5vw, 20px); line-height: 1.6; color: rgba(239,234,222,0.92); max-width: 46ch; }
+  @media (max-width: 860px) {
+    .ahx { min-height: max(640px, calc(100svh - 64px)); }
+    .ahx__img { object-position: 24% 30%; }
+    .ahx__scrim { background: linear-gradient(0deg, var(--black) 0%, rgba(4,6,12,0.9) 34%, rgba(4,6,12,0.35) 62%, rgba(4,6,12,0.1) 100%); }
+    .ahx__in { grid-template-columns: 1fr; align-content: end; gap: 22px; padding-bottom: 48px; }
+    .ahx__cap { order: -1; align-self: start; }
+  }
+  @media (prefers-reduced-motion: reduce) { .ahx__img { transform: none; transition: none; } .ahx__media { transform: none !important; } }
 
   /* the firm: four entries sharing hairline seams */
   .firm { background: var(--near-black); border-top: 1px solid var(--iron); padding: clamp(84px, 10vw, 140px) 0; }
@@ -49,7 +65,6 @@
   .std .cta { margin-top: 30px; }
 
   @media (max-width: 1023px) { .firm__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (max-width: 860px) { .ahx__grid { grid-template-columns: 1fr; } }
   @media (max-width: 560px) { .firm__grid { grid-template-columns: 1fr; } .fcard__media { aspect-ratio: 4 / 3; } }
   @media (prefers-reduced-motion: reduce) { .fcard__media img { transition: none; } }
 </style>
@@ -85,15 +100,19 @@
 
 <!-- HERO -->
 <!-- PENDING EDWARD VERIFICATION: hero prose; group photo pending the Oct 27 shoot (Edward solo for now) -->
-<section class="ahx">
-  <div class="wrap ahx__grid">
+<section class="ahx" aria-labelledby="ahxH">
+  <div class="ahx__media" aria-hidden="true">
+    <img class="ahx__img" src="../images/IMG_2975-2048x1365.jpg.jpeg" alt="" width="2048" height="1365" fetchpriority="high">
+  </div>
+  <div class="ahx__tint" aria-hidden="true"></div>
+  <div class="ahx__scrim" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="wrap ahx__in">
+    <p class="ahx__cap"><span><b>Edward Festeryga</b>, founding attorney, in his Houston office</span></p>
     <div>
-      <h1 class="ahx__h">The people behind the practice.</h1>
+      <h1 class="ahx__h" id="ahxH">The people behind the practice.</h1>
       <p class="ahx__p">I founded this firm in 2018 with one commitment: to work every case I accept as if my own family's future depended on it. Today I lead a small, deliberate team that holds to the same bar.</p>
     </div>
-    <figure class="ahx__fig">
-      <img src="../images/IMG_2975-2048x1365.jpg.jpeg" alt="Edward Festeryga reading a case file in his Houston office" width="2048" height="1365">
-    </figure>
   </div>
 </section>
 
@@ -207,6 +226,25 @@
     </div>
   </div>
 </footer>
+<script>
+/* Hero: one settle on load, then gentle parallax while the hero is on screen. Off under reduced motion. */
+(function () {
+  var hero = document.querySelector('.ahx');
+  if (!hero) return;
+  var media = hero.querySelector('.ahx__media');
+  requestAnimationFrame(function () { hero.classList.add('is-in'); });
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var ticking = false;
+  function update() {
+    ticking = false;
+    var r = hero.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > window.innerHeight) return;
+    media.style.transform = 'translate3d(0,' + (-r.top * 0.18).toFixed(1) + 'px,0)';
+  }
+  window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+  update();
+})();
+</script>
 <script src="../shared/nav.js"></script>
 </body>
 </html>
