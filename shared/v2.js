@@ -124,3 +124,19 @@
     });
   });
 })();
+
+/* Load more: reveal the next batch of hidden tiles and move focus to the first new one. */
+(function () {
+  document.querySelectorAll('[data-more]').forEach(function (btn) {
+    var list = document.getElementById(btn.getAttribute('aria-controls'));
+    if (!list) return;
+    var step = parseInt(btn.getAttribute('data-more'), 10) || 3;
+    btn.addEventListener('click', function () {
+      var hidden = list.querySelectorAll('li[hidden]');
+      for (var i = 0; i < Math.min(step, hidden.length); i++) hidden[i].hidden = false;
+      var first = hidden[0] && hidden[0].querySelector('a, button, h3');
+      if (first) { if (!first.matches('a, button')) first.setAttribute('tabindex', '-1'); first.focus(); }
+      if (!list.querySelector('li[hidden]')) btn.parentNode.hidden = true;
+    });
+  });
+})();
