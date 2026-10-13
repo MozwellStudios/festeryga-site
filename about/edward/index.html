@@ -27,6 +27,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Libre+Franklin:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../shared/styles.css">
 <link rel="stylesheet" href="../../shared/nav.css">
+<link rel="stylesheet" href="../../shared/v2.css">
 <style>
   /* vbg (vimeo backdrop) */
 .vbg { position: absolute; inset: 0; z-index: 0; overflow: hidden; background-size: cover; background-position: center; }
@@ -323,99 +324,117 @@
   </div>
 </section>
 
-<!-- MISSION / VISION / VALUES (adapted from Edward's current site, first person) -->
-<section class="mvv">
-  <div class="grain" aria-hidden="true"></div>
-  <!-- PENDING EDWARD VERIFICATION of mission, vision, and values -->
-  <div class="mvv__row">
-    <div class="mvv__text">
-      <h2 class="mvv__h">Mission</h2>
-      <p class="mvv__tag">Healing Yesterday. Here Today. Bringing Hope To Tomorrow.</p>
-      <p class="mvv__p">I provide justice to the people and communities that need it most. I fight for people facing tragic, unexpected, and often life-altering circumstances caused by someone else's negligence. When accidents happen, I hold corporations accountable and help people overcome what they never deserved.</p>
-    </div>
-    <div class="mvv__media">
-      <div class="mvv__img" style="background-image:url('../../images/edward-portrait.jpg')" aria-hidden="true"></div>
-      <div class="mvv__imggrade" aria-hidden="true"></div>
-    </div>
-  </div>
-  <div class="mvv__row mvv__row--rev">
-    <div class="mvv__media">
-      <div class="mvv__img" style="background-image:url('../../images/accidents-happen.jpg.jpeg')" aria-hidden="true"></div>
-      <div class="mvv__imggrade" aria-hidden="true"></div>
-    </div>
-    <div class="mvv__text">
-      <h2 class="mvv__h">Vision</h2>
-      <p class="mvv__p">Accidents don't just happen, and injured people need a champion. By holding corporations accountable for the harm they cause to people and their families, I work to make my community safer and to get justice for the people who deserve it. That means careful, efficient legal work, and making sure the people responsible answer for what they did.</p>
-    </div>
-  </div>
-  <div class="mvv__values">
-    <h2 class="h-sec">Values</h2>
-    <div class="mvv__grid">
-      <div class="mvv__val">
-        <h3 class="mvv__valh">Justice</h3>
-        <p class="mvv__valp">Accidents don't just happen. Almost always they could have been avoided, but a company cut corners on safety and put profit over people. Holding companies accountable and making communities safer is my guiding principle.</p>
+
+<!-- PROFILE: attorney template (A&I bio + Ario facts). Facts from festeryga.com; XX = unconfirmed. Reuse for Sarah. -->
+<!-- PENDING EDWARD VERIFICATION: undergraduate school, bar and court admissions, memberships, award years -->
+<section class="pf" id="profile" aria-labelledby="pfH">
+  <div class="grain grain--light" aria-hidden="true"></div>
+  <div class="wrap">
+    <aside class="pf__side" aria-label="At a glance">
+      <img class="pf__photo" src="../../images/client-portrait.jpg" alt="Edward Festeryga, founding attorney" width="1600" height="1000" loading="lazy">
+      <p class="pf__name" aria-hidden="true">Edward<br>Festeryga</p>
+      <dl class="pf__table">
+        <div><dt>Role</dt><dd>Founding attorney</dd></div>
+        <div><dt>Office</dt><dd>Houston, Texas</dd></div>
+        <div><dt>Practice</dt><dd>Personal injury trial law</dd></div>
+        <div><dt>Languages</dt><dd>English, Espa&ntilde;ol team</dd></div>
+      </dl>
+    </aside>
+    <div class="pf__main">
+      <ul class="pf__tabs" aria-label="On this page">
+        <li><a href="#bio">Biography</a></li>
+        <li><a href="#recognition">Recognition</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#focus">Practice focus</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <h2 class="pf__h" id="pfH">Edward Festeryga</h2>
+      <p class="pf__role">Founding attorney</p>
+      <p class="pf__lede">A trial lawyer from day one. Since the University of Texas School of Law, I have taken on some of the biggest companies in the world and built a record in plaintiff&rsquo;s personal injury litigation, including a top 50 Texas jury verdict in 2019.</p>
+      <blockquote class="pf__quote">
+        <p>&ldquo;Standing up for injured people is everything to me. That is why I give everything for my clients.&rdquo;</p>
+        <cite>Edward Festeryga, founding attorney</cite>
+      </blockquote>
+
+      <div class="pf__sec" id="bio">
+        <h3 class="pf__sh">Biography</h3>
+        <p class="pf__p">I was raised in a rural farming community, the grandson of European immigrants. At 13 I left home to play hockey at a northeastern boarding school. In college I walked onto the football team, made the Dean&rsquo;s List, earned All-Academic honors, and won a national championship in 2009.</p>
+        <p class="pf__p">I scored in the 98th percentile on the LSAT and attended the University of Texas School of Law on scholarship as a Keeton Scholar. After law school I could not live anywhere but Texas. Houston has been home ever since.</p>
       </div>
-      <div class="mvv__val">
-        <h3 class="mvv__valh">Community</h3>
-        <p class="mvv__valp">Be good to others, and hold bullies accountable. Billion-dollar industries that only care about their bottom line need someone to face them. I fight every day so communities are protected and justice is served.</p>
+
+      <div class="pf__sec" id="recognition">
+        <h3 class="pf__sh">Recognition</h3>
+        <ul class="pf__list">
+          <li><div>Top 40 Under 40<span>The National Trial Lawyers, 20XX</span></div></li>
+          <li><div>Rising Star<span>Texas Super Lawyers, 20XX</span></div></li>
+          <li><div>Top 50 jury verdict in Texas<span>2019</span></div></li>
+        </ul>
       </div>
-      <div class="mvv__val">
-        <h3 class="mvv__valh">Integrity</h3>
-        <p class="mvv__valp">Honesty, candor, and integrity are my foundation. Clear eyes and real experience with industries and corporations make for precise litigation that protects communities and gets my clients justice.</p>
+
+      <div class="pf__sec" id="education">
+        <h3 class="pf__sh">Education</h3>
+        <ul class="pf__list">
+          <li><div>University of Texas School of Law, J.D.<span>Keeton Scholar</span></div></li>
+          <li><div>XX University, bachelor&rsquo;s degree<span>Dean&rsquo;s List, All-Academic honors, national champion football team, 2009</span></div></li>
+        </ul>
       </div>
-      <div class="mvv__val">
-        <h3 class="mvv__valh">Innovation</h3>
-        <p class="mvv__valp">Industries that harm people have resources. Beating them takes a lawyer with resources too: modern litigation technology, and the creativity to use it. That is the core of how I build a case.</p>
+
+      <div class="pf__sec" id="admissions">
+        <h3 class="pf__sh">Admissions and memberships</h3>
+        <ul class="pf__list">
+          <li><div>State Bar of Texas</div></li>
+          <li><div>U.S. District Court, Southern District of Texas<span>XX, to confirm</span></div></li>
+          <li><div>Professional memberships<span>XX, to confirm</span></div></li>
+        </ul>
+      </div>
+
+      <div class="pf__sec" id="focus">
+        <h3 class="pf__sh">Practice focus</h3>
+        <ul class="pf__chips">
+            <li><a href="../../practice-areas/refinery-petrochemical/">Refinery and petrochemical</a></li>
+            <li><a href="../../practice-areas/oil-rig-offshore/">Oil rig and offshore</a></li>
+            <li><a href="../../practice-areas/chemical-plant/">Chemical plant</a></li>
+            <li><a href="../../practice-areas/commercial-truck/">Commercial truck</a></li>
+            <li><a href="../../practice-areas/industrial-injuries/">Industrial injuries</a></li>
+            <li><a href="../../practice-areas/wrongful-death/">Wrongful death</a></li>
+            <li><a href="../../practice-areas/catastrophic-injuries/">Catastrophic injuries</a></li>
+            <li><a href="../../practice-areas/insurance-disputes/">Insurance disputes</a></li>
+        </ul>
+      </div>
+
+      <div class="pf__sec" id="contact">
+        <h3 class="pf__sh">Contact</h3>
+        <dl class="pf__contact">
+          <dt>Phone</dt><dd><a href="tel:+17134144042">(713) 414-4042</a></dd>
+          <dt>Email</dt><dd><a href="mailto:edward@festeryga.com">edward@festeryga.com</a></dd>
+          <dt>Office</dt><dd>2525 North Loop W., Suite 510C, Houston, Texas 77008</dd>
+        </dl>
       </div>
     </div>
   </div>
 </section>
 
-<!-- THE RECORD (.board credentials, no shader) -->
-<section class="board">
+<!-- ON THE RECORD: $2,000,000 total (Edwin 2026-10-13). Rows are SAMPLE cases from /results/ (BLOCKERS #1). -->
+<section class="rec" aria-labelledby="recH">
   <div class="grain" aria-hidden="true"></div>
-  <div class="board__inner">
-    <div class="board__lead">
-      <span class="seal">On the record</span>
-      <div class="board__label">Total recovered</div>
-      <div class="board__total"><span class="count" data-count="2000000">$2,000,000</span></div>
-      <div class="board__caption">In verdicts and settlements</div>
-      <!-- PENDING EDWARD VERIFICATION -->
-      <p class="board__prose">A trial lawyer from day one. Since graduating from the University of Texas School of Law, I have taken on some of the biggest companies in the world and built a record in plaintiff's personal injury litigation.</p>
+  <div class="wrap">
+    <div class="rec__lead">
+      <span class="efm" style="background-image:url('../../images/16.jpg.jpeg')" aria-hidden="true">EF</span>
+      <div class="rec__total">
+        <h2 class="rec__label" id="recH">On the record</h2>
+        <p class="rec__num">$2,000,000</p>
+        <p class="rec__cap">recovered for my clients in verdicts and settlements.</p>
+      </div>
     </div>
-    <div class="ledger">
-      <div class="lrow">
-        <span class="seal">Education</span>
-        <div class="lrow__amt">J.D.</div>
-        <div class="lrow__desc">University of Texas School of Law, Keeton Scholar, 98th percentile LSAT</div>
-      </div>
-      <div class="lrow">
-        <span class="seal">Recognition</span>
-        <div class="lrow__amt">TOP 40</div>
-        <div class="lrow__desc">Top 40 Under 40, National Trial Lawyers. Texas Super Lawyers Rising Star. A Top 50 Texas jury verdict in 2019.</div>
-      </div>
-      <div class="lrow">
-        <span class="seal">Years in practice</span>
-        <div class="lrow__amt">XX</div>
-        <div class="lrow__desc">Building for trial since 2018</div>
-      </div>
-      <div class="lrow">
-        <span class="seal">Bar admissions</span>
-        <div class="lrow__amt">XX</div>
-        <div class="lrow__desc">State Bar of Texas and the federal district courts</div>
-      </div>
-      <div class="lrow">
-        <span class="seal">Cases tried</span>
-        <div class="lrow__amt">XX</div>
-        <div class="lrow__desc">Jury trials, bench trials, and pre-trial litigation</div>
-      </div>
-      <div class="lrow">
-        <span class="seal">Areas of focus</span>
-        <div class="lrow__amt">13</div>
-        <div class="lrow__desc">From refinery explosions to insurance disputes</div>
-      </div>
-      <div class="board__foot">
-        <a href="../../results/" class="cta">See case results</a>
+    <div>
+      <ul class="rec__list">
+      <li class="rec__row"><p class="rec__kind">Jury verdict</p><p class="rec__amt">$485,000</p><p class="rec__what">For a plant worker crushed by a forklift.</p></li>
+      <li class="rec__row"><p class="rec__kind">Settlement</p><p class="rec__amt">$410,000</p><p class="rec__what">For a family rear-ended by an 18-wheeler on I-10.</p></li>
+      <li class="rec__row"><p class="rec__kind">Settlement</p><p class="rec__amt">$275,000</p><p class="rec__what">For a contractor burned in a chemical release.</p></li>
+      </ul>
+      <div class="rec__foot">
+        <a class="cta cta--merlot" href="../../results/">See all case results</a>
+        <p class="rec__disc">Past results do not guarantee a similar outcome.</p>
       </div>
     </div>
   </div>
@@ -486,17 +505,20 @@
 </section>
 
 <!-- CLOSING: the phone number is the action -->
-<section class="closing" id="closing">
-  <div class="closing__bg" aria-hidden="true"></div>
+<section class="cut" aria-labelledby="cutH">
+  <h2 class="cut__h" id="cutH"><span class="cut__a">When it&rsquo;s</span> <span class="cut__word" style="background-image:url('../../images/IMG_2975-2048x1365.jpg.jpeg')">Everything</span></h2>
+</section>
+<section class="xq" id="closing" aria-label="Contact">
+  <div class="xq__field" aria-hidden="true"></div>
   <div class="grain" aria-hidden="true"></div>
-  <div class="closing__rule-top" aria-hidden="true"></div>
-  <div class="closing__inner">
-    <h2 class="closing__title">When it's everything,<br>you get Edward.</h2>
-    <a href="tel:+17134144042" class="closing__phone">(713) 414-4042</a>
-    <p class="closing__note">Free and confidential, in English or Espa&ntilde;ol. Answered 24/7.</p>
-    <div class="closing__addr"><a href="mailto:edward@festeryga.com">edward@festeryga.com</a></div>
+  <div class="wrap xq__in">
+    <p class="xq__t">You get Edward.</p>
+    <div class="xq__act">
+      <a class="xq__phone" href="tel:+17134144042">(713) 414-4042</a>
+      <p class="xq__note">Free and confidential, in English or Espa&ntilde;ol. Answered 24/7.</p>
+      <a class="xq__mail" href="mailto:edward@festeryga.com">edward@festeryga.com</a>
+    </div>
   </div>
-  <div class="closing__rule-bot" aria-hidden="true"></div>
 </section>
 </main>
 
@@ -974,6 +996,7 @@
   })();
 })();
 </script>
+<script src="../../shared/v2.js"></script>
 <script src="../../shared/nav.js"></script>
 </body>
 </html>
