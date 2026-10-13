@@ -3,70 +3,90 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- LAUNCH: delete the next line (preview stays out of search until then) -->
 <meta name="robots" content="noindex, nofollow">
-<meta name="description" content="The people behind Festeryga Law: founding attorney Edward Festeryga, attorney partner Sarah, and the team. Houston trial lawyers.">
-<title>About &middot; Festeryga Law</title>
+<title>About Festeryga Law | Houston Personal Injury Trial Lawyers</title>
+<meta name="description" content="Festeryga Law is a Houston personal injury trial firm founded by Edward Festeryga. Every case is built for trial. When it&rsquo;s everything.">
+<link rel="canonical" href="https://festeryga.com/about/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Festeryga Law">
+<meta property="og:title" content="About Festeryga Law | Houston Personal Injury Trial Lawyers">
+<meta property="og:description" content="Festeryga Law is a Houston personal injury trial firm founded by Edward Festeryga. Every case is built for trial. When it&rsquo;s everything.">
+<meta property="og:url" content="https://festeryga.com/about/">
+<meta property="og:image" content="https://festeryga.com/images/IMG_2975-2048x1365.jpg.jpeg">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "LegalService", "@id": "https://festeryga.com/#firm", "name": "Festeryga Law", "url": "https://festeryga.com/", "telephone": "+1-713-414-4042", "email": "edward@festeryga.com", "image": "https://festeryga.com/images/hero-bg.jpg", "address": {"@type": "PostalAddress", "streetAddress": "2525 North Loop W., Suite 510C", "addressLocality": "Houston", "addressRegion": "TX", "postalCode": "77008", "addressCountry": "US"}, "areaServed": {"@type": "State", "name": "Texas"}, "availableLanguage": ["English", "Spanish"], "founder": {"@type": "Person", "name": "Edward Festeryga", "jobTitle": "Founding attorney"}}, {"@type": "AboutPage", "@id": "https://festeryga.com/about/#page", "url": "https://festeryga.com/about/", "name": "About Festeryga Law", "about": {"@id": "https://festeryga.com/#firm"}, "inLanguage": "en-US"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://festeryga.com/"}, {"@type": "ListItem", "position": 2, "name": "About", "item": "https://festeryga.com/about/"}]}]}</script>
 <script>document.documentElement.classList.add('js');</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Libre+Franklin:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../shared/styles.css">
 <link rel="stylesheet" href="../shared/nav.css">
+<link rel="stylesheet" href="../shared/v2.css">
 <style>
-  /* cinematic hero: Edward at work fills the frame (left), the premise sits over the darkened window side (right) */
-  .ahx { position: relative; overflow: hidden; isolation: isolate; background: var(--black); min-height: clamp(560px, calc(100svh - 108px), 940px); display: flex; align-items: stretch; }
-  .ahx__media { position: absolute; top: 0; left: 0; right: 0; bottom: -18%; z-index: 0; will-change: transform; }
-  .ahx__img { width: 100%; height: 100%; object-fit: cover; object-position: 30% 12%; filter: grayscale(1) contrast(1.08) brightness(0.66); transform: scale(1.06); transition: transform 2.4s var(--ease); }
-  .ahx.is-in .ahx__img { transform: scale(1); }
-  .ahx__tint { position: absolute; inset: 0; z-index: 1; background: linear-gradient(160deg, rgba(92,17,40,0.42), transparent 55%); mix-blend-mode: soft-light; pointer-events: none; }
-  .ahx__scrim { position: absolute; inset: 0; z-index: 1; pointer-events: none;
-    background: linear-gradient(270deg, rgba(4,6,12,0.94) 0%, rgba(4,6,12,0.8) 34%, rgba(4,6,12,0.2) 62%, rgba(4,6,12,0.05) 100%),
-                linear-gradient(0deg, var(--black) 0%, rgba(4,6,12,0) 28%); }
-  .ahx .grain { z-index: 2; }
-  .ahx__in { position: relative; z-index: 3; width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 80px); align-items: center; padding-top: clamp(56px, 8vw, 110px); padding-bottom: clamp(56px, 8vw, 110px); }
-  .ahx__cap { align-self: end; display: flex; flex-direction: column; gap: 10px; font-size: 15px; color: var(--bone); }
-  .ahx__cap::before { content: ''; width: 46px; height: 2px; background: var(--merlot-br); }
-  .ahx__cap b { font-weight: 600; color: var(--cream); }
-  .ahx__h { margin: 0; font-family: var(--f-anton); text-transform: uppercase; font-weight: 400; font-size: clamp(50px, 7.2vw, 116px); line-height: 0.94; letter-spacing: -0.015em; color: var(--cream); text-wrap: balance; text-shadow: 0 4px 40px rgba(4,6,12,0.5); }
-  .ahx__p { margin: clamp(22px, 2.4vw, 30px) 0 0; font-size: clamp(17px, 1.5vw, 20px); line-height: 1.6; color: rgba(239,234,222,0.92); max-width: 46ch; }
-  @media (max-width: 860px) {
-    .ahx { min-height: max(640px, calc(100svh - 64px)); }
-    .ahx__img { object-position: 24% 30%; }
-    .ahx__scrim { background: linear-gradient(0deg, var(--black) 0%, rgba(4,6,12,0.9) 34%, rgba(4,6,12,0.35) 62%, rgba(4,6,12,0.1) 100%); }
-    .ahx__in { grid-template-columns: 1fr; align-content: end; gap: 22px; padding-bottom: 48px; }
-    .ahx__cap { order: -1; align-self: start; }
-  }
-  @media (prefers-reduced-motion: reduce) { .ahx__img { transform: none; transition: none; } .ahx__media { transform: none !important; } }
+/* hero: the photo lives inside the EF letters; the headline overlaps it */
+.ah { position: relative; overflow: hidden; isolation: isolate; background: radial-gradient(60% 80% at 22% 50%, #1C0B14 0%, var(--black) 72%); min-height: clamp(600px, calc(100svh - 108px), 920px); display: flex; align-items: center; }
+.ah .grain { z-index: 0; }
+.ah__in { position: relative; z-index: 1; width: 100%; padding-top: clamp(40px, 6vw, 80px); padding-bottom: clamp(40px, 6vw, 80px); }
+.ah__mark { position: absolute; left: clamp(-20px, -1vw, 0px); top: 50%; transform: translateY(-50%); font-size: clamp(300px, 44vw, 720px); background-position: 40% 20%; }
+.ah__text { position: relative; margin-left: clamp(0px, 25%, 360px); }
+.ah .sh { font-size: clamp(56px, 8.4vw, 136px); text-shadow: 0 4px 40px rgba(4,6,12,0.6); }
+.ah__p { margin: clamp(22px, 2.6vw, 34px) 0 0 clamp(52px, 9vw, 150px); font-size: clamp(17px, 1.5vw, 21px); line-height: 1.6; color: rgba(239,234,222,0.92); max-width: 44ch; }
+.ah__tag { margin: clamp(22px, 2.6vw, 34px) 0 0 clamp(52px, 9vw, 150px); font-family: var(--f-anton); text-transform: uppercase; font-size: clamp(26px, 2.6vw, 40px); line-height: 1; color: var(--cream); }
 
-  /* the firm: four entries sharing hairline seams */
-  .firm { background: var(--near-black); border-top: 1px solid var(--iron); padding: clamp(84px, 10vw, 140px) 0; }
-  .firm .h-sec { margin: 0 0 clamp(32px, 4vw, 52px); }
-  .firm__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--iron); border: 1px solid var(--iron); }
-  .fcard { position: relative; display: flex; flex-direction: column; background: var(--black); color: var(--cream); text-decoration: none; min-height: 100%; }
-  .fcard__media { position: relative; aspect-ratio: 3 / 4; overflow: hidden; background: var(--charcoal); }
-  .fcard__media img { width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: grayscale(1) contrast(1.05) brightness(0.85); transition: transform 0.6s var(--ease); }
-  .fcard__mono { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: var(--f-anton); font-size: clamp(120px, 14vw, 200px); line-height: 1; color: transparent; -webkit-text-stroke: 1.2px rgba(239,234,222,0.28); user-select: none; }
-  .fcard__steps { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; gap: 14px; padding: clamp(20px, 2.4vw, 32px); margin: 0; list-style: none; }
-  .fcard__steps li { display: grid; grid-template-columns: 28px 1fr; gap: 8px; font-size: 15px; line-height: 1.4; color: var(--bone); }
-  .fcard__steps b { font-weight: 600; color: var(--merlot-tx); font-variant-numeric: tabular-nums; }
-  .fcard__body { display: flex; flex-direction: column; gap: 6px; padding: clamp(20px, 2.4vw, 30px); flex: 1; }
-  .fcard__name { font-family: var(--f-anton); text-transform: uppercase; font-weight: 400; font-size: clamp(26px, 2.4vw, 36px); line-height: 1; color: var(--cream); }
-  .fcard__role { font-size: 15px; color: var(--bone); }
-  .fcard__go { margin-top: auto; padding-top: 18px; font-weight: 600; font-size: 15px; color: var(--cream); text-decoration: underline; text-decoration-color: var(--merlot-br); text-underline-offset: 5px; }
-  a.fcard:hover .fcard__media img { transform: scale(1.03); }
-  a.fcard:hover .fcard__go, a.fcard:focus-visible .fcard__go { text-decoration-thickness: 2px; }
-  a.fcard:focus-visible { outline: 2px solid var(--merlot-tx); outline-offset: -2px; }
+/* narrative */
+.mf { position: relative; isolation: isolate; background: var(--near-black); border-top: 1px solid var(--iron); padding: clamp(84px, 10vw, 150px) 0; }
+.mf > .wrap { position: relative; z-index: 2; }
+.mf__grid { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: clamp(32px, 5vw, 88px); margin-top: clamp(-40px, -3vw, -16px); align-items: start; }
+.mf__fig { margin: clamp(40px, 5vw, 70px) 0 0; position: relative; }
+.mf__fig img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 40% 30%; filter: grayscale(1) contrast(1.06) brightness(0.82); }
+.mf__fig figcaption { display: flex; align-items: center; gap: 12px; margin-top: 14px; font-size: 15px; color: var(--bone); }
+.mf__fig figcaption::before { content: ''; width: 36px; height: 2px; background: var(--merlot-br); }
+.mf__body { padding-top: clamp(60px, 9vw, 150px); }
+.mf__h { margin: 0; font-family: var(--f-anton); font-weight: 400; text-transform: uppercase; font-size: clamp(30px, 3.2vw, 50px); line-height: 1.02; color: var(--cream); }
+.mf__p { margin: 20px 0 0; font-size: clamp(17px, 1.35vw, 19px); line-height: 1.65; color: rgba(239,234,222,0.88); max-width: 58ch; }
+.mf__links { margin-top: clamp(32px, 4vw, 48px); }
 
-  /* the standard */
-  .std { background: var(--black); border-top: 1px solid var(--iron); padding: clamp(84px, 10vw, 140px) 0; }
-  .std__in { max-width: 820px; }
-  .std .h-sec { margin: 0; }
-  .std__p { margin: clamp(22px, 2.4vw, 30px) 0 0; font-size: clamp(17px, 1.5vw, 20px); line-height: 1.62; color: rgba(239,234,222,0.92); max-width: 60ch; }
-  .std .cta { margin-top: 30px; }
+/* the firm: four entries sharing hairline seams (kept from the approved hub) */
+.firm { background: var(--black); border-top: 1px solid var(--iron); padding: clamp(84px, 10vw, 140px) 0; }
+.firm .sh { margin: 0 0 clamp(32px, 4vw, 52px); }
+.firm__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--iron); border: 1px solid var(--iron); }
+.fcard { position: relative; display: flex; flex-direction: column; background: var(--black); color: var(--cream); text-decoration: none; min-height: 100%; }
+.fcard__media { position: relative; aspect-ratio: 3 / 4; overflow: hidden; background: var(--charcoal); }
+.fcard__media img { width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: grayscale(1) contrast(1.05) brightness(0.85); transition: transform 0.6s var(--ease); }
+.fcard__mono { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: var(--f-anton); font-size: clamp(120px, 14vw, 200px); line-height: 1; color: transparent; -webkit-text-stroke: 1.2px rgba(239,234,222,0.28); user-select: none; }
+.fcard__steps { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; gap: 14px; padding: clamp(20px, 2.4vw, 32px); margin: 0; list-style: none; }
+.fcard__steps li { display: grid; grid-template-columns: 28px 1fr; gap: 8px; font-size: 15px; line-height: 1.4; color: var(--bone); }
+.fcard__steps b { font-weight: 600; color: var(--merlot-tx); font-variant-numeric: tabular-nums; }
+.fcard__body { display: flex; flex-direction: column; gap: 6px; padding: clamp(20px, 2.4vw, 30px); flex: 1; }
+.fcard__name { font-family: var(--f-anton); text-transform: uppercase; font-weight: 400; font-size: clamp(26px, 2.4vw, 36px); line-height: 1; color: var(--cream); }
+.fcard__role { font-size: 15px; color: var(--bone); }
+.fcard__go { margin-top: auto; padding-top: 18px; font-weight: 600; font-size: 15px; color: var(--cream); text-decoration: underline; text-decoration-color: var(--merlot-br); text-underline-offset: 5px; }
+a.fcard:hover .fcard__media img { transform: scale(1.03); }
+a.fcard:hover .fcard__go, a.fcard:focus-visible .fcard__go { text-decoration-thickness: 2px; }
+a.fcard:focus-visible { outline: 2px solid var(--merlot-tx); outline-offset: -2px; }
 
-  @media (max-width: 1023px) { .firm__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (max-width: 560px) { .firm__grid { grid-template-columns: 1fr; } .fcard__media { aspect-ratio: 4 / 3; } }
-  @media (prefers-reduced-motion: reduce) { .fcard__media img { transition: none; } }
+/* mission, vision, values (cream) */
+.mv { position: relative; isolation: isolate; background: var(--cream); color: var(--ink); padding: clamp(84px, 10vw, 150px) 0; }
+.mv > .wrap { position: relative; z-index: 1; }
+.mv__two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(28px, 5vw, 80px); margin-top: clamp(40px, 5vw, 70px); }
+.mv__h { margin: 0; font-family: var(--f-anton); font-weight: 400; text-transform: uppercase; font-size: clamp(28px, 2.8vw, 42px); line-height: 1; color: var(--ink); }
+.mv__p { margin: 14px 0 0; font-size: clamp(17px, 1.35vw, 19px); line-height: 1.65; color: var(--ink-2); max-width: 56ch; }
+.mv__vals { list-style: none; margin: clamp(48px, 6vw, 80px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(24px, 3vw, 44px); }
+.mv__vals li { border-top: 3px solid var(--merlot); padding-top: 18px; }
+.mv__vh { margin: 0; font-family: var(--f-anton); font-weight: 400; text-transform: uppercase; font-size: clamp(24px, 2.2vw, 32px); line-height: 1; color: var(--ink); }
+.mv__vp { margin: 10px 0 0; font-size: 16px; line-height: 1.6; color: var(--ink-2); }
+
+@media (max-width: 1023px) { .firm__grid, .mv__vals { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 900px) {
+  .ah { min-height: auto; align-items: flex-start; }
+  .ah__mark { position: relative; top: auto; transform: none; left: auto; font-size: clamp(200px, 64vw, 380px); margin: 0 auto -0.12em; text-align: center; }
+  .ah__text { margin-left: 0; }
+  .mf__grid, .mv__two { grid-template-columns: 1fr; }
+  .mf__body { padding-top: 0; }
+}
+@media (max-width: 560px) { .firm__grid, .mv__vals { grid-template-columns: 1fr; } .fcard__media { aspect-ratio: 4 / 3; } }
+@media (prefers-reduced-motion: reduce) { .fcard__media img { transition: none; } }
 </style>
 </head>
 <body>
@@ -114,50 +134,69 @@
 <main id="main" tabindex="-1">
 
 <!-- HERO -->
-<!-- PENDING EDWARD VERIFICATION: hero prose; group photo pending the Oct 27 shoot (Edward solo for now) -->
-<section class="ahx" aria-labelledby="ahxH">
-  <div class="ahx__media" aria-hidden="true">
-    <img class="ahx__img" src="../images/IMG_2975-2048x1365.jpg.jpeg" alt="" width="2048" height="1365" fetchpriority="high">
-  </div>
-  <div class="ahx__tint" aria-hidden="true"></div>
-  <div class="ahx__scrim" aria-hidden="true"></div>
+<section class="ah" aria-labelledby="ahH">
   <div class="grain" aria-hidden="true"></div>
-  <div class="wrap ahx__in">
-    <p class="ahx__cap"><span><b>Edward Festeryga</b>, founding attorney, in his Houston office</span></p>
-    <div>
-      <h1 class="ahx__h" id="ahxH">The people behind the practice.</h1>
-      <p class="ahx__p">I founded this firm in 2018 with one commitment: to work every case I accept as if my own family's future depended on it. Today I lead a small, deliberate team that holds to the same bar.</p>
+  <div class="wrap ah__in">
+    <span class="efm ah__mark" style="background-image:url('../images/client-portrait.jpg')" aria-hidden="true">EF</span>
+    <div class="ah__text">
+      <h1 class="sh" id="ahH"><span class="sh__a">About</span> <span class="sh__b">Festeryga Law</span></h1>
+      <p class="ah__p">I founded this firm in 2018 to work every case I accept as if my own family&rsquo;s future depended on it. These are the people behind the practice.</p>
+      <p class="ah__tag">When it&rsquo;s everything.</p>
     </div>
   </div>
 </section>
 
-<!-- THE FIRM -->
-<!-- PENDING EDWARD VERIFICATION: Sarah's full name + headshot, team roster, EF Force branding (BLOCKERS #2) -->
+<!-- NARRATIVE: Edward's bio from festeryga.com, first person -->
+<!-- PENDING EDWARD VERIFICATION: tightened bio copy -->
+<section class="mf" aria-labelledby="mfH">
+  <div class="grain" aria-hidden="true"></div>
+  <div class="wrap">
+    <h2 class="sh" id="mfH"><span class="sh__a">I never</span> <span class="sh__b">back down.</span></h2>
+    <div class="mf__grid">
+      <figure class="mf__fig">
+        <img src="../images/edward-portrait.jpg" alt="Edward Festeryga on a call in his Houston office" loading="lazy" width="1600" height="1000">
+        <figcaption>Edward Festeryga, founding attorney</figcaption>
+      </figure>
+      <div class="mf__body">
+        <h3 class="mf__h">Trial-tested. Client-focused. Result-proven.</h3>
+        <p class="mf__p">I grew up in a farming community. My parents and grandparents, the children and grandchildren of European immigrants, taught me to be honest, to work hard, and to stand up to bullies. I still practice law that way.</p>
+        <p class="mf__p">I take on the companies that cut corners and the insurers that deny what they owe. Every case I accept is built for trial, so the other side has to deal with me.</p>
+        <div class="mf__links">
+          <h3 class="links__h">More about the firm</h3>
+          <ul class="links">
+          <li><a href="../about/edward/">Meet Edward</a></li>
+          <li><a href="../about/edward/#process">The EF Process</a></li>
+          <li><a href="../results/">Case results</a></li>
+          <li><a href="../client-stories/">Client stories</a></li>
+          <li><a href="../recognition/">Recognition</a></li>
+          <li><a href="../practice-areas/">Practice areas</a></li>
+          <li><a href="../injuries/">Injuries</a></li>
+          <li><a href="../faq/">Common questions</a></li>
+          <li><a href="../coverage/">Where I take cases</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE FIRM (kept) -->
+<!-- PENDING EDWARD VERIFICATION: Sarah's full name + headshot, team roster (BLOCKERS #2) -->
 <section class="firm" aria-labelledby="firmH">
   <div class="wrap">
-    <h2 class="h-sec" id="firmH">Meet the firm.</h2>
+    <h2 class="sh sh--md" id="firmH"><span class="sh__a">Meet</span> <span class="sh__b">the firm.</span></h2>
     <div class="firm__grid">
       <a class="fcard" href="edward/">
         <div class="fcard__media"><img src="../images/EF-On-Table-1.png" alt="" width="1500" height="1600" loading="lazy"></div>
-        <div class="fcard__body">
-          <span class="fcard__name">Edward Festeryga</span>
-          <span class="fcard__role">Founding attorney</span>
-          <span class="fcard__go">Meet Edward</span>
-        </div>
+        <div class="fcard__body"><span class="fcard__name">Edward Festeryga</span><span class="fcard__role">Founding attorney</span><span class="fcard__go">Meet Edward</span></div>
       </a>
       <div class="fcard">
         <div class="fcard__media" aria-hidden="true"><span class="fcard__mono">S</span></div>
-        <div class="fcard__body">
-          <span class="fcard__name">Sarah</span>
-          <span class="fcard__role">Attorney partner</span>
-        </div>
+        <div class="fcard__body"><span class="fcard__name">Sarah</span><span class="fcard__role">Attorney partner</span></div>
       </div>
       <div class="fcard">
         <div class="fcard__media" aria-hidden="true"><span class="fcard__mono">EF</span></div>
-        <div class="fcard__body">
-          <span class="fcard__name">The team</span>
-          <span class="fcard__role">Paralegals and support</span>
-        </div>
+        <div class="fcard__body"><span class="fcard__name">The team</span><span class="fcard__role">Paralegals and support</span></div>
       </div>
       <a class="fcard" href="edward/#process">
         <div class="fcard__media">
@@ -167,41 +206,132 @@
             <li><b>03</b>The lawyer the jury sees is me.</li>
           </ol>
         </div>
-        <div class="fcard__body">
-          <span class="fcard__name">The EF Process</span>
-          <span class="fcard__role">How a case is built</span>
-          <span class="fcard__go">See the method</span>
-        </div>
+        <div class="fcard__body"><span class="fcard__name">The EF Process</span><span class="fcard__role">How a case is built</span><span class="fcard__go">See the method</span></div>
       </a>
     </div>
   </div>
 </section>
 
-<!-- THE STANDARD -->
-<!-- PENDING EDWARD VERIFICATION of the standard statement -->
-<section class="std">
-  <div class="wrap std__in">
-    <h2 class="h-sec">One bar.<br>Every case.<br>No exceptions.</h2>
-    <p class="std__p">Everyone here holds to the promise I make. Every case I accept is prepared as if it is going to trial, even when it settles. Every client gets a direct line, not a case manager. Every file is worked by the people on this page.</p>
-    <a class="cta" href="edward/">Meet Edward</a>
+<!-- WHO I AM: three pairs from Edward's bio -->
+<section class="pairs" aria-label="How I practice">
+  <div class="grain" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="pair">
+      <div class="pair__img"><img src="../images/interstitial-bg.jpg" alt="" loading="lazy" width="1600" height="1280"></div>
+      <div class="pair__body">
+        <h2 class="sh sh--md"><span class="sh__a">I live for</span> <span class="sh__b">the fight.</span></h2>
+        <p class="pair__p">Hockey away from home at 13. A walk-on spot on a national championship football team. Law school on scholarship. The harder the fight, the more I want it.</p>
+      </div>
+    </div>
+    <div class="pair pair--rev">
+      <div class="pair__img"><img src="../images/EF-On-Table-1.png" alt="" loading="lazy" width="1600" height="1280"></div>
+      <div class="pair__body">
+        <h2 class="sh sh--md"><span class="sh__a">I&rsquo;m all</span> <span class="sh__b">in.</span></h2>
+        <p class="pair__p">When I take your case, you get my cell number and my full attention. I return your call myself, and I am the lawyer the jury sees.</p>
+      </div>
+    </div>
+    <div class="pair">
+      <div class="pair__img"><img src="../images/accidents-happen.jpg.jpeg" alt="" loading="lazy" width="1600" height="1280"></div>
+      <div class="pair__body">
+        <h2 class="sh sh--md"><span class="sh__a">To me, it&rsquo;s</span> <span class="sh__b">personal.</span></h2>
+        <p class="pair__p">The people I represent are not file numbers. They are families who lost a paycheck, a body that worked, or someone they love. I fight for them like they are mine.</p>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- CLOSING: the phone number is the action -->
-<section class="rclose" id="closing">
-  <div class="kb" style="background-image:url('../images/final-bg.jpg')" aria-hidden="true"></div>
-  <div class="rclose__scrim" aria-hidden="true"></div>
+<!-- MISSION / VISION / VALUES: Edward's own, from festeryga.com (moved here from Meet Edward) -->
+<!-- PENDING EDWARD VERIFICATION of tightened mission, vision, and values -->
+<section class="mv on-cream" aria-labelledby="mvH">
+  <div class="grain grain--light" aria-hidden="true"></div>
+  <div class="wrap">
+    <h2 class="sh sh--sm" id="mvH"><span class="sh__a">Healing yesterday. Here today.</span> <span class="sh__b">Bringing hope to tomorrow.</span></h2>
+    <div class="mv__two">
+      <div><h3 class="mv__h">Mission</h3><p class="mv__p">I bring justice to the people and communities that need it most: people facing tragic, life-altering harm caused by someone else&rsquo;s negligence. I hold the corporations responsible to account.</p></div>
+      <div><h3 class="mv__h">Vision</h3><p class="mv__p">Injured people need a champion. Every company I hold accountable makes Houston a little safer, and every client I represent gets the justice they deserve.</p></div>
+    </div>
+    <h3 class="mv__h" style="margin-top:clamp(56px,7vw,96px)">Values</h3>
+    <ul class="mv__vals" style="margin-top:22px">
+      <li><h4 class="mv__vh">Justice</h4><p class="mv__vp">Accidents almost never just happen. A company cut a corner and put profit over people. Holding it accountable makes the community safer.</p></li>
+      <li><h4 class="mv__vh">Community</h4><p class="mv__vp">Be good to others and hold bullies accountable. Billion-dollar industries need someone willing to face them.</p></li>
+      <li><h4 class="mv__vh">Integrity</h4><p class="mv__vp">Honesty and candor with my clients, the court, and the other side. Precise work starts with telling the truth.</p></li>
+      <li><h4 class="mv__vh">Innovation</h4><p class="mv__vp">Industries that hurt people have resources. I match them with modern litigation tools and the creativity to use them.</p></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ON THE RECORD: $2,000,000 total (Edwin 2026-10-13). Rows are SAMPLE cases from /results/ (BLOCKERS #1). -->
+<section class="rec" aria-labelledby="recH">
   <div class="grain" aria-hidden="true"></div>
-  <div class="rclose__in">
-    <h2 class="rclose__t">When it's everything,<br>you get Edward.</h2>
-    <div class="rclose__bar" aria-hidden="true"></div>
-    <a href="tel:+17134144042" class="rclose__phone">(713) 414-4042</a>
-    <p class="rclose__note">Free and confidential, in English or Espa&ntilde;ol. Answered 24/7.</p>
-    <div class="rclose__addr"><a href="mailto:edward@festeryga.com">edward@festeryga.com</a></div>
+  <div class="wrap">
+    <div class="rec__lead">
+      <span class="efm" style="background-image:url('../images/16.jpg.jpeg')" aria-hidden="true">EF</span>
+      <div class="rec__total">
+        <h2 class="rec__label" id="recH">On the record</h2>
+        <p class="rec__num">$2,000,000</p>
+        <p class="rec__cap">recovered for my clients in verdicts and settlements.</p>
+      </div>
+    </div>
+    <div>
+      <ul class="rec__list">
+      <li class="rec__row"><p class="rec__kind">Jury verdict</p><p class="rec__amt">$485,000</p><p class="rec__what">For a plant worker crushed by a forklift.</p></li>
+      <li class="rec__row"><p class="rec__kind">Settlement</p><p class="rec__amt">$410,000</p><p class="rec__what">For a family rear-ended by an 18-wheeler on I-10.</p></li>
+      <li class="rec__row"><p class="rec__kind">Settlement</p><p class="rec__amt">$275,000</p><p class="rec__what">For a contractor burned in a chemical release.</p></li>
+      </ul>
+      <div class="rec__foot">
+        <a class="cta cta--merlot" href="../results/">See all case results</a>
+        <p class="rec__disc">Past results do not guarantee a similar outcome.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENT STORY: real testimony (Julianna Luna video; Phil Witman quote from Edward's current site) -->
+<section class="story" aria-labelledby="storyH">
+  <div class="story__scroll">
+    <div class="story__stage">
+      <div class="story__media">
+        <img class="story__img" src="https://i.vimeocdn.com/video/2192326704-0e04d1336e1b65ee14afc165b3ffe2957a4ed273c3a0602b07a42f271e129300-d_1280?region=us" alt="" loading="lazy" width="1280" height="720">
+        <div class="story__grade" aria-hidden="true"></div>
+      </div>
+      <h2 class="story__title" id="storyH"><span class="story__word">Hear it from</span> <span class="story__word">my clients</span></h2>
+      <button class="story__play" type="button" data-vimeo="1219991274" data-title="Julianna Luna, client testimony"><svg viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="16" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M14 11l9 6-9 6z" fill="currentColor"/></svg> Watch Julianna&rsquo;s story</button>
+    </div>
+  </div>
+  <div class="story__after">
+    <div class="wrap story__grid">
+      <figure style="margin:0">
+        <blockquote class="story__q" style="margin:0">&ldquo;Edward helped me get my life back. He got me the money to get the care I needed.&rdquo;</blockquote>
+        <figcaption class="story__who">Phil Witman<span>Client</span></figcaption>
+      </figure>
+      <div>
+        <!-- PENDING EDWARD VERIFICATION: "100 times the pre-trial offer" (COPY-OUTLINE Section A) -->
+        <p class="story__bio">Phil came to me with a pre-trial offer that did not come close to what his case was worth. I kept building the case. He recovered 100 times that offer.</p>
+        <div class="story__act">
+          <button class="cta" type="button" data-vimeo="1219991563" data-title="Phil Witman, client testimony">Watch Phil&rsquo;s story</button>
+          <a class="story__link" href="../client-stories/">All client stories</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cut" aria-labelledby="cutH">
+  <h2 class="cut__h" id="cutH"><span class="cut__a">When it&rsquo;s</span> <span class="cut__word" style="background-image:url('../images/IMG_2975-2048x1365.jpg.jpeg')">Everything</span></h2>
+</section>
+<section class="xq" id="closing" aria-label="Contact">
+  <div class="xq__field" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="wrap xq__in">
+    <p class="xq__t">You get Edward.</p>
+    <div class="xq__act">
+      <a class="xq__phone" href="tel:+17134144042">(713) 414-4042</a>
+      <p class="xq__note">Free and confidential, in English or Espa&ntilde;ol. Answered 24/7.</p>
+      <a class="xq__mail" href="mailto:edward@festeryga.com">edward@festeryga.com</a>
+    </div>
   </div>
 </section>
 </main>
-
 <footer class="credits">
   <div class="wrap">
     <div class="credits__logo">FESTERYGA LAW</div>
@@ -241,25 +371,7 @@
     </div>
   </div>
 </footer>
-<script>
-/* Hero: one settle on load, then gentle parallax while the hero is on screen. Off under reduced motion. */
-(function () {
-  var hero = document.querySelector('.ahx');
-  if (!hero) return;
-  var media = hero.querySelector('.ahx__media');
-  requestAnimationFrame(function () { hero.classList.add('is-in'); });
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var ticking = false;
-  function update() {
-    ticking = false;
-    var r = hero.getBoundingClientRect();
-    if (r.bottom < 0 || r.top > window.innerHeight) return;
-    media.style.transform = 'translate3d(0,' + (-r.top * 0.18).toFixed(1) + 'px,0)';
-  }
-  window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
-  update();
-})();
-</script>
+<script src="../shared/v2.js"></script>
 <script src="../shared/nav.js"></script>
 </body>
 </html>
