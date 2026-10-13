@@ -58,8 +58,9 @@
   var brand = header.querySelector('.nav__brand');
   var html = '<div class="navsheet__top"><a class="navsheet__brand" href="' + (brand && brand.getAttribute('href') ? brand.getAttribute('href') : '#top') + '">FESTERYGA LAW</a>' +
              '<button type="button" class="navsheet__close">Close</button></div><nav class="navsheet__nav" aria-label="Site"><ul class="navsheet__list">';
-  var subMenu = document.getElementById('navmenu-about');
   Array.prototype.forEach.call(bar.children, function (item) {
+    var more = item.querySelector && item.querySelector('.nav__more');
+    var subMenu = more ? document.getElementById(more.getAttribute('aria-controls')) : null;
     var link = item.matches('a') ? item : item.querySelector('a');
     if (!link) return;
     var cur = link.getAttribute('aria-current') ? ' aria-current="page"' : '';
@@ -68,7 +69,7 @@
     label = label.charAt(0) + label.slice(1).toLowerCase(); // classic nav is all caps; the sheet reads in sentence case
     if (label === 'Faq') label = 'FAQ';
     html += '<li><a class="navsheet__link' + active + '" href="' + link.getAttribute('href') + '"' + cur + '>' + label + '</a>';
-    if (subMenu && item.classList.contains('nav__group')) {
+    if (subMenu) {
       var subs = Array.prototype.filter.call(subMenu.querySelectorAll('a'), function (a) {
         return a.getAttribute('href') !== link.getAttribute('href');
       });
