@@ -95,3 +95,32 @@
   dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
   dlg.addEventListener('close', function () { frame.src = ''; if (opener) opener.focus(); });
 })();
+
+/* Case selector: hovering or focusing a type swaps the background photo and the detail panel. Clicking navigates. */
+(function () {
+  document.querySelectorAll('.sel').forEach(function (sel) {
+    var items = sel.querySelectorAll('.sel__item'), bgs = sel.querySelectorAll('.sel__bg');
+    var t = sel.querySelector('.sel__t'), d = sel.querySelector('.sel__d'), go = sel.querySelector('.sel__go'), fade = sel.querySelector('.sel__fade');
+    if (!items.length || !t) return;
+    var cur = null, timer = null;
+    function show(it) {
+      if (it === cur) return;
+      cur = it;
+      items.forEach(function (x) { x.classList.toggle('is-on', x === it); });
+      bgs.forEach(function (b) { b.classList.toggle('is-on', b.getAttribute('data-k') === it.getAttribute('data-k')); });
+      clearTimeout(timer);
+      fade.classList.add('is-swap');
+      timer = setTimeout(function () {
+        t.textContent = it.querySelector('.sel__name').textContent;
+        d.textContent = it.querySelector('.sel__desc').textContent;
+        go.href = it.href;
+        go.firstChild.nodeValue = it.getAttribute('data-go') || go.firstChild.nodeValue;
+        fade.classList.remove('is-swap');
+      }, 180);
+    }
+    items.forEach(function (it) {
+      it.addEventListener('mouseenter', function () { show(it); });
+      it.addEventListener('focus', function () { show(it); });
+    });
+  });
+})();
