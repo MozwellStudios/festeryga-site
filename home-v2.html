@@ -685,7 +685,6 @@ a.credits__line:hover { color: var(--cream); }
 .xp__item { position: absolute; left: 0; top: 0; right: 0; opacity: 0; transform: translateY(40%); transition: opacity 0.6s var(--ease-x), transform 0.7s var(--ease-x); text-wrap: balance; }
 .xp__item.is-on { opacity: 1; transform: none; }
 .xp__item.is-past { opacity: 0; transform: translateY(-40%); }
-.xp__item:last-child { color: var(--merlot); }
 .xp--static .xp__scroll { height: auto; }
 .xp--static .xp__stage { position: static; height: auto; padding: clamp(80px, 10vw, 140px) var(--pad); }
 .xp--static .xp__list { min-height: 0; }
@@ -738,6 +737,16 @@ a.credits__line:hover { color: var(--cream); }
 @media (prefers-reduced-motion: reduce) {
   .xp__ph, .xp__item, .xr__row, .xr__name { transition: none; }
 }
+
+/* ---------- a11y fixes (ui-ux-pro-max audit, Oct 12) ---------- */
+.vbg__pause { position: absolute; right: 16px; bottom: 16px; z-index: 6; width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(239,234,222,0.5); background: rgba(4,6,12,0.55); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); color: var(--cream); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: border-color 0.4s var(--ease-x); }
+.vbg__pause::before { content: ''; width: 10px; height: 12px; border-left: 3px solid currentColor; border-right: 3px solid currentColor; }
+.vbg__pause[aria-pressed="true"]::before { width: 0; height: 0; margin-left: 3px; border-left: 11px solid currentColor; border-right: 0; border-top: 7px solid transparent; border-bottom: 7px solid transparent; }
+.vbg__pause:hover { border-color: var(--cream); }
+.xh__stage > .vbg__pause { right: var(--pad); bottom: calc(31vh + 14px); }
+@media (max-width: 760px) { .xh__stage > .vbg__pause { bottom: calc(25vw + 84px); } }
+.atty__statement.has-focus .eyebrow, .atty__statement.has-focus .atty__h, .atty__statement.has-focus .atty__lede, .atty__statement.has-focus .meet__actions { opacity: 1 !important; transform: none !important; filter: none !important; }
+.xc__headcta { margin-top: 24px; }
 </style>
 <link rel="stylesheet" href="shared/nav.css">
 </head>
@@ -898,7 +907,10 @@ a.credits__line:hover { color: var(--cream); }
 <section class="xc" id="practice" aria-labelledby="xcH">
   <div class="wrap xc__head">
     <h2 class="h-mega" id="xcH">AREAS OF<br>PRACTICE.</h2>
-    <p class="xc__note">I take the cases other firms pass on. Refinery blasts, oil rig injuries, truck collisions: the ones where a family's future is on the line.</p>
+    <div>
+      <p class="xc__note">I take the cases other firms pass on. Refinery blasts, oil rig injuries, truck collisions: the ones where a family's future is on the line.</p>
+      <a class="cta xc__headcta" href="practice-areas/">See all 13 practice areas</a>
+    </div>
   </div>
   <div class="xc__scroll">
     <div class="xc__stage">
@@ -1662,10 +1674,12 @@ a.credits__line:hover { color: var(--cream); }
       var fade = (1 - map(p, 0.04, 0.22)).toFixed(3);
       lead.style.opacity = fade; rail.style.opacity = fade; cap.style.opacity = fade;
       play.style.opacity = fade; play.style.pointerEvents = fade > 0.5 ? 'auto' : 'none';
+      play.style.visibility = fade > 0.05 ? 'visible' : 'hidden'; /* faded controls leave the tab order */
       var o = map(p, 0.58, 0.8);
       over.style.opacity = o.toFixed(3);
       over.style.transform = 'translate(-50%, -50%) translateY(' + (28 * (1 - o)).toFixed(1) + 'px)';
       over.classList.toggle('is-on', o > 0.6);
+      over.style.visibility = o > 0.05 ? 'visible' : 'hidden';
       grade.style.opacity = (0.35 + 0.45 * map(p, 0.5, 0.8)).toFixed(3);
     });
   })();
@@ -1676,7 +1690,8 @@ a.credits__line:hover { color: var(--cream); }
     if (!sec) return;
     var scroll = sec.querySelector('.xc__scroll'), prisms = sec.querySelectorAll('.xc__prism'), n = 5;
     function flat() { return reduce || narrow.matches; }
-    function setMode() { sec.classList.toggle('xc--flat', flat()); }
+    var more = sec.querySelector('.xcard__more');
+    function setMode() { sec.classList.toggle('xc--flat', flat()); if (more) more.tabIndex = flat() ? 0 : -1; }
     setMode();
     (narrow.addEventListener ? narrow.addEventListener.bind(narrow, 'change') : narrow.addListener.bind(narrow))(setMode);
     function stepped(t) { var k = Math.floor(t), f = t - k; if (k >= n - 1) return n - 1; return k + eio(map(f, 0.22, 0.78)); }
@@ -1726,6 +1741,44 @@ a.credits__line:hover { color: var(--cream); }
       rows.forEach(function (row) { row.classList.toggle('is-on', row === best); });
     });
   })();
+
+  /* 5. Background videos (ui-ux-pro-max: auto-play needs pause; stop off-screen) */
+  (function () {
+    var vids = document.querySelectorAll('.vbg[data-vim]');
+    if (!vids.length || reduce) return;
+    function post(frame, method) { try { frame.contentWindow.postMessage(JSON.stringify({ method: method }), 'https://player.vimeo.com'); } catch (e) {} }
+    vids.forEach(function (v) {
+      var frame = v.querySelector('iframe');
+      if (!frame) return;
+      var host = v.closest('.xh__stage') || v.parentElement;
+      var btn = document.createElement('button');
+      btn.type = 'button'; btn.className = 'vbg__pause'; btn.setAttribute('aria-pressed', 'false');
+      btn.setAttribute('aria-label', 'Pause background video');
+      host.appendChild(btn);
+      var userPaused = false, onScreen = true;
+      function sync() { post(frame, userPaused || !onScreen ? 'pause' : 'play'); }
+      btn.addEventListener('click', function () {
+        userPaused = !userPaused;
+        btn.setAttribute('aria-pressed', userPaused ? 'true' : 'false');
+        btn.setAttribute('aria-label', userPaused ? 'Play background video' : 'Pause background video');
+        sync();
+      });
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (es) { es.forEach(function (e) { onScreen = e.isIntersecting; sync(); }); }, { threshold: 0 }).observe(v);
+      }
+      frame.addEventListener('load', sync);
+    });
+  })();
+
+  /* keyboard: a control revealed by scroll shows itself when it receives focus */
+  document.addEventListener('focusin', function (e) {
+    var st = e.target.closest && e.target.closest('.atty__statement');
+    if (st) st.classList.add('has-focus');
+  });
+  document.addEventListener('focusout', function (e) {
+    var st = e.target.closest && e.target.closest('.atty__statement');
+    if (st && !st.contains(e.relatedTarget)) st.classList.remove('has-focus');
+  });
 
   var ticking = false;
   function frame() { ticking = false; renders.forEach(function (fn) { fn(); }); }
