@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <meta name="description" content="Festeryga Law. A Houston trial lawyer. Edward Festeryga personally leads every case.">
-<title>Festeryga Law, Houston Trial Lawyer</title>
+<title>Festeryga Law, Houston Trial Lawyer (v2)</title>
 <script>document.documentElement.classList.add('js');</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -576,6 +576,168 @@ a.credits__line { display: flex; align-items: center; min-height: 44px; padding:
 a.credits__line:hover { color: var(--cream); }
 .legal-row { display: flex; flex-wrap: wrap; gap: 4px 18px; margin-top: 12px; }
 .credits__foot { font-size: 14px; color: var(--bone); }
+
+/* ===== v2 revamp (ario.law-inspired, Festeryga system) ===== */
+:root { --navh: 108px; --ease-x: cubic-bezier(.33, 0, .18, 1); --ink: #04060C; --ink-2: #3B3934; --ink-dim: #7A7468; }
+@media (max-width: 900px) { :root { --navh: 64px; } }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+/* engineered hairline with a centre tick (ario's crosshair rule) */
+.xcross { position: relative; height: 1px; background: currentColor; opacity: 0.55; }
+.xcross::after { content: ''; position: absolute; left: 50%; top: -14px; width: 1px; height: 28px; background: currentColor; }
+
+/* ---------- HERO ---------- */
+.xh { position: relative; background: var(--black); }
+.xh__scroll { position: relative; height: 100vh; min-height: 620px; }
+.xh--live .xh__scroll { height: 250vh; }
+.xh__stage { position: sticky; top: 0; height: 100vh; min-height: 620px; overflow: hidden; }
+.xh__word { position: absolute; left: calc(var(--pad) - 0.03em); bottom: -0.075em; z-index: 1; margin: 0; font-family: var(--f-anton); font-weight: 400; text-transform: uppercase; font-size: clamp(96px, 22.5vw, 360px); line-height: 0.82; letter-spacing: -0.02em; color: var(--cream); white-space: nowrap; will-change: transform; }
+.xh__lead { position: absolute; top: calc(var(--navh) + 6vh); right: var(--pad); z-index: 3; width: min(42vw, 600px); margin: 0; font-family: var(--f-body); font-weight: 700; font-size: clamp(22px, 2.3vw, 36px); line-height: 1.14; letter-spacing: -0.035em; color: var(--cream); }
+.xh__rail { position: absolute; top: calc(var(--navh) + 6vh); left: var(--pad); z-index: 3; display: flex; flex-direction: column; gap: 6px; font-size: 15px; font-weight: 500; color: var(--bone); }
+.xh__slot, .xh__media { position: absolute; right: var(--pad); width: min(38vw, 620px); top: 39vh; bottom: 31vh; }
+.xh__slot { pointer-events: none; }
+.xh__media { z-index: 2; overflow: hidden; border-radius: 18px; background: var(--charcoal); }
+.xh--live .xh__media { inset: 0; width: auto; border-radius: 0; will-change: clip-path; }
+.xh__vbg { filter: grayscale(1) contrast(1.06) brightness(0.85); }
+.xh__vbg iframe { transform: translate(-50%, -50%) scale(1.18); } /* crops the footage's letterbox bars and corner logo */
+.xh__grade { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(4,6,12,0.2), rgba(4,6,12,0.55)); opacity: 0.35; }
+.xh__media .grain { z-index: 2; }
+.xh__cap { position: absolute; z-index: 4; left: calc(100% - var(--pad) - min(38vw, 620px) + 18px); bottom: calc(31vh + 14px); margin: 0; font-size: 14px; color: var(--cream); text-shadow: 0 1px 12px rgba(4,6,12,0.8); }
+.xh__cap b { font-weight: 600; }
+.xh__play { position: absolute; z-index: 4; right: calc(var(--pad) + min(38vw, 620px) / 2 - 36px); top: calc(39vh + (100vh - 39vh - 31vh) / 2 - 36px); width: 72px; height: 72px; border-radius: 50%; border: 1px solid rgba(239,234,222,0.8); background: rgba(4,6,12,0.35); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); cursor: pointer; transition: background 0.4s var(--ease-x), transform 0.4s var(--ease-x); }
+.xh__play::after { content: ''; position: absolute; left: 50%; top: 50%; transform: translate(-36%, -50%); border-left: 15px solid var(--cream); border-top: 10px solid transparent; border-bottom: 10px solid transparent; }
+.xh__play:hover { background: var(--merlot); transform: scale(1.06); }
+.xh__over { position: absolute; left: 50%; top: 52%; z-index: 5; transform: translate(-50%, -50%); width: 100%; padding: 0 var(--pad); text-align: center; opacity: 0; pointer-events: none; }
+.xh__overt { margin: 0; font-family: var(--f-anton); font-weight: 400; text-transform: uppercase; font-size: clamp(56px, 10vw, 168px); line-height: 0.9; letter-spacing: -0.02em; color: var(--cream); text-shadow: 0 6px 50px rgba(4,6,12,0.55); }
+.xh__overcta { margin-top: clamp(24px, 3vw, 40px); }
+.xh__over.is-on { pointer-events: auto; }
+@media (max-width: 760px) {
+  .xh__lead { left: var(--pad); right: var(--pad); width: auto; top: calc(var(--navh) + 4vh); font-size: 24px; }
+  .xh__rail { display: none; }
+  .xh__slot, .xh__media { left: var(--pad); right: var(--pad); width: auto; top: 33vh; bottom: calc(25vw + 70px); }
+  .xh__word { font-size: 25vw; bottom: 2.5vh; }
+  .xh__cap { left: calc(var(--pad) + 14px); bottom: calc(25vw + 84px); }
+  .xh__play { right: auto; left: calc(50% - 30px); width: 60px; height: 60px; top: calc(33vh + (100vh - 33vh - 25vw - 70px) / 2 - 30px); }
+}
+
+/* ---------- BOARD + TICKER: engineered rules, tighter numerals ---------- */
+.board__total { letter-spacing: -0.02em; }
+.board .lrow { position: relative; border-top: 1px solid rgba(239,234,222,0.16); border-bottom: 0; }
+.board .lrow::before { content: ''; position: absolute; left: 66px; top: -12px; width: 1px; height: 24px; background: rgba(239,234,222,0.4); }
+.board .lrow:first-child { border-top-width: 1px; border-image: none; border-top-color: rgba(239,234,222,0.16); }
+
+/* ---------- PRACTICE CUBE ---------- */
+.xc { position: relative; background: var(--black); padding-top: clamp(90px, 11vw, 160px); }
+.xc__head { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: clamp(28px, 5vw, 80px); align-items: end; }
+.xc__note { margin: 0 0 8px; font-size: clamp(17px, 1.4vw, 20px); line-height: 1.55; color: var(--bone); max-width: 42ch; }
+.xc__scroll { position: relative; height: calc(100vh + 4 * 70vh); }
+.xc__stage { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; justify-content: center; padding-top: var(--navh); }
+.xc__scene { --fw: min(30vw, 440px); --fh: min(calc(100vh - var(--navh) - 170px), 540px); --r: calc(var(--fh) / 2); display: flex; perspective: 2600px; perspective-origin: 50% 50%; }
+.xc__prism { position: relative; width: var(--fw); height: var(--fh); transform-style: preserve-3d; transform: translateZ(calc(var(--r) * -1)) rotateX(var(--rot, 0deg)); will-change: transform; }
+.xc__face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; transform: rotateX(calc(var(--i) * -90deg)) translateZ(var(--r)); }
+.xc__face.is-off { visibility: hidden; }
+.xcard { display: flex; flex-direction: column; align-items: center; padding: 26px 28px 22px; background: var(--cream); color: var(--ink); text-align: center; }
+.xcard .xcross { align-self: stretch; color: var(--ink); margin-top: 12px; }
+.xcard__img { display: none; }
+.xcard__num { margin-top: clamp(14px, 3vh, 34px); font-family: var(--f-anton); font-size: clamp(96px, 10vw, 156px); line-height: 0.86; letter-spacing: -0.02em; color: var(--ink); }
+.xcard__name { margin: 14px 0 0; font-family: var(--f-anton); font-weight: 400; text-transform: uppercase; font-size: clamp(22px, 2vw, 32px); line-height: 1; letter-spacing: 0; color: var(--ink); max-width: 14ch; text-wrap: balance; }
+.xcard__desc { margin: 12px 0 0; font-size: 15px; line-height: 1.5; color: var(--ink-2); max-width: 30ch; }
+.xtab { margin-top: auto; align-self: stretch; border-top: 1px solid rgba(4,6,12,0.55); }
+.xtab__row { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid rgba(4,6,12,0.55); font-size: 14px; }
+.xtab__k { padding: 7px 12px 7px 0; text-align: right; color: var(--ink-2); border-right: 1px solid rgba(4,6,12,0.55); }
+.xtab__v { padding: 7px 0 7px 12px; text-align: left; font-weight: 600; color: var(--ink); }
+.xcard--more .xcard__num { margin-top: clamp(30px, 7vh, 70px); }
+.xcard__more { margin-top: auto; display: inline-flex; align-items: center; gap: 10px; min-height: 48px; font-family: var(--f-body); font-weight: 700; font-size: clamp(26px, 2.4vw, 38px); letter-spacing: -0.04em; color: var(--ink); text-decoration: none; }
+.xcard__more span { color: var(--merlot); font-size: 1.1em; transition: transform 0.4s var(--ease-x); }
+.xcard__more:hover span { transform: rotate(90deg); }
+.xcard__more:focus-visible { outline: 2px solid var(--merlot); outline-offset: 4px; }
+.ximg { background-size: cover; background-position: center; filter: grayscale(1) contrast(1.12) brightness(0.78); }
+.ximg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(160deg, rgba(122,27,58,0.35), transparent 60%); mix-blend-mode: soft-light; }
+.ximg--field { filter: none; background: radial-gradient(120% 120% at 15% 10%, #B8355F 0%, #7A1B3A 38%, #5C1128 70%, #04060C 100%); }
+/* flat fallback: phones and reduced motion */
+.xc--flat .xc__scroll { height: auto; }
+.xc--flat .xc__stage { position: static; height: auto; display: block; padding: clamp(40px, 6vw, 72px) var(--pad) clamp(90px, 11vw, 140px); }
+.xc--flat .xc__scene { display: block; perspective: none; max-width: 560px; margin: 0 auto; }
+.xc--flat .xc__prism { width: auto; height: auto; transform: none; display: grid; gap: 14px; }
+.xc--flat .xc__prism--imgs { display: none; }
+.xc--flat .xc__face { position: relative; inset: auto; transform: none; }
+.xc--flat .xcard { min-height: 0; padding-bottom: 20px; }
+.xc--flat .xcard__img { display: block; align-self: stretch; height: 150px; margin: 18px 0 0; background-size: cover; background-position: center; filter: grayscale(1) contrast(1.1) brightness(0.8); }
+.xc--flat .xcard__num { margin-top: 18px; font-size: 88px; }
+.xc--flat .xtab { margin-top: 18px; }
+.xc--flat .xcard__more { margin-top: 14px; }
+@media (max-width: 860px) { .xc__head { grid-template-columns: 1fr; } }
+
+/* ---------- KINETIC PROMISES (light chapter) ---------- */
+.xp { position: relative; background: var(--cream); color: var(--ink); }
+.xp__scroll { position: relative; height: calc(100vh + 4 * 60vh); }
+.xp__stage { position: sticky; top: 0; height: 100vh; overflow: hidden; display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); align-items: center; gap: clamp(24px, 4vw, 64px); padding: var(--navh) var(--pad) 0; }
+.xp__photos { position: relative; height: min(62vh, 560px); }
+.xp__ph { position: absolute; left: 50%; top: 50%; width: min(78%, 380px); aspect-ratio: 4 / 5; object-fit: cover; object-position: center top; filter: grayscale(1) contrast(1.06); box-shadow: 0 40px 80px -30px rgba(4,6,12,0.55); opacity: 0; transform: translate(-50%, -30%) rotate(-14deg) scale(0.9); transition: opacity 0.7s var(--ease-x), transform 0.9s var(--ease-x); }
+.xp__ph--cut { object-fit: contain; background: #D9D3C6; }
+.xp__ph.is-on { opacity: 1; }
+.xp__ph.is-on:nth-child(1) { transform: translate(-50%, -50%) rotate(-6deg); }
+.xp__ph.is-on:nth-child(2) { transform: translate(-46%, -50%) rotate(5deg); }
+.xp__ph.is-on:nth-child(3) { transform: translate(-54%, -50%) rotate(-3deg); }
+.xp__ph.is-past { opacity: 0; transform: translate(-50%, -80%) rotate(10deg) scale(0.92); }
+.xp__lead { margin: 0 0 clamp(14px, 2vw, 26px); font-size: clamp(18px, 1.6vw, 24px); font-weight: 600; color: var(--ink-2); }
+.xp__list { position: relative; list-style: none; margin: 0; padding: 0; min-height: 3.2em; font-family: var(--f-body); font-weight: 700; font-size: clamp(40px, 5.6vw, 92px); line-height: 1.02; letter-spacing: -0.045em; }
+.xp__item { position: absolute; left: 0; top: 0; right: 0; opacity: 0; transform: translateY(40%); transition: opacity 0.6s var(--ease-x), transform 0.7s var(--ease-x); text-wrap: balance; }
+.xp__item.is-on { opacity: 1; transform: none; }
+.xp__item.is-past { opacity: 0; transform: translateY(-40%); }
+.xp__item:last-child { color: var(--merlot); }
+.xp--static .xp__scroll { height: auto; }
+.xp--static .xp__stage { position: static; height: auto; padding: clamp(80px, 10vw, 140px) var(--pad); }
+.xp--static .xp__list { min-height: 0; }
+.xp--static .xp__item { position: static; opacity: 1; transform: none; }
+.xp--static .xp__item + .xp__item { margin-top: 0.3em; }
+.xp--static .xp__ph:first-child { opacity: 1; transform: translate(-50%, -50%) rotate(-4deg); }
+@media (max-width: 760px) {
+  .xp__stage { grid-template-columns: 1fr; grid-template-rows: auto auto; align-content: center; gap: 22px; }
+  .xp__photos { height: 34vh; }
+  .xp__ph { width: min(52%, 220px); }
+  .xp__list { font-size: clamp(34px, 10vw, 46px); min-height: 3.3em; }
+}
+
+/* ---------- AWARDS LEDGER (light chapter continues) ---------- */
+.xr { background: var(--cream); color: var(--ink); padding: clamp(60px, 8vw, 110px) 0 clamp(90px, 11vw, 150px); border-top: 1px solid rgba(4,6,12,0.12); }
+.xr__head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; margin-bottom: clamp(36px, 5vw, 64px); }
+.xr .h-mega { color: var(--ink); }
+.xr__cta { color: var(--ink); border-color: rgba(4,6,12,0.45); }
+.xr__cta:hover { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+.xr__list { list-style: none; margin: 0; padding: 0; border-top: 1px solid rgba(4,6,12,0.2); }
+.xr__row { position: relative; display: grid; grid-template-columns: 140px minmax(0, 1fr) minmax(0, 0.42fr); align-items: baseline; gap: clamp(14px, 3vw, 40px); padding: clamp(18px, 2.4vw, 30px) 0; border-bottom: 1px solid rgba(4,6,12,0.2); color: var(--ink-dim); transition: color 0.5s var(--ease-x); }
+.xr__yr { font-family: var(--f-body); font-weight: 700; font-size: clamp(22px, 2.6vw, 40px); letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+.xr__name { font-family: var(--f-body); font-weight: 700; font-size: clamp(26px, 4.2vw, 64px); line-height: 1.02; letter-spacing: -0.045em; text-wrap: balance; transition: transform 0.5s var(--ease-x); transform-origin: left center; }
+.xr__by { font-size: 15px; font-weight: 500; text-align: right; color: var(--ink-2); }
+.xr__row.is-on { color: var(--ink); }
+.xr__row.is-on .xr__yr { color: var(--merlot); }
+.xr--static .xr__row { color: var(--ink); }
+@media (max-width: 760px) { .xr__row { grid-template-columns: 1fr; gap: 6px; } .xr__by { text-align: left; } }
+
+/* ---------- CLIENT STORIES (cards only; the pinned intro now lives in the hero) ---------- */
+.stories .exp__after { padding-top: clamp(90px, 11vw, 150px); }
+
+/* ---------- CLOSING: merlot gradient field ---------- */
+.xq { position: relative; overflow: hidden; isolation: isolate; min-height: clamp(560px, 90vh, 860px); display: flex; align-items: flex-end; background: var(--merlot-dk); }
+.xq__field { position: absolute; inset: 0; z-index: 0; background:
+  radial-gradient(90% 120% at 8% 0%, #B8355F 0%, rgba(184,53,95,0) 55%),
+  radial-gradient(80% 90% at 100% 100%, #04060C 0%, rgba(4,6,12,0) 60%),
+  linear-gradient(135deg, #9B2A4E 0%, #7A1B3A 40%, #5C1128 75%, #2A0814 100%); }
+.xq .grain { z-index: 1; opacity: 0.1; }
+.xq__in { position: relative; z-index: 2; width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 80px); align-items: end; padding-top: clamp(90px, 12vw, 160px); padding-bottom: clamp(70px, 9vw, 120px); }
+.xq__t { grid-column: 2; margin: 0; font-family: var(--f-anton); font-weight: 400; text-transform: uppercase; font-size: clamp(48px, 7.4vw, 120px); line-height: 0.92; letter-spacing: -0.015em; color: var(--cream); text-wrap: balance; }
+.xq__act { grid-column: 2; }
+.xq__phone { display: inline-flex; align-items: center; min-height: 48px; font-family: var(--f-body); font-weight: 700; font-size: clamp(34px, 4.4vw, 64px); letter-spacing: -0.04em; color: var(--cream); text-decoration: none; border-bottom: 2px solid rgba(239,234,222,0.6); transition: border-color 0.4s var(--ease-x); }
+.xq__phone:hover { border-color: var(--cream); }
+.xq__note { margin: 16px 0 0; font-size: 16px; color: rgba(239,234,222,0.9); }
+.xq__mail { display: inline-flex; align-items: center; min-height: 44px; margin-top: 6px; font-size: 16px; color: var(--cream); text-decoration: underline; text-underline-offset: 4px; }
+.xq a:focus-visible { outline-color: var(--cream); }
+@media (max-width: 860px) { .xq__in { grid-template-columns: 1fr; } .xq__t, .xq__act { grid-column: 1; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .xp__ph, .xp__item, .xr__row, .xr__name { transition: none; }
+}
 </style>
 <link rel="stylesheet" href="shared/nav.css">
 </head>
@@ -608,31 +770,27 @@ a.credits__line:hover { color: var(--cream); }
 </header>
 <main id="main" tabindex="-1">
 
-<section class="cine" id="top">
-  <div class="cine__stage">
-    <div class="cine__grid" aria-hidden="true"></div>
-    <div class="cine__media">
-      <div class="vbg cine__vbg" data-vim="1219991563" aria-hidden="true">
-        <iframe title="Phil Witman testimony" allow="autoplay; fullscreen; picture-in-picture" frameborder="0" tabindex="-1"></iframe>
+<!-- HERO: ario-style giant wordmark + statement + video card that grows to full screen on scroll -->
+<section class="xh" id="top">
+  <div class="xh__scroll">
+    <div class="xh__stage">
+      <h1 class="xh__word">FESTERYGA</h1>
+      <p class="xh__lead">I take the cases other firms pass on, and I prepare every one for trial.</p>
+      <div class="xh__rail"><span>No fee unless I win.</span><span>English and Espa&ntilde;ol. Answered 24/7.</span></div>
+      <div class="xh__slot" aria-hidden="true"></div>
+      <div class="xh__media">
+        <div class="vbg xh__vbg" data-vim="1219991274" style="background-image:url('https://i.vimeocdn.com/video/2192326704-0e04d1336e1b65ee14afc165b3ffe2957a4ed273c3a0602b07a42f271e129300-d_1280?region=us')" aria-hidden="true">
+          <iframe title="Julianna Luna testimony" allow="autoplay; fullscreen; picture-in-picture" frameborder="0" tabindex="-1"></iframe>
+        </div>
+        <div class="xh__grade" aria-hidden="true"></div>
+        <div class="grain" aria-hidden="true"></div>
       </div>
-      <div class="cine__grade" aria-hidden="true"></div>
-      <div class="grain" aria-hidden="true"></div>
-    </div>
-    <h2 class="cine__when" data-cine="when">WHEN IT'S<br>EVERYTHING.</h2>
-    <div class="cine__brand" data-cine="brand">
-      <h1 class="cine__wordmark">FESTERYGA</h1>
-      <p class="cine__tagline">A HOUSTON TRIAL LAWYER</p>
-      <div class="cine__actions">
-        <a href="#closing" class="cta">Schedule a free consultation</a>
-        <a href="tel:+17134144042" class="phone-type">(713) 414-4042</a>
+      <p class="xh__cap" aria-hidden="true"><b>Julianna Luna</b>, client</p>
+      <button class="xh__play" type="button" data-vimeo-open="1219991274" aria-label="Play Julianna Luna's story"></button>
+      <div class="xh__over">
+        <p class="xh__overt">When it's<br>everything.</p>
+        <button class="cta cta--merlot xh__overcta" type="button" data-vimeo-open="1219991274">Watch Julianna's story</button>
       </div>
-    </div>
-    <div class="cine__intro" data-cine="intro">
-      <p class="cine__introline">GET THE JUSTICE<br>YOU DESERVE.</p>
-    </div>
-    <div class="cine__rail cine__rail--bot" data-cine="brand">
-      <span class="rail">No fee unless I win.</span>
-      <span class="rail">English and Español. Answered 24/7.</span>
     </div>
   </div>
 </section>
@@ -735,6 +893,69 @@ a.credits__line:hover { color: var(--cream); }
   </div>
 </section>
 
+
+<!-- PRACTICE: ario-style rotating prism (index card + photo), turned by scroll -->
+<section class="xc" id="practice" aria-labelledby="xcH">
+  <div class="wrap xc__head">
+    <h2 class="h-mega" id="xcH">AREAS OF<br>PRACTICE.</h2>
+    <p class="xc__note">I take the cases other firms pass on. Refinery blasts, oil rig injuries, truck collisions: the ones where a family's future is on the line.</p>
+  </div>
+  <div class="xc__scroll">
+    <div class="xc__stage">
+      <div class="xc__scene">
+        <div class="xc__prism xc__prism--cards">
+      <article class="xc__face xcard" style="--i:0">
+        <div class="xcross" aria-hidden="true"></div>
+        <div class="xcard__img" style="background-image:url('images/hero-bg.jpg')" aria-hidden="true"></div>
+        <span class="xcard__num" aria-hidden="true">01</span>
+        <h3 class="xcard__name">Refinery and petrochemical</h3>
+        <p class="xcard__desc">Blasts, burns, and toxic exposure that trace back to safety shortcuts.</p>
+        <div class="xtab"><div class="xtab__row"><span class="xtab__k">Led by</span><span class="xtab__v">Edward Festeryga</span></div><div class="xtab__row"><span class="xtab__k">Fee</span><span class="xtab__v">None unless I win</span></div></div>
+      </article>
+      <article class="xc__face xcard" style="--i:1">
+        <div class="xcross" aria-hidden="true"></div>
+        <div class="xcard__img" style="background-image:url('images/results-bg.jpg')" aria-hidden="true"></div>
+        <span class="xcard__num" aria-hidden="true">02</span>
+        <h3 class="xcard__name">Oil rig and offshore</h3>
+        <p class="xcard__desc">Platform falls and crew-transfer injuries offshore.</p>
+        <div class="xtab"><div class="xtab__row"><span class="xtab__k">Law</span><span class="xtab__v">Jones Act</span></div><div class="xtab__row"><span class="xtab__k">Led by</span><span class="xtab__v">Edward Festeryga</span></div></div>
+      </article>
+      <article class="xc__face xcard" style="--i:2">
+        <div class="xcross" aria-hidden="true"></div>
+        <div class="xcard__img" style="background-image:url('images/accidents-happen.jpg.jpeg')" aria-hidden="true"></div>
+        <span class="xcard__num" aria-hidden="true">03</span>
+        <h3 class="xcard__name">Commercial truck collisions</h3>
+        <p class="xcard__desc">Logbooks, regulations, and the evidence a carrier would rather lose.</p>
+        <div class="xtab"><div class="xtab__row"><span class="xtab__k">Law</span><span class="xtab__v">FMCSA</span></div><div class="xtab__row"><span class="xtab__k">Led by</span><span class="xtab__v">Edward Festeryga</span></div></div>
+      </article>
+      <article class="xc__face xcard" style="--i:3">
+        <div class="xcross" aria-hidden="true"></div>
+        <div class="xcard__img" style="background-image:url('images/final-bg.jpg')" aria-hidden="true"></div>
+        <span class="xcard__num" aria-hidden="true">04</span>
+        <h3 class="xcard__name">Wrongful death</h3>
+        <p class="xcard__desc">Families who lost someone to another's negligence.</p>
+        <div class="xtab"><div class="xtab__row"><span class="xtab__k">Claim</span><span class="xtab__v">Survival action</span></div><div class="xtab__row"><span class="xtab__k">Led by</span><span class="xtab__v">Edward Festeryga</span></div></div>
+      </article>
+      <article class="xc__face xcard xcard--more" style="--i:4">
+        <div class="xcross" aria-hidden="true"></div>
+        <span class="xcard__num" aria-hidden="true">13</span>
+        <h3 class="xcard__name">Practice areas</h3>
+        <p class="xcard__desc">From aviation to insurance disputes, every case I take.</p>
+        <a class="xcard__more" href="practice-areas/">See them all <span aria-hidden="true">+</span></a>
+      </article>
+        </div>
+        <div class="xc__prism xc__prism--imgs" aria-hidden="true">
+      <div class="xc__face ximg" style="--i:0;background-image:url('images/hero-bg.jpg')" aria-hidden="true"></div>
+      <div class="xc__face ximg" style="--i:1;background-image:url('images/results-bg.jpg')" aria-hidden="true"></div>
+      <div class="xc__face ximg" style="--i:2;background-image:url('images/accidents-happen.jpg.jpeg')" aria-hidden="true"></div>
+      <div class="xc__face ximg" style="--i:3;background-image:url('images/final-bg.jpg')" aria-hidden="true"></div>
+      <div class="xc__face ximg ximg--field" style="--i:4" aria-hidden="true"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="proc" id="process">
   <div class="grain" aria-hidden="true"></div>
   <div class="proc__inner">
@@ -769,48 +990,47 @@ a.credits__line:hover { color: var(--cream); }
   </div>
 </section>
 
-<section class="pmq" id="practice">
-  <div class="wrap pmq__grid">
-    <div class="pmq__left">
-      <h2 class="h-mega">AREAS OF<br>PRACTICE.</h2>
-      <p class="pmq__note lede">I take the cases other firms pass on. Refinery blasts, oil rig injuries, truck collisions: the ones where a family's future is on the line.</p>
-      <a href="practice-areas/" class="cta">See every case I take</a>
-    </div>
-    <div class="pmq__right marq">
-      <button class="marq__pause" type="button" aria-pressed="false" aria-label="Pause the practice areas list"></button>
-      <div class="pmq__viewport" id="pmqViewport">
-        <div class="pmq__track">
-          <div class="pmq-item">Personal Injury</div>
-          <div class="pmq-item">Refinery &amp; Petrochemical</div>
-          <div class="pmq-item">Oil Rig &amp; Offshore</div>
-          <div class="pmq-item">Chemical Plant</div>
-          <div class="pmq-item">Commercial Truck</div>
-          <div class="pmq-item">Vehicle Collisions</div>
-          <div class="pmq-item">Aviation Accidents</div>
-          <div class="pmq-item">Railroad Accidents</div>
-          <div class="pmq-item">Industrial Injuries</div>
-          <div class="pmq-item">Product Liability</div>
-          <div class="pmq-item">Wrongful Death</div>
-          <div class="pmq-item">Insurance Disputes</div>
-          <div class="pmq-item">Catastrophic Injuries</div>
-          <div class="pmq-item" aria-hidden="true">Personal Injury</div>
-          <div class="pmq-item" aria-hidden="true">Refinery &amp; Petrochemical</div>
-          <div class="pmq-item" aria-hidden="true">Oil Rig &amp; Offshore</div>
-          <div class="pmq-item" aria-hidden="true">Chemical Plant</div>
-          <div class="pmq-item" aria-hidden="true">Commercial Truck</div>
-          <div class="pmq-item" aria-hidden="true">Vehicle Collisions</div>
-          <div class="pmq-item" aria-hidden="true">Aviation Accidents</div>
-          <div class="pmq-item" aria-hidden="true">Railroad Accidents</div>
-          <div class="pmq-item" aria-hidden="true">Industrial Injuries</div>
-          <div class="pmq-item" aria-hidden="true">Product Liability</div>
-          <div class="pmq-item" aria-hidden="true">Wrongful Death</div>
-          <div class="pmq-item" aria-hidden="true">Insurance Disputes</div>
-          <div class="pmq-item" aria-hidden="true">Catastrophic Injuries</div>
-        </div>
+
+<!-- PROMISES: ario-style kinetic statement on a light ground (approved copy: Three Promises + EF Process) -->
+<section class="xp" aria-labelledby="xpH">
+  <h2 class="sr-only" id="xpH">What you get when you hire me</h2>
+  <div class="xp__scroll">
+    <div class="xp__stage">
+      <div class="xp__photos" aria-hidden="true">
+        <img class="xp__ph xp__ph--cut" src="images/EF-On-Table-1.png" alt="" loading="lazy">
+        <img class="xp__ph " src="images/IMG_2975-2048x1365.jpg.jpeg" alt="" loading="lazy">
+        <img class="xp__ph " src="images/edward-portrait.jpg" alt="" loading="lazy">
       </div>
-      <div class="pmq__vig pmq__vig--top" aria-hidden="true"></div>
-      <div class="pmq__vig pmq__vig--bot" aria-hidden="true"></div>
+      <div class="xp__text">
+        <p class="xp__lead" aria-hidden="true">When you hire me,</p>
+        <ul class="xp__list">
+          <li class="xp__item">I take the call myself.</li>
+          <li class="xp__item">You get my direct line.</li>
+          <li class="xp__item">I fund the legal fight.</li>
+          <li class="xp__item">You see where the case stands.</li>
+          <li class="xp__item">The lawyer the jury sees is me.</li>
+        </ul>
+      </div>
     </div>
+  </div>
+</section>
+
+<!-- RECOGNITION: ario-style ledger; the row nearest the middle of the screen reads in full -->
+<!-- PENDING EDWARD VERIFICATION: honor years (20XX) and issuing bodies -->
+<section class="xr" id="rec" aria-labelledby="xrH">
+  <div class="wrap">
+    <div class="xr__head">
+      <h2 class="h-mega xr__h" id="xrH">NO MATTER<br>WHO YOU ASK.</h2>
+      <a class="cta xr__cta" href="recognition/">See all recognition</a>
+    </div>
+    <ol class="xr__list">
+      <li class="xr__row"><span class="xr__yr">2019</span><span class="xr__name">Top 50 Texas jury verdict</span><span class="xr__by">Texas</span></li>
+      <li class="xr__row"><span class="xr__yr">20XX</span><span class="xr__name">Top 40 Under 40</span><span class="xr__by">The National Trial Lawyers</span></li>
+      <li class="xr__row"><span class="xr__yr">20XX</span><span class="xr__name">Rising Star</span><span class="xr__by">Super Lawyers, Texas</span></li>
+      <li class="xr__row"><span class="xr__yr">20XX</span><span class="xr__name">Multi-Million Dollar Advocates Forum</span><span class="xr__by">Member</span></li>
+      <li class="xr__row"><span class="xr__yr">20XX</span><span class="xr__name">Federal bar admission</span><span class="xr__by">U.S. District Court</span></li>
+      <li class="xr__row"><span class="xr__yr">20XX</span><span class="xr__name">Keeton Scholar</span><span class="xr__by">University of Texas School of Law</span></li>
+    </ol>
   </div>
 </section>
 
@@ -843,25 +1063,7 @@ a.credits__line:hover { color: var(--cream); }
   </div>
 </section>
 
-<section class="exp" id="client">
-  <div class="exp__scroll">
-    <div class="exp__stage">
-      <div class="exp__bg" aria-hidden="true"></div>
-      <div class="exp__media" id="expMedia">
-        <div class="vbg exp__vbg" data-vim="1219991274" aria-hidden="true">
-          <iframe title="Julianna Luna testimony" allow="autoplay; fullscreen; picture-in-picture" frameborder="0" tabindex="-1"></iframe>
-        </div>
-        <div class="exp__media-grade" aria-hidden="true"></div>
-        <div class="grain" aria-hidden="true"></div>
-        <button class="exp__play" id="expPlay" type="button" data-vimeo="1219991274" aria-label="Play testimonial with sound"></button>
-      </div>
-      <div class="exp__title">
-        <span class="exp__word" data-exp="a">WHEN</span>
-        <span class="exp__word" data-exp="b">ACCIDENTS HAPPEN</span>
-      </div>
-      <div class="exp__resolve" data-exp="resolve">FESTERYGA IS THERE.</div>
-    </div>
-  </div>
+<section class="stories" id="client">
   <div class="exp__after">
     <div class="wrap">
       <div class="exp__after-head">
@@ -895,49 +1097,19 @@ a.credits__line:hover { color: var(--cream); }
   </div>
 </div>
 
-<section class="rec" id="rec">
-  <div class="grain" aria-hidden="true"></div>
-  <div class="wrap">
-    <div class="rec__head">
-      <div>
-        <h2 class="h-mega">NO MATTER<br>WHO YOU ASK.</h2>
-      </div>
-    </div>
-  </div>
-  <div class="recmarq marq" aria-label="Honors and awards">
-    <button class="marq__pause" type="button" aria-pressed="false" aria-label="Pause the honors list"></button>
-    <div class="recmarq__track">
-      <span class="recmarq__item">Top 40 Under 40 Lawyer</span>
-      <span class="recmarq__item">Super Lawyers Rising Star</span>
-      <span class="recmarq__item">Top 50 Texas Jury Verdict 2019</span>
-      <span class="recmarq__item">Multi-Million Dollar Advocates Forum</span>
-      <span class="recmarq__item">Federal Bar Admission</span>
-      <span class="recmarq__item" aria-hidden="true">Top 40 Under 40 Lawyer</span>
-      <span class="recmarq__item" aria-hidden="true">Super Lawyers Rising Star</span>
-      <span class="recmarq__item" aria-hidden="true">Top 50 Texas Jury Verdict 2019</span>
-      <span class="recmarq__item" aria-hidden="true">Multi-Million Dollar Advocates Forum</span>
-      <span class="recmarq__item" aria-hidden="true">Federal Bar Admission</span>
-    </div>
-  </div>
-  <div class="wrap">
-    <div class="rec__foot">
-      <a href="recognition/" class="cta">See all recognition</a>
-    </div>
-  </div>
-</section>
 
-<section class="closing" id="closing">
-  <div class="closing__bg" aria-hidden="true"></div>
+<!-- CLOSING: merlot gradient field (ario's blue CTA field, in our palette); the phone number is the action -->
+<section class="xq" id="closing">
+  <div class="xq__field" aria-hidden="true"></div>
   <div class="grain" aria-hidden="true"></div>
-  <div class="closing__rule-top" aria-hidden="true"></div>
-  <div class="closing__inner">
-    <h2 class="closing__title">WHEN IT'S EVERYTHING,<br>YOU GET EDWARD.</h2>
-    <div class="closing__bar" aria-hidden="true"></div>
-    <a href="tel:+17134144042" class="closing__phone">(713) 414-4042</a>
-    <p class="closing__note">Free and confidential, in English or Espa&ntilde;ol. Answered 24/7.</p>
-    <a class="closing__mail" href="mailto:edward@festeryga.com">edward@festeryga.com</a>
+  <div class="wrap xq__in">
+    <h2 class="xq__t">When it's everything,<br>you get Edward.</h2>
+    <div class="xq__act">
+      <a class="xq__phone" href="tel:+17134144042">(713) 414-4042</a>
+      <p class="xq__note">Free and confidential, in English or Espa&ntilde;ol. Answered 24/7.</p>
+      <a class="xq__mail" href="mailto:edward@festeryga.com">edward@festeryga.com</a>
+    </div>
   </div>
-  <div class="closing__rule-bot" aria-hidden="true"></div>
 </section>
 </main>
 
@@ -1437,6 +1609,129 @@ a.credits__line:hover { color: var(--cream); }
       b.setAttribute('aria-pressed', on ? 'true' : 'false');
     });
   });
+})();
+</script>
+<script>
+/* v2 revamp behaviours. One scroll loop, four scroll-driven moments; every one has a static fallback. */
+(function () {
+  'use strict';
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var narrow = window.matchMedia('(max-width: 760px)');
+  function clamp(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
+  function map(p, a, b) { return clamp((p - a) / (b - a)); }
+  function eio(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+  function progress(el) { var r = el.getBoundingClientRect(), total = el.offsetHeight - window.innerHeight; return total > 0 ? clamp(-r.top / total) : 0; }
+  var renders = [];
+
+  /* lightbox for [data-vimeo-open] (hero card + hero CTA); reuses the page's #vlb */
+  (function () {
+    var vlb = document.getElementById('vlb'), frame = document.getElementById('vlbVideo'), close = document.getElementById('vlbClose');
+    if (!vlb || !frame) return;
+    var opener = null;
+    document.querySelectorAll('[data-vimeo-open]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        opener = b;
+        frame.src = 'https://player.vimeo.com/video/' + b.getAttribute('data-vimeo-open') + '?autoplay=1&title=0&byline=0&portrait=0&dnt=1';
+        vlb.classList.add('is-open'); vlb.setAttribute('aria-hidden', 'false');
+        if (close) close.focus();
+      });
+    });
+    if (close) close.addEventListener('click', function () { if (opener) { opener.focus(); opener = null; } });
+  })();
+
+  /* 1. HERO: video card grows to full screen, then "When it's everything." */
+  (function () {
+    var sec = document.getElementById('top');
+    if (!sec || !sec.classList.contains('xh') || reduce) return;
+    var stage = sec.querySelector('.xh__stage'), media = sec.querySelector('.xh__media'), slot = sec.querySelector('.xh__slot');
+    var word = sec.querySelector('.xh__word'), lead = sec.querySelector('.xh__lead'), rail = sec.querySelector('.xh__rail');
+    var cap = sec.querySelector('.xh__cap'), play = sec.querySelector('.xh__play'), over = sec.querySelector('.xh__over'), grade = sec.querySelector('.xh__grade');
+    var box = { t: 0, r: 0, b: 0, l: 0 };
+    function measure() {
+      var s = stage.getBoundingClientRect(), c = slot.getBoundingClientRect();
+      box = { t: c.top - s.top, r: s.right - c.right, b: s.bottom - c.bottom, l: c.left - s.left };
+    }
+    sec.classList.add('xh--live');
+    measure();
+    window.addEventListener('resize', measure);
+    renders.push(function () {
+      var p = progress(sec.querySelector('.xh__scroll'));
+      var e = eio(map(p, 0.06, 0.6)), k = 1 - e;
+      media.style.clipPath = 'inset(' + (box.t * k).toFixed(1) + 'px ' + (box.r * k).toFixed(1) + 'px ' + (box.b * k).toFixed(1) + 'px ' + (box.l * k).toFixed(1) + 'px round ' + (18 * k).toFixed(1) + 'px)';
+      word.style.transform = 'translateY(' + (e * 6).toFixed(2) + 'vh)';
+      var fade = (1 - map(p, 0.04, 0.22)).toFixed(3);
+      lead.style.opacity = fade; rail.style.opacity = fade; cap.style.opacity = fade;
+      play.style.opacity = fade; play.style.pointerEvents = fade > 0.5 ? 'auto' : 'none';
+      var o = map(p, 0.58, 0.8);
+      over.style.opacity = o.toFixed(3);
+      over.style.transform = 'translate(-50%, -50%) translateY(' + (28 * (1 - o)).toFixed(1) + 'px)';
+      over.classList.toggle('is-on', o > 0.6);
+      grade.style.opacity = (0.35 + 0.45 * map(p, 0.5, 0.8)).toFixed(3);
+    });
+  })();
+
+  /* 2. PRACTICE CUBE: a four-sided cube turned 90deg per practice (dwell on each face); slide 5 reuses face 1's slot */
+  (function () {
+    var sec = document.querySelector('.xc');
+    if (!sec) return;
+    var scroll = sec.querySelector('.xc__scroll'), prisms = sec.querySelectorAll('.xc__prism'), n = 5;
+    function flat() { return reduce || narrow.matches; }
+    function setMode() { sec.classList.toggle('xc--flat', flat()); }
+    setMode();
+    (narrow.addEventListener ? narrow.addEventListener.bind(narrow, 'change') : narrow.addListener.bind(narrow))(setMode);
+    function stepped(t) { var k = Math.floor(t), f = t - k; if (k >= n - 1) return n - 1; return k + eio(map(f, 0.22, 0.78)); }
+    function turn(prism, idx) {
+      prism.style.setProperty('--rot', (idx * 90).toFixed(2) + 'deg');
+      var faces = prism.querySelectorAll('.xc__face');
+      faces[0].classList.toggle('is-off', idx > 2);
+      faces[n - 1].classList.toggle('is-off', idx < 2);
+    }
+    renders.push(function () {
+      if (flat()) return;
+      var t = progress(scroll) * (n - 1);
+      turn(prisms[0], stepped(t));
+      if (prisms[1]) turn(prisms[1], stepped(Math.max(0, t - 0.08)));
+    });
+  })();
+
+  /* 3. PROMISES: one line at a time, a new photo of Edward with each */
+  (function () {
+    var sec = document.querySelector('.xp');
+    if (!sec) return;
+    var items = sec.querySelectorAll('.xp__item'), photos = sec.querySelectorAll('.xp__ph');
+    if (reduce) { sec.classList.add('xp--static'); return; }
+    var last = -1;
+    renders.push(function () {
+      var p = progress(sec.querySelector('.xp__scroll'));
+      var i = Math.min(items.length - 1, Math.floor(p * items.length * 0.999));
+      if (i === last) return;
+      last = i;
+      items.forEach(function (el, j) { el.classList.toggle('is-on', j === i); el.classList.toggle('is-past', j < i); });
+      var ph = i % photos.length;
+      photos.forEach(function (el, j) { el.classList.toggle('is-on', j === ph); el.classList.toggle('is-past', j !== ph && el.classList.contains('is-on')); });
+    });
+  })();
+
+  /* 4. LEDGER: the row nearest the middle of the screen reads in full */
+  (function () {
+    var sec = document.querySelector('.xr');
+    if (!sec) return;
+    var rows = sec.querySelectorAll('.xr__row');
+    if (reduce) { sec.classList.add('xr--static'); return; }
+    renders.push(function () {
+      var r = sec.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > window.innerHeight) return;
+      var mid = window.innerHeight * 0.5, best = null, bestD = Infinity;
+      rows.forEach(function (row) { var b = row.getBoundingClientRect(), d = Math.abs(b.top + b.height / 2 - mid); if (d < bestD) { bestD = d; best = row; } });
+      rows.forEach(function (row) { row.classList.toggle('is-on', row === best); });
+    });
+  })();
+
+  var ticking = false;
+  function frame() { ticking = false; renders.forEach(function (fn) { fn(); }); }
+  window.addEventListener('scroll', function () { if (!ticking) { ticking = true; window.requestAnimationFrame(frame); } }, { passive: true });
+  window.addEventListener('resize', frame);
+  frame();
 })();
 </script>
 <script src="shared/nav.js"></script>
