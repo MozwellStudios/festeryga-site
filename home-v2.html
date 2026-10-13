@@ -747,6 +747,7 @@ a.credits__line:hover { color: var(--cream); }
 @media (max-width: 760px) { .xh__stage > .vbg__pause { bottom: calc(25vw + 84px); } }
 .atty__statement.has-focus .eyebrow, .atty__statement.has-focus .atty__h, .atty__statement.has-focus .atty__lede, .atty__statement.has-focus .meet__actions { opacity: 1 !important; transform: none !important; filter: none !important; }
 .xc__headcta { margin-top: 24px; }
+.cvr__slide.is-active { animation: none; } /* coverage photos hold still (Edwin, Oct 12) */
 </style>
 <link rel="stylesheet" href="shared/nav.css">
 </head>
@@ -843,32 +844,6 @@ a.credits__line:hover { color: var(--cream); }
     </div>
   </div>
 </section>
-<div class="ticker marq" aria-label="Record at a glance">
-  <button class="marq__pause" type="button" aria-pressed="false" aria-label="Pause the record ticker"></button>
-  <div class="ticker__track">
-    <span class="ticker__item"><span class="ticker__amt">$2,000,000</span> <span class="ticker__lbl">Recovered</span></span>
-    <span class="ticker__item"><span class="ticker__amt">Top 40</span> <span class="ticker__lbl">Under 40</span></span>
-    <span class="ticker__item"><span class="ticker__amt">Top 50</span> <span class="ticker__lbl">Texas jury verdict, 2019</span></span>
-    <span class="ticker__item"><span class="ticker__amt">No fee</span> <span class="ticker__lbl">Unless I win</span></span>
-    <span class="ticker__item"><span class="ticker__amt">24/7</span> <span class="ticker__lbl">English and Español</span></span>
-    <span class="ticker__item" aria-hidden="true"><span class="ticker__amt">$2,000,000</span> <span class="ticker__lbl">Recovered</span></span>
-    <span class="ticker__item" aria-hidden="true"><span class="ticker__amt">Top 40</span> <span class="ticker__lbl">Under 40</span></span>
-    <span class="ticker__item" aria-hidden="true"><span class="ticker__amt">Top 50</span> <span class="ticker__lbl">Texas jury verdict, 2019</span></span>
-    <span class="ticker__item" aria-hidden="true"><span class="ticker__amt">No fee</span> <span class="ticker__lbl">Unless I win</span></span>
-    <span class="ticker__item" aria-hidden="true"><span class="ticker__amt">24/7</span> <span class="ticker__lbl">English and Español</span></span>
-    <span class="ticker__item" aria-hidden="true"><span class="ticker__amt">$2,000,000</span> <span class="ticker__lbl">Recovered</span></span>
-    <span class="ticker__item" aria-hidden="true"><span class="ticker__amt">Top 40</span> <span class="ticker__lbl">Under 40</span></span>
-    <span class="ticker__item" aria-hidden="true"><span class="ticker__amt">Top 50</span> <span class="ticker__lbl">Texas jury verdict, 2019</span></span>
-    <span class="ticker__item" aria-hidden="true"><span class="ticker__amt">No fee</span> <span class="ticker__lbl">Unless I win</span></span>
-    <span class="ticker__item" aria-hidden="true"><span class="ticker__amt">24/7</span> <span class="ticker__lbl">English and Español</span></span>
-    <span class="ticker__item" aria-hidden="true"><span class="ticker__amt">$2,000,000</span> <span class="ticker__lbl">Recovered</span></span>
-    <span class="ticker__item" aria-hidden="true"><span class="ticker__amt">Top 40</span> <span class="ticker__lbl">Under 40</span></span>
-    <span class="ticker__item" aria-hidden="true"><span class="ticker__amt">Top 50</span> <span class="ticker__lbl">Texas jury verdict, 2019</span></span>
-    <span class="ticker__item" aria-hidden="true"><span class="ticker__amt">No fee</span> <span class="ticker__lbl">Unless I win</span></span>
-    <span class="ticker__item" aria-hidden="true"><span class="ticker__amt">24/7</span> <span class="ticker__lbl">English and Español</span></span>
-  </div>
-</div>
-
 <section class="atty" id="meet">
   <div class="atty__stage">
     <div class="atty__bg" data-para="100" data-scale="0.1" aria-hidden="true"></div>
@@ -1261,7 +1236,7 @@ a.credits__line:hover { color: var(--cream); }
       gl.uniform3fv(uColors, colors);
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
     }
-    if (reduce) { frame(6000); return; }
+    frame(6000); window.addEventListener('resize', function () { frame(6000); }); return;
     var raf = null, live = false;
     function loop(t) { frame(t); raf = window.requestAnimationFrame(loop); }
     if ('IntersectionObserver' in window) {
