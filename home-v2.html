@@ -748,6 +748,33 @@ a.credits__line:hover { color: var(--cream); }
 .atty__statement.has-focus .eyebrow, .atty__statement.has-focus .atty__h, .atty__statement.has-focus .atty__lede, .atty__statement.has-focus .meet__actions { opacity: 1 !important; transform: none !important; filter: none !important; }
 .xc__headcta { margin-top: 24px; }
 .cvr__slide.is-active { animation: none; } /* coverage photos hold still (Edwin, Oct 12) */
+
+/* ===== cohesion pass (Oct 12): one visual language with V1 ===== */
+/* brand type: Anton uppercase for every display line; Libre Franklin at normal tracking for reading text */
+.xh__lead { font-family: var(--f-anton); font-weight: 400; text-transform: uppercase; font-size: clamp(28px, 2.9vw, 46px); line-height: 1.02; letter-spacing: -0.005em; width: min(40vw, 580px); }
+.xh__media { border-radius: 0; }
+.xh__overcta { margin-top: clamp(24px, 3vw, 40px); }
+.xp__list { font-family: var(--f-anton); font-weight: 400; text-transform: uppercase; font-size: clamp(46px, 6.6vw, 108px); line-height: 0.94; letter-spacing: -0.01em; min-height: 2.9em; }
+.xp__lead { font-weight: 500; letter-spacing: 0; }
+.xr__yr { font-family: var(--f-anton); font-weight: 400; font-size: clamp(26px, 2.8vw, 44px); letter-spacing: 0; }
+.xr__name { font-family: var(--f-anton); font-weight: 400; text-transform: uppercase; font-size: clamp(30px, 4.6vw, 72px); line-height: 0.96; letter-spacing: -0.005em; }
+.xr__row { grid-template-columns: 110px minmax(0, 1fr) minmax(0, 0.36fr); }
+.xr__note { margin: 20px 0 0; font-size: clamp(17px, 1.4vw, 20px); line-height: 1.55; color: var(--ink-2); max-width: 46ch; }
+.xr--practice { border-top: 0; }
+.xr--practice .xr__name { font-size: clamp(28px, 4vw, 62px); }
+.xr--practice .xr__row { padding: clamp(14px, 1.8vw, 22px) 0; }
+.xq__phone { letter-spacing: 0; font-weight: 600; }
+.xq__in { align-items: end; }
+/* grain on the cream chapters too, so they share the film texture of the dark ones */
+.xp, .xr { isolation: isolate; }
+.grain--light { position: absolute; inset: 0; z-index: 0; mix-blend-mode: multiply; opacity: 0.16; pointer-events: none; }
+.xr > .wrap, .xp__scroll { position: relative; z-index: 1; }
+@media (max-width: 760px) {
+  .xh__lead { width: auto; font-size: 30px; }
+  .xp__list { font-size: clamp(38px, 11vw, 52px); min-height: 3.1em; }
+  .xr__row, .xr--practice .xr__row { grid-template-columns: 52px 1fr; gap: 4px 14px; }
+  .xr__yr { font-size: 24px; } .xr__by { grid-column: 2; text-align: left; }
+}
 </style>
 <link rel="stylesheet" href="shared/nav.css">
 </head>
@@ -878,68 +905,32 @@ a.credits__line:hover { color: var(--cream); }
 </section>
 
 
-<!-- PRACTICE: ario-style rotating prism (index card + photo), turned by scroll -->
-<section class="xc" id="practice" aria-labelledby="xcH">
-  <div class="wrap xc__head">
-    <h2 class="h-mega" id="xcH">AREAS OF<br>PRACTICE.</h2>
-    <div>
-      <p class="xc__note">I take the cases other firms pass on. Refinery blasts, oil rig injuries, truck collisions: the ones where a family's future is on the line.</p>
-      <a class="cta xc__headcta" href="practice-areas/">See all 13 practice areas</a>
-    </div>
-  </div>
-  <div class="xc__scroll">
-    <div class="xc__stage">
-      <div class="xc__scene">
-        <div class="xc__prism xc__prism--cards">
-      <article class="xc__face xcard" style="--i:0">
-        <div class="xcross" aria-hidden="true"></div>
-        <div class="xcard__img" style="background-image:url('images/hero-bg.jpg')" aria-hidden="true"></div>
-        <span class="xcard__num" aria-hidden="true">01</span>
-        <h3 class="xcard__name">Refinery and petrochemical</h3>
-        <p class="xcard__desc">Blasts, burns, and toxic exposure that trace back to safety shortcuts.</p>
-        <div class="xtab"><div class="xtab__row"><span class="xtab__k">Led by</span><span class="xtab__v">Edward Festeryga</span></div><div class="xtab__row"><span class="xtab__k">Fee</span><span class="xtab__v">None unless I win</span></div></div>
-      </article>
-      <article class="xc__face xcard" style="--i:1">
-        <div class="xcross" aria-hidden="true"></div>
-        <div class="xcard__img" style="background-image:url('images/results-bg.jpg')" aria-hidden="true"></div>
-        <span class="xcard__num" aria-hidden="true">02</span>
-        <h3 class="xcard__name">Oil rig and offshore</h3>
-        <p class="xcard__desc">Platform falls and crew-transfer injuries offshore.</p>
-        <div class="xtab"><div class="xtab__row"><span class="xtab__k">Law</span><span class="xtab__v">Jones Act</span></div><div class="xtab__row"><span class="xtab__k">Led by</span><span class="xtab__v">Edward Festeryga</span></div></div>
-      </article>
-      <article class="xc__face xcard" style="--i:2">
-        <div class="xcross" aria-hidden="true"></div>
-        <div class="xcard__img" style="background-image:url('images/accidents-happen.jpg.jpeg')" aria-hidden="true"></div>
-        <span class="xcard__num" aria-hidden="true">03</span>
-        <h3 class="xcard__name">Commercial truck collisions</h3>
-        <p class="xcard__desc">Logbooks, regulations, and the evidence a carrier would rather lose.</p>
-        <div class="xtab"><div class="xtab__row"><span class="xtab__k">Law</span><span class="xtab__v">FMCSA</span></div><div class="xtab__row"><span class="xtab__k">Led by</span><span class="xtab__v">Edward Festeryga</span></div></div>
-      </article>
-      <article class="xc__face xcard" style="--i:3">
-        <div class="xcross" aria-hidden="true"></div>
-        <div class="xcard__img" style="background-image:url('images/final-bg.jpg')" aria-hidden="true"></div>
-        <span class="xcard__num" aria-hidden="true">04</span>
-        <h3 class="xcard__name">Wrongful death</h3>
-        <p class="xcard__desc">Families who lost someone to another's negligence.</p>
-        <div class="xtab"><div class="xtab__row"><span class="xtab__k">Claim</span><span class="xtab__v">Survival action</span></div><div class="xtab__row"><span class="xtab__k">Led by</span><span class="xtab__v">Edward Festeryga</span></div></div>
-      </article>
-      <article class="xc__face xcard xcard--more" style="--i:4">
-        <div class="xcross" aria-hidden="true"></div>
-        <span class="xcard__num" aria-hidden="true">13</span>
-        <h3 class="xcard__name">Practice areas</h3>
-        <p class="xcard__desc">From aviation to insurance disputes, every case I take.</p>
-        <a class="xcard__more" href="practice-areas/">See them all <span aria-hidden="true">+</span></a>
-      </article>
-        </div>
-        <div class="xc__prism xc__prism--imgs" aria-hidden="true">
-      <div class="xc__face ximg" style="--i:0;background-image:url('images/hero-bg.jpg')" aria-hidden="true"></div>
-      <div class="xc__face ximg" style="--i:1;background-image:url('images/results-bg.jpg')" aria-hidden="true"></div>
-      <div class="xc__face ximg" style="--i:2;background-image:url('images/accidents-happen.jpg.jpeg')" aria-hidden="true"></div>
-      <div class="xc__face ximg" style="--i:3;background-image:url('images/final-bg.jpg')" aria-hidden="true"></div>
-      <div class="xc__face ximg ximg--field" style="--i:4" aria-hidden="true"></div>
-        </div>
+<!-- PRACTICE: ledger on cream, same pattern as the recognition ledger; the row in the middle of the screen reads in full -->
+<section class="xr xr--practice" id="practice" aria-labelledby="xpaH">
+  <div class="grain grain--light" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="xr__head">
+      <div>
+        <h2 class="h-mega xr__h" id="xpaH">AREAS OF<br>PRACTICE.</h2>
+        <p class="xr__note">I take the cases other firms pass on. Refinery blasts, oil rig injuries, truck collisions: the ones where a family's future is on the line.</p>
       </div>
+      <a class="cta xr__cta" href="practice-areas/">See all practice areas</a>
     </div>
+    <ol class="xr__list">
+      <li class="xr__row"><span class="xr__yr">01</span><span class="xr__name">Personal injury</span><span class="xr__by"></span></li>
+      <li class="xr__row"><span class="xr__yr">02</span><span class="xr__name">Refinery and petrochemical incidents</span><span class="xr__by"></span></li>
+      <li class="xr__row"><span class="xr__yr">03</span><span class="xr__name">Oil rig and offshore accidents</span><span class="xr__by">Jones Act</span></li>
+      <li class="xr__row"><span class="xr__yr">04</span><span class="xr__name">Chemical plant accidents</span><span class="xr__by"></span></li>
+      <li class="xr__row"><span class="xr__yr">05</span><span class="xr__name">Commercial truck collisions</span><span class="xr__by">FMCSA</span></li>
+      <li class="xr__row"><span class="xr__yr">06</span><span class="xr__name">Vehicle collisions</span><span class="xr__by"></span></li>
+      <li class="xr__row"><span class="xr__yr">07</span><span class="xr__name">Aviation accidents</span><span class="xr__by"></span></li>
+      <li class="xr__row"><span class="xr__yr">08</span><span class="xr__name">Railroad accidents</span><span class="xr__by">FELA</span></li>
+      <li class="xr__row"><span class="xr__yr">09</span><span class="xr__name">Industrial injuries</span><span class="xr__by"></span></li>
+      <li class="xr__row"><span class="xr__yr">10</span><span class="xr__name">Product liability</span><span class="xr__by"></span></li>
+      <li class="xr__row"><span class="xr__yr">11</span><span class="xr__name">Wrongful death</span><span class="xr__by">Survival action</span></li>
+      <li class="xr__row"><span class="xr__yr">12</span><span class="xr__name">Insurance disputes</span><span class="xr__by">Bad faith</span></li>
+      <li class="xr__row"><span class="xr__yr">13</span><span class="xr__name">Catastrophic injuries</span><span class="xr__by"></span></li>
+    </ol>
   </div>
 </section>
 
@@ -981,6 +972,7 @@ a.credits__line:hover { color: var(--cream); }
 <!-- PROMISES: ario-style kinetic statement on a light ground (approved copy: Three Promises + EF Process) -->
 <section class="xp" aria-labelledby="xpH">
   <h2 class="sr-only" id="xpH">What you get when you hire me</h2>
+  <div class="grain grain--light" aria-hidden="true"></div>
   <div class="xp__scroll">
     <div class="xp__stage">
       <div class="xp__photos" aria-hidden="true">
@@ -1005,6 +997,7 @@ a.credits__line:hover { color: var(--cream); }
 <!-- RECOGNITION: ario-style ledger; the row nearest the middle of the screen reads in full -->
 <!-- PENDING EDWARD VERIFICATION: honor years (20XX) and issuing bodies -->
 <section class="xr" id="rec" aria-labelledby="xrH">
+  <div class="grain grain--light" aria-hidden="true"></div>
   <div class="wrap">
     <div class="xr__head">
       <h2 class="h-mega xr__h" id="xrH">NO MATTER<br>WHO YOU ASK.</h2>
@@ -1644,7 +1637,7 @@ a.credits__line:hover { color: var(--cream); }
     renders.push(function () {
       var p = progress(sec.querySelector('.xh__scroll'));
       var e = eio(map(p, 0.06, 0.6)), k = 1 - e;
-      media.style.clipPath = 'inset(' + (box.t * k).toFixed(1) + 'px ' + (box.r * k).toFixed(1) + 'px ' + (box.b * k).toFixed(1) + 'px ' + (box.l * k).toFixed(1) + 'px round ' + (18 * k).toFixed(1) + 'px)';
+      media.style.clipPath = 'inset(' + (box.t * k).toFixed(1) + 'px ' + (box.r * k).toFixed(1) + 'px ' + (box.b * k).toFixed(1) + 'px ' + (box.l * k).toFixed(1) + 'px)';
       word.style.transform = 'translateY(' + (e * 6).toFixed(2) + 'vh)';
       var fade = (1 - map(p, 0.04, 0.22)).toFixed(3);
       lead.style.opacity = fade; rail.style.opacity = fade; cap.style.opacity = fade;
@@ -1702,10 +1695,8 @@ a.credits__line:hover { color: var(--cream); }
     });
   })();
 
-  /* 4. LEDGER: the row nearest the middle of the screen reads in full */
-  (function () {
-    var sec = document.querySelector('.xr');
-    if (!sec) return;
+  /* 4. LEDGERS (practice + recognition): the row nearest the middle of the screen reads in full */
+  document.querySelectorAll('.xr').forEach(function (sec) {
     var rows = sec.querySelectorAll('.xr__row');
     if (reduce) { sec.classList.add('xr--static'); return; }
     renders.push(function () {
@@ -1715,7 +1706,7 @@ a.credits__line:hover { color: var(--cream); }
       rows.forEach(function (row) { var b = row.getBoundingClientRect(), d = Math.abs(b.top + b.height / 2 - mid); if (d < bestD) { bestD = d; best = row; } });
       rows.forEach(function (row) { row.classList.toggle('is-on', row === best); });
     });
-  })();
+  });
 
   /* 5. Background videos (ui-ux-pro-max: auto-play needs pause; stop off-screen) */
   (function () {
