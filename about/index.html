@@ -57,14 +57,14 @@
 .fcard__mono { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: var(--f-anton); font-size: clamp(120px, 14vw, 200px); line-height: 1; color: transparent; -webkit-text-stroke: 1.2px rgba(239,234,222,0.28); user-select: none; }
 .fcard__steps { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; gap: 14px; padding: clamp(20px, 2.4vw, 32px); margin: 0; list-style: none; }
 .fcard__steps li { display: grid; grid-template-columns: 28px 1fr; gap: 8px; font-size: 15px; line-height: 1.4; color: var(--bone); }
-.fcard__steps b { font-weight: 600; color: var(--merlot-tx); font-variant-numeric: tabular-nums; }
+.fcard__steps b { font-weight: 600; color: var(--bone); font-variant-numeric: tabular-nums; }
 .fcard__body { display: flex; flex-direction: column; gap: 6px; padding: clamp(20px, 2.4vw, 30px); flex: 1; }
 .fcard__name { font-family: var(--f-anton); text-transform: uppercase; font-weight: 400; font-size: clamp(26px, 2.4vw, 36px); line-height: 1; color: var(--cream); }
 .fcard__role { font-size: 15px; color: var(--bone); }
 .fcard__go { margin-top: auto; padding-top: 18px; font-weight: 600; font-size: 15px; color: var(--cream); text-decoration: underline; text-decoration-color: var(--merlot-br); text-underline-offset: 5px; }
 a.fcard:hover .fcard__media img { transform: scale(1.03); }
 a.fcard:hover .fcard__go, a.fcard:focus-visible .fcard__go { text-decoration-thickness: 2px; }
-a.fcard:focus-visible { outline: 2px solid var(--merlot-tx); outline-offset: -2px; }
+a.fcard:focus-visible { outline: 2px solid var(--cream); outline-offset: -2px; }
 
 /* mission, vision, values (cream) */
 .mv { position: relative; isolation: isolate; background: var(--cream); color: var(--ink); padding: clamp(84px, 10vw, 150px) 0; }
