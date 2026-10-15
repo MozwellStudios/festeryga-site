@@ -29,7 +29,7 @@ body { font-family: var(--f-body); background: var(--black); color: var(--cream)
 img { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
 ul { list-style: none; }
-:focus-visible { outline: 2px solid var(--merlot-br); outline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--cream); outline-offset: 3px; }
 
 .wrap { max-width: var(--maxw); margin: 0 auto; padding-left: var(--pad); padding-right: var(--pad); }
 @media (max-width: 1439px) { :root { --pad: 60px; } }
@@ -320,7 +320,7 @@ a.credits__line:hover { color: var(--cream); }
 /* page CTAs say what happens; no arrow (the nav keeps its own) */
 main .cta { font-family: var(--f-body); font-size: 15px; font-weight: 600; letter-spacing: 0; text-transform: none; padding: 15px 24px; }
 main .cta::after { content: none; }
-main a:focus-visible, main button:focus-visible, .credits a:focus-visible { outline: 2px solid var(--merlot-br); outline-offset: 4px; }
+main a:focus-visible, main button:focus-visible, .credits a:focus-visible { outline: 2px solid var(--cream); outline-offset: 4px; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
 /* page intro: the page's own subject, left-aligned, no label above it */
