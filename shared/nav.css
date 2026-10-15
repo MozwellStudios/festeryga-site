@@ -55,7 +55,7 @@ html.navsheet-open, html.navsheet-open body { overflow: hidden; }
 .navsheet__foot { margin-top: auto; padding-top: 32px; }
 .navsheet__phone { display: inline-flex; align-items: center; min-height: 44px; font-family: var(--f-body); font-weight: 600; font-size: 28px; color: var(--cream, #EFEADE); text-decoration: underline; text-decoration-color: var(--merlot-br, #B8355F); text-underline-offset: 6px; }
 .navsheet__note { margin: 6px 0 0; font-family: var(--f-body); font-size: 15px; color: var(--bone, #C8C1B0); }
-.navsheet a:focus-visible, .navsheet button:focus-visible, .nav__burger:focus-visible { outline: 2px solid var(--merlot-tx, #D45C80); outline-offset: 3px; }
+.navsheet a:focus-visible, .navsheet button:focus-visible, .nav__burger:focus-visible { outline: 2px solid var(--cream, #EFEADE); outline-offset: 3px; }
 
 /* wide menu (Practice areas: 12 pages) in two columns */
 .nav__menu--wide:not([hidden]) { display: grid; grid-template-columns: 1fr 1fr; min-width: min(560px, calc(100vw - 32px)); }
