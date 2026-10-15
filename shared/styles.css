@@ -344,7 +344,7 @@ main a:focus-visible, main button:focus-visible, .credits a:focus-visible { outl
 
 /* ===== a11y layer (ui-ux-pro-max), approved 2026-10-06 =====
    html-prefixed selectors outrank each page's own inline <style>. */
-:root { --merlot-tx: #D45C80; } /* merlot for small text: 5.4:1 on black */
+:root { --merlot-tx: #7A1B3A; } /* retired pink tint, aliased to the one merlot */
 html { scroll-padding-top: 120px; }
 :focus-visible, main a:focus-visible, main button:focus-visible, .credits a:focus-visible { outline-color: var(--cream); }
 main:focus { outline: none; }
