@@ -140,3 +140,14 @@
     });
   });
 })();
+
+/* Common questions: a link to #question opens that answer and brings it into view. */
+(function () {
+  function openHash() {
+    if (!location.hash) return;
+    var el = document.getElementById(location.hash.slice(1));
+    if (el && el.tagName === 'DETAILS') { el.open = true; el.scrollIntoView({ block: 'start' }); }
+  }
+  window.addEventListener('hashchange', openHash);
+  openHash();
+})();

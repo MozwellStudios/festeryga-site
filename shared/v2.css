@@ -422,3 +422,58 @@ button.cta { background: transparent; cursor: pointer; }
 .xq__note { color: var(--bone); }
 .xq__mail { color: var(--bone); text-decoration-color: var(--merlot); }
 .cut + .xq .xq__in { border-top: 0; }
+
+/* ---------- EF hero (shared; same treatment as the About hub) ---------- */
+.hx { position: relative; overflow: hidden; isolation: isolate; background: var(--black); min-height: clamp(560px, calc(100svh - 108px), 880px); display: flex; align-items: center; }
+.hx .grain { z-index: 0; }
+.hx__in { position: relative; z-index: 1; width: 100%; padding-top: clamp(40px, 6vw, 80px); padding-bottom: clamp(40px, 6vw, 80px); }
+.hx__mark { position: absolute; left: clamp(-20px, -1vw, 0px); top: 50%; transform: translateY(-50%); font-size: clamp(300px, 44vw, 720px); background-position: 40% 20%; }
+.hx__text { position: relative; margin-left: clamp(0px, 25%, 360px); }
+.hx .sh { font-size: clamp(56px, 8.4vw, 136px); text-shadow: 0 4px 40px rgba(4,6,12,0.6); }
+.hx__p { margin: clamp(22px, 2.6vw, 34px) 0 0 clamp(52px, 9vw, 150px); font-size: clamp(17px, 1.5vw, 21px); line-height: 1.6; color: rgba(239,234,222,0.92); max-width: 44ch; }
+@media (max-width: 900px) {
+  .hx { min-height: auto; align-items: flex-start; }
+  .hx__mark { position: relative; top: auto; transform: none; left: auto; font-size: clamp(200px, 64vw, 380px); margin: 0 auto -0.12em; text-align: center; }
+  .hx__text { margin-left: 0; }
+  .hx__p { margin-left: 0; }
+}
+
+/* ---------- honors grid (cream) ---------- */
+.hg { position: relative; isolation: isolate; background: var(--cream); color: var(--ink); padding: clamp(84px, 10vw, 140px) 0; }
+.hg > .wrap { position: relative; z-index: 1; }
+.hg__grid { list-style: none; margin: clamp(32px, 4vw, 52px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: rgba(4,6,12,0.22); border: 1px solid rgba(4,6,12,0.22); }
+.hg__grid li { display: flex; flex-direction: column; background: var(--cream); padding: clamp(28px, 3.4vw, 48px) clamp(22px, 2.6vw, 36px); }
+.hg__big { font-family: var(--f-anton); text-transform: uppercase; font-size: clamp(40px, 4.4vw, 70px); line-height: 0.95; color: var(--ink); }
+.hg__rule { display: block; width: 56px; height: 4px; margin: 16px 0 18px; background: var(--merlot); }
+.hg__what { font-size: 17px; font-weight: 600; color: var(--ink); }
+.hg__by { margin-top: 4px; font-size: 15px; color: var(--ink-2); }
+.hg__yr { margin-top: auto; padding-top: 18px; font-size: 15px; font-weight: 600; color: var(--merlot); font-variant-numeric: tabular-nums; }
+@media (max-width: 1000px) { .hg__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .hg__grid { grid-template-columns: 1fr; } }
+
+/* ---------- common questions, grouped ---------- */
+.faqx__g { margin: clamp(44px, 5vw, 64px) 0 0; font-size: 16px; font-weight: 600; color: var(--merlot); }
+.faqx__g + .faqx__list { margin-top: 14px; }
+.faqx__lede { margin: clamp(18px, 2vw, 26px) 0 0 clamp(52px, 9vw, 150px); font-size: clamp(17px, 1.4vw, 20px); line-height: 1.6; color: rgba(239,234,222,0.9); max-width: 56ch; }
+.faqx details { scroll-margin-top: 130px; }
+
+/* ---------- article (long-form answer on cream, sticky short answer) ---------- */
+.art2 { position: relative; isolation: isolate; background: var(--cream); color: var(--ink); padding: clamp(72px, 9vw, 130px) 0; }
+.art2 > .wrap { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 0.42fr); gap: clamp(36px, 6vw, 100px); align-items: start; }
+.art2__body { max-width: 68ch; }
+.art2__body h2 { margin: clamp(40px, 4.4vw, 56px) 0 0; font-family: var(--f-anton); font-weight: 400; text-transform: uppercase; font-size: clamp(28px, 2.8vw, 42px); line-height: 1; color: var(--ink); }
+.art2__body h2:first-child { margin-top: 0; }
+.art2__body p, .art2__body li { font-size: clamp(17px, 1.35vw, 19px); line-height: 1.7; color: var(--ink-2); }
+.art2__body p { margin: 16px 0 0; }
+.art2__body ol { margin: 16px 0 0; padding: 0; list-style: none; counter-reset: q; display: grid; gap: 12px; }
+.art2__body ol li { counter-increment: q; display: grid; grid-template-columns: 36px 1fr; gap: 10px; }
+.art2__body ol li::before { content: counter(q, decimal-leading-zero); font-weight: 600; font-size: 15px; color: var(--merlot); padding-top: 3px; font-variant-numeric: tabular-nums; }
+.art2__q { margin: clamp(36px, 4vw, 48px) 0; padding: 4px 0 4px 22px; border-left: 3px solid var(--merlot); }
+.art2__q p { margin: 0 !important; font-family: var(--f-anton); text-transform: uppercase; font-size: clamp(26px, 2.6vw, 38px) !important; line-height: 1.06 !important; color: var(--ink) !important; }
+.art2__q cite { display: block; margin-top: 12px; font-style: normal; font-size: 15px; font-weight: 600; color: var(--ink-2); }
+.art2__side { position: sticky; top: 132px; background: var(--ink); color: var(--cream); padding: clamp(24px, 2.8vw, 36px); border-top: 3px solid var(--merlot); }
+.art2__sh { margin: 0; font-size: 15px; font-weight: 600; color: var(--bone); }
+.art2__short { margin: 10px 0 0; font-family: var(--f-anton); text-transform: uppercase; font-size: clamp(24px, 2.2vw, 32px); line-height: 1.06; color: var(--cream); }
+.art2__phone { display: inline-flex; align-items: center; min-height: 48px; margin-top: 18px; font-weight: 600; font-size: clamp(22px, 2vw, 28px); color: var(--cream); text-decoration: none; border-bottom: 2px solid var(--merlot); }
+.art2__note { margin: 10px 0 0; font-size: 15px; line-height: 1.5; color: var(--bone); }
+@media (max-width: 900px) { .art2 > .wrap { grid-template-columns: 1fr; } .art2__side { position: static; order: -1; } .faqx__lede { margin-left: 0; } }
