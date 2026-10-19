@@ -151,3 +151,34 @@
   window.addEventListener('hashchange', openHash);
   openHash();
 })();
+
+/* Background videos: load the muted Vimeo loop on larger screens (poster only on phones and under reduced motion),
+   add a pause button, and pause while off-screen. */
+(function () {
+  var vids = document.querySelectorAll('.vbg[data-vim]');
+  if (!vids.length) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || window.matchMedia('(max-width: 760px)').matches) return;
+  function post(frame, method) { try { frame.contentWindow.postMessage(JSON.stringify({ method: method }), 'https://player.vimeo.com'); } catch (e) {} }
+  vids.forEach(function (v) {
+    var frame = v.querySelector('iframe');
+    if (!frame) return;
+    frame.src = 'https://player.vimeo.com/video/' + v.getAttribute('data-vim') + '?background=1&autopause=0&muted=1&loop=1&dnt=1';
+    var host = v.parentElement;
+    var btn = document.createElement('button');
+    btn.type = 'button'; btn.className = 'vbg__pause'; btn.setAttribute('aria-pressed', 'false');
+    btn.setAttribute('aria-label', 'Pause background video');
+    host.appendChild(btn);
+    var userPaused = false, onScreen = true;
+    function sync() { post(frame, userPaused || !onScreen ? 'pause' : 'play'); }
+    btn.addEventListener('click', function () {
+      userPaused = !userPaused;
+      btn.setAttribute('aria-pressed', userPaused ? 'true' : 'false');
+      btn.setAttribute('aria-label', userPaused ? 'Play background video' : 'Pause background video');
+      sync();
+    });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) { es.forEach(function (e) { onScreen = e.isIntersecting; sync(); }); }, { threshold: 0 }).observe(v);
+    }
+    frame.addEventListener('load', sync);
+  });
+})();

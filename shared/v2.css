@@ -477,3 +477,19 @@ button.cta { background: transparent; cursor: pointer; }
 .art2__phone { display: inline-flex; align-items: center; min-height: 48px; margin-top: 18px; font-weight: 600; font-size: clamp(22px, 2vw, 28px); color: var(--cream); text-decoration: none; border-bottom: 2px solid var(--merlot); }
 .art2__note { margin: 10px 0 0; font-size: 15px; line-height: 1.5; color: var(--bone); }
 @media (max-width: 900px) { .art2 > .wrap { grid-template-columns: 1fr; } .art2__side { position: static; order: -1; } .faqx__lede { margin-left: 0; } }
+
+/* ---------- background video (same treatment as the homepage: muted loop, grayscale, pause button, stops off-screen) ---------- */
+.vbg { position: absolute; inset: 0; z-index: 0; overflow: hidden; container-type: size; background-size: cover; background-position: center; filter: grayscale(1) contrast(1.06) brightness(0.55); }
+.vbg iframe { position: absolute; top: 50%; left: 50%; width: max(100cqw, 177.78cqh); height: max(100cqh, 56.25cqw); transform: translate(-44%, -55%) scale(1.36); /* crops the footage's corner logo (top right) */ border: 0; pointer-events: none; }
+.vbg__scrim { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(90deg, rgba(4,6,12,0.88) 0%, rgba(4,6,12,0.55) 55%, rgba(4,6,12,0.7) 100%), linear-gradient(0deg, rgba(4,6,12,0.6) 0%, rgba(4,6,12,0) 45%); }
+.vbg__pause { position: absolute; right: 16px; bottom: 16px; z-index: 6; width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(239,234,222,0.5); background: rgba(4,6,12,0.55); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); color: var(--cream); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: border-color 0.4s var(--ease-x); }
+.vbg__pause::before { content: ''; width: 10px; height: 12px; border-left: 3px solid currentColor; border-right: 3px solid currentColor; }
+.vbg__pause[aria-pressed="true"]::before { width: 0; height: 0; margin-left: 3px; border-left: 11px solid currentColor; border-right: 0; border-top: 7px solid transparent; border-bottom: 7px solid transparent; }
+.vbg__pause:hover { border-color: var(--cream); }
+.has-vbg { position: relative; overflow: hidden; isolation: isolate; }
+.has-vbg > .wrap { position: relative; z-index: 2; }
+.story__after.has-vbg { padding: clamp(110px, 13vw, 190px) 0; }
+.fv .vbg { filter: grayscale(1) contrast(1.06) brightness(0.6); }
+.tv .vbg { filter: grayscale(1) contrast(1.06) brightness(0.55); }
+.tv::after, .fv::after { z-index: 1; }
+.tv__in { z-index: 2; }
