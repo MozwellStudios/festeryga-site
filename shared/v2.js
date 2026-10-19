@@ -182,3 +182,68 @@
     frame.addEventListener('load', sync);
   });
 })();
+
+/* Cinematic hero: same choreography as the homepage opener. */
+(function () {
+  var sec = document.querySelector('.cx');
+  if (!sec || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var intro = sec.querySelector('.cx__intro'), when = sec.querySelector('.cx__when'), media = sec.querySelector('.cx__media');
+  var brand = sec.querySelector('.cx__brand'), grid = sec.querySelector('.cx__grid'), cue = sec.querySelector('.cx__cue');
+  if (!intro || !media || !brand) return;
+  sec.classList.add('cx--live');
+  function clamp(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
+  function map(p, a, b) { return clamp((p - a) / (b - a)); }
+  function lerp(a, b, t) { return a + (b - a) * t; }
+  function eOut(t) { return 1 - Math.pow(1 - t, 3); }
+  function eInOut(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+  var vh, insX0, insY0;
+  function sizes() { vh = window.innerHeight; var m = window.innerWidth < 760; insX0 = m ? 8 : 32; insY0 = m ? 26 : 20; }
+  sizes();
+  function fade(el, op, y, blur, scale) {
+    el.style.opacity = op.toFixed(3);
+    el.style.transform = 'translateY(' + y.toFixed(1) + 'px)' + (scale ? ' scale(' + scale.toFixed(3) + ')' : '');
+    el.style.filter = blur > 0.05 ? 'blur(' + blur.toFixed(1) + 'px)' : 'none';
+    el.style.visibility = op <= 0.01 ? 'hidden' : 'visible';
+  }
+  var ticking = false;
+  function render() {
+    ticking = false;
+    var total = sec.offsetHeight - vh;
+    if (total <= 0) return;
+    var p = clamp(-sec.getBoundingClientRect().top / total);
+    var iP = map(p, 0, 0.2);
+    fade(intro, 1 - iP, -34 * iP, 20 * iP, 1 + 0.16 * iP);
+    if (grid) grid.style.opacity = (1 - map(p, 0.06, 0.34)).toFixed(3);
+    if (cue) cue.style.opacity = (1 - map(p, 0, 0.12)).toFixed(3);
+    var c = eInOut(map(p, 0.05, 0.4));
+    var insY = lerp(insY0, 0, c), insX = lerp(insX0, 0, c), rad = lerp(24, 0, c);
+    var clip = 'inset(' + insY.toFixed(2) + '% ' + insX.toFixed(2) + '% ' + insY.toFixed(2) + '% ' + insX.toFixed(2) + '% round ' + rad.toFixed(1) + 'px)';
+    media.style.clipPath = clip; media.style.webkitClipPath = clip;
+    media.style.transform = 'translateY(' + lerp(0.1 * vh, 0, c).toFixed(1) + 'px)';
+    media.style.opacity = map(p, 0.03, 0.11).toFixed(3);
+    var bStart = 0.48;
+    if (when) {
+      var wIn = eOut(map(p, 0.4, 0.53)), wOut = map(p, 0.63, 0.73), wOp = wIn * (1 - wOut);
+      fade(when, wOp, lerp(46, 0, wIn) + lerp(0, -46, wOut), (wOp > 0.01 && wOp < 0.99) ? lerp(12, 0, wIn) + lerp(0, 12, wOut) : 0);
+      bStart = 0.73;
+    }
+    var bP = eOut(map(p, bStart, bStart + 0.19));
+    fade(brand, bP, lerp(34, 0, bP), lerp(10, 0, bP), lerp(0.97, 1, bP));
+  }
+  window.addEventListener('scroll', function () { if (!ticking) { ticking = true; window.requestAnimationFrame(render); } }, { passive: true });
+  window.addEventListener('resize', function () { sizes(); render(); });
+  render();
+})();
+
+/* Marquee: pause button (moving content must be stoppable). */
+(function () {
+  document.querySelectorAll('.mq').forEach(function (mq) {
+    var b = mq.querySelector('.mq__pause');
+    if (!b) return;
+    b.addEventListener('click', function () {
+      var on = mq.classList.toggle('is-paused');
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      b.setAttribute('aria-label', on ? 'Play the moving list' : 'Pause the moving list');
+    });
+  });
+})();
