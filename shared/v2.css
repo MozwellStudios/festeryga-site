@@ -626,3 +626,13 @@ button.cta { background: transparent; cursor: pointer; }
 .th__close .cta { margin-top: 30px; }
 @media (max-width: 900px) { .th__cards { grid-template-columns: 1fr; max-width: 420px; } }
 @media (prefers-reduced-motion: reduce) { .th__rec::before { animation: none; } .th__card img, .th__play span { transition: none; } }
+
+/* ---------- lit photo hero (FAQ): brighter grade, topic jump links ---------- */
+.pghero--lit .pghero__bg { filter: grayscale(1) contrast(1.05) brightness(0.8); background-position: 60% 30%; }
+.pghero--lit .pghero__scrim { background: linear-gradient(90deg, rgba(4,6,12,0.86) 0%, rgba(4,6,12,0.45) 55%, rgba(4,6,12,0.05) 100%), linear-gradient(0deg, var(--black) 0%, rgba(4,6,12,0) 35%); }
+.pghero--lit .sh { font-size: clamp(56px, 8.4vw, 136px); text-shadow: 0 4px 40px rgba(4,6,12,0.55); }
+.jump { display: flex; flex-wrap: wrap; gap: 10px; margin: clamp(26px, 3vw, 38px) 0 0 clamp(52px, 9vw, 150px); padding: 0; list-style: none; }
+.jump a { display: inline-flex; align-items: center; min-height: 48px; padding: 0 20px; border: 1px solid rgba(239,234,222,0.45); background: rgba(4,6,12,0.45); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); font-weight: 600; font-size: 15px; color: var(--cream); text-decoration: none; transition: background 0.3s var(--ease-x), border-color 0.3s var(--ease-x); }
+.jump a:hover, .jump a:focus-visible { background: rgba(122,27,58,0.35); border-color: var(--merlot); }
+.jump__call a { border-color: var(--merlot); }
+@media (max-width: 760px) { .jump { margin-left: 0; } }
