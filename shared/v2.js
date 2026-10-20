@@ -247,3 +247,39 @@
     });
   });
 })();
+
+/* Testimony hero: pinned scroll, cards drift at different speeds (depth), closing card at the end. Desktop only. */
+(function () {
+  var sec = document.querySelector('.th');
+  if (!sec || window.matchMedia('(prefers-reduced-motion: reduce)').matches || window.matchMedia('(max-width: 900px)').matches) return;
+  var intro = sec.querySelector('.th__intro'), bg = sec.querySelector('.th__bg'), cue = sec.querySelector('.th__cue'), close = sec.querySelector('.th__close');
+  var a = sec.querySelector('.th__slot--a .th__card'), b = sec.querySelector('.th__slot--b .th__card'), c = sec.querySelector('.th__slot--c .th__card');
+  if (!intro || !a || !b || !c || !close) return;
+  sec.classList.add('th--live');
+  function clamp(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
+  function seg(p, a0, a1, v0, v1) { return v0 + (v1 - v0) * clamp((p - a0) / (a1 - a0)); }
+  function win(p, k0, k1, k2, k3) { return p < k1 ? clamp((p - k0) / (k1 - k0)) : p < k2 ? 1 : 1 - clamp((p - k2) / (k3 - k2)); }
+  function show(el, op) { el.style.opacity = op.toFixed(3); el.style.visibility = op <= 0.01 ? 'hidden' : 'visible'; }
+  var ticking = false;
+  function render() {
+    ticking = false;
+    var total = sec.offsetHeight - window.innerHeight;
+    if (total <= 0) return;
+    var p = clamp(-sec.getBoundingClientRect().top / total);
+    show(intro, seg(p, 0, 0.14, 1, 0));
+    intro.style.transform = 'translateY(' + seg(p, 0, 0.14, 0, -80).toFixed(1) + 'px) scale(' + seg(p, 0, 0.14, 1, 0.92).toFixed(3) + ')';
+    if (cue) cue.style.opacity = seg(p, 0, 0.06, 1, 0).toFixed(3);
+    if (bg) { bg.style.transform = 'scale(' + seg(p, 0, 1, 1.08, 1.25).toFixed(3) + ')'; bg.style.opacity = (p < 0.1 ? seg(p, 0, 0.1, 0.35, 0.2) : p < 0.9 ? 0.2 : seg(p, 0.9, 1, 0.2, 0.08)).toFixed(3); }
+    a.style.transform = 'translateY(' + seg(p, 0.08, 0.55, 420, -40).toFixed(1) + 'px) rotate(' + seg(p, 0.08, 0.55, -8, -3).toFixed(2) + 'deg)';
+    show(a, win(p, 0.08, 0.2, 0.85, 1));
+    b.style.transform = 'translateY(' + seg(p, 0.2, 0.8, -320, 60).toFixed(1) + 'px) rotate(' + seg(p, 0.2, 0.8, 6, 2).toFixed(2) + 'deg)';
+    show(b, win(p, 0.2, 0.32, 0.88, 1));
+    c.style.transform = 'translateY(' + seg(p, 0.32, 0.95, 260, -20).toFixed(1) + 'px) scale(' + seg(p, 0.32, 0.6, 0.9, 1).toFixed(3) + ') rotate(' + seg(p, 0.32, 0.95, -2, 2).toFixed(2) + 'deg)';
+    show(c, win(p, 0.32, 0.44, 0.9, 1));
+    show(close, seg(p, 0.82, 0.94, 0, 1));
+    close.style.transform = 'translateY(' + seg(p, 0.82, 0.94, 40, 0).toFixed(1) + 'px)';
+  }
+  window.addEventListener('scroll', function () { if (!ticking) { ticking = true; window.requestAnimationFrame(render); } }, { passive: true });
+  window.addEventListener('resize', render);
+  render();
+})();

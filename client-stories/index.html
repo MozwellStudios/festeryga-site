@@ -77,36 +77,55 @@
   <div class="nav__menu" id="navmenu-results" hidden>
     <a href="../results/">All results<span>The record, in one place</span></a>
     <a href="../results/victories/">Victories<span>Every verdict and settlement</span></a>
-    <a href="../client-stories/">Case studies<span>Client stories, in their words</span></a>
+    <a href="../client-stories/" aria-current="page">Case studies<span>Client stories, in their words</span></a>
     <a href="../recognition/">Recognition<span>Awards and press</span></a>
   </div>
 </header>
 <main id="main" tabindex="-1">
 <!-- PENDING EDWARD VERIFICATION: permission to publish each client's name, words, and video -->
-<section class="tst" aria-labelledby="tstH">
-  <div class="grain" aria-hidden="true"></div>
-  <div class="wrap">
-    <h1 class="sh" id="tstH"><span class="sh__a">In their</span> <span class="sh__b">own words.</span></h1>
-    <p class="tst__lede">The people I represent tell it better than I can. Watch their stories, then read how each case was built.</p>
-    <div class="tst__feat">
-      <article class="fv">
-        <div class="vbg" data-vim="1219991563" style="background-image:url('https://i.vimeocdn.com/video/2192327084-a609ef0475fb91005659dbfa22a23e242f4e22913996515bcf5f945a1d01735e-d_1280?region=us')" aria-hidden="true"><iframe title="" tabindex="-1" allow="autoplay; fullscreen; picture-in-picture"></iframe></div>
-        <div class="fv__body">
-          <p class="fv__q">&ldquo;Edward helped me get my life back&rdquo;</p>.
-          <h2 class="fv__name">Phil Witman</h2>
-          <p class="fv__case">Client</p>
-          <div class="fv__act"><button class="story__play" type="button" data-vimeo="1219991563" data-title="Phil Witman, client story"><svg viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="16" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M14 11l9 6-9 6z" fill="currentColor"/></svg> Watch the story</button><a class="story__link" href="phil-witman/">Read the story</a></div>
-        </div>
-      </article>
-      <article class="fv">
-        <div class="vbg" data-vim="1219991274" style="background-image:url('https://i.vimeocdn.com/video/2192326704-0e04d1336e1b65ee14afc165b3ffe2957a4ed273c3a0602b07a42f271e129300-d_1280?region=us')" aria-hidden="true"><iframe title="" tabindex="-1" allow="autoplay; fullscreen; picture-in-picture"></iframe></div>
-        <div class="fv__body">
+<!-- TESTIMONY HERO: Edwin's documentary-card concept (21st.dev component), rebuilt without React in the site's own system -->
+<section class="th" aria-labelledby="thH">
+  <div class="th__stage">
+    <div class="th__bg" aria-hidden="true"></div>
+    <div class="th__shade" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="th__frame" aria-hidden="true"></div>
+    <div class="th__rail" aria-hidden="true"><span>Festeryga Law</span><span>Client files</span></div>
+    <div class="th__intro">
+      <p class="th__kick">In their own words</p>
+      <h1 class="th__h" id="thH">The testimony <span>of my clients</span></h1>
+      <p class="th__p">Real people, real cases. Scroll to hear their stories.</p>
+      <div class="th__cue" aria-hidden="true">Scroll</div>
+    </div>
+    <div class="th__cards">
+      <div class="th__slot th__slot--a">
+        <article class="th__card">
+          <img src="https://i.vimeocdn.com/video/2192327084-a609ef0475fb91005659dbfa22a23e242f4e22913996515bcf5f945a1d01735e-d_1280?region=us" alt="" width="900" height="1125">
+          <div class="th__top"><span class="th__rec">Rec</span><span class="th__ex">Exhibit A</span></div>
+          <button class="th__play" type="button" data-vimeo="1219991563" data-title="Phil Witman, client story" aria-label="Play Phil Witman&rsquo;s story"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l11 7-11 7z" fill="currentColor"/></svg></span></button>
+          <div class="th__bot"><p class="th__q">&ldquo;Edward helped me get my life back.&rdquo;</p><span class="th__rule" aria-hidden="true"></span><h2 class="th__name">Phil Witman</h2><p class="th__case">Case type XX</p><a href="phil-witman/">Read the story</a></div>
+        </article>
+      </div>
+      <div class="th__slot th__slot--b">
+        <article class="th__card">
+          <img src="https://i.vimeocdn.com/video/2192326704-0e04d1336e1b65ee14afc165b3ffe2957a4ed273c3a0602b07a42f271e129300-d_1280?region=us" alt="" width="900" height="1125">
+          <div class="th__top"><span class="th__rec">Rec</span><span class="th__ex">Exhibit B</span></div>
+          <button class="th__play" type="button" data-vimeo="1219991274" data-title="Julianna Luna, client story" aria-label="Play Julianna Luna&rsquo;s story"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l11 7-11 7z" fill="currentColor"/></svg></span></button>
+          <div class="th__bot"><span class="th__rule" aria-hidden="true"></span><h2 class="th__name">Julianna Luna</h2><p class="th__case">Case type XX</p><a href="julianna-luna/">Read the story</a></div>
+        </article>
+      </div>
+      <div class="th__slot th__slot--c">
+        <article class="th__card">
+          <img src="../images/16.jpg.jpeg" alt="" width="900" height="1125">
+          <div class="th__top"><span>Statement</span><span class="th__ex">Exhibit C</span></div>
           
-          <h2 class="fv__name">Julianna Luna</h2>
-          <p class="fv__case">Client</p>
-          <div class="fv__act"><button class="story__play" type="button" data-vimeo="1219991274" data-title="Julianna Luna, client story"><svg viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="16" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M14 11l9 6-9 6z" fill="currentColor"/></svg> Watch the story</button><a class="story__link" href="julianna-luna/">Read the story</a></div>
-        </div>
-      </article>
+          <div class="th__bot"><p class="th__q">&ldquo;Whenever I called he answered.&rdquo;</p><span class="th__rule" aria-hidden="true"></span><h2 class="th__name">Se&ntilde;ora Emely</h2><p class="th__case">Workplace injury</p><a href="senora-emely/">Read the story</a></div>
+        </article>
+      </div>
+    </div>
+    <div class="th__close">
+      <h2 class="sh sh--md"><span class="sh__a">Real clients.</span> <span class="sh__b">Real stakes.</span></h2>
+      <a class="cta cta--merlot" href="#tgList">See every client story</a>
     </div>
   </div>
 </section>
