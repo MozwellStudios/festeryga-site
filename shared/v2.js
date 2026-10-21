@@ -283,3 +283,51 @@
   window.addEventListener('resize', render);
   render();
 })();
+
+/* Honors grid: stagger the cells in once when the grid reaches the viewport. */
+(function () {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+  document.querySelectorAll('.hg__grid').forEach(function (g) {
+    g.classList.add('is-pending');
+    new IntersectionObserver(function (es, io) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        io.disconnect();
+        g.classList.add('is-in');
+        g.querySelectorAll('li').forEach(function (li, i) { li.style.transitionDelay = (i * 70) + 'ms'; });
+        requestAnimationFrame(function () { g.classList.remove('is-pending'); });
+        setTimeout(function () { g.querySelectorAll('li').forEach(function (li) { li.style.transitionDelay = ''; }); }, 1400);
+      });
+    }, { threshold: 0.2 }).observe(g);
+  });
+})();
+
+/* Scroll banner: each word blurs in as the section scrolls, then the call to action. Static on phones / reduced motion. */
+(function () {
+  var sec = document.querySelector('.sbn');
+  if (!sec || window.matchMedia('(prefers-reduced-motion: reduce)').matches || window.matchMedia('(max-width: 760px)').matches) return;
+  var words = sec.querySelectorAll('.sbn__w'), after = sec.querySelector('.sbn__after'), bg = sec.querySelector('.sbn__bg');
+  sec.classList.add('sbn--live');
+  function clamp(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
+  var ticking = false;
+  function render() {
+    ticking = false;
+    var total = sec.offsetHeight - window.innerHeight;
+    if (total <= 0) return;
+    var p = clamp(-sec.getBoundingClientRect().top / total);
+    words.forEach(function (w, i) {
+      var t = clamp((p - 0.08 - i * 0.18) / 0.2), e = 1 - Math.pow(1 - t, 3);
+      w.style.opacity = e.toFixed(3);
+      w.style.filter = e < 0.99 ? 'blur(' + (16 * (1 - e)).toFixed(1) + 'px)' : 'none';
+      w.style.transform = 'translateY(' + (30 * (1 - e)).toFixed(1) + 'px)';
+    });
+    var a = clamp((p - 0.62) / 0.2), ea = 1 - Math.pow(1 - a, 3);
+    after.style.opacity = ea.toFixed(3);
+    after.style.transform = 'translateY(' + (24 * (1 - ea)).toFixed(1) + 'px)';
+    after.style.visibility = ea <= 0.01 ? 'hidden' : 'visible';
+    if (bg) bg.style.transform = 'scale(' + (1.12 - 0.12 * p).toFixed(3) + ')';
+  }
+  window.addEventListener('scroll', function () { if (!ticking) { ticking = true; window.requestAnimationFrame(render); } }, { passive: true });
+  window.addEventListener('resize', render);
+  render();
+})();
