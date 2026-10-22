@@ -331,3 +331,17 @@
   window.addEventListener('resize', render);
   render();
 })();
+
+/* "On this page" guide: marks the section being read. */
+(function () {
+  var toc = document.querySelector('.toc');
+  if (!toc || !('IntersectionObserver' in window)) return;
+  var links = toc.querySelectorAll('a[href^="#"]'), map = {};
+  links.forEach(function (a) { var s = document.getElementById(a.getAttribute('href').slice(1)); if (s) map[s.id] = a; });
+  function set(id) { links.forEach(function (a) { if (a === map[id]) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); }); }
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) set(e.target.id); });
+  }, { rootMargin: '-35% 0px -55% 0px' });
+  Object.keys(map).forEach(function (id) { io.observe(document.getElementById(id)); });
+  if (links[0]) links[0].setAttribute('aria-current', 'true');
+})();
