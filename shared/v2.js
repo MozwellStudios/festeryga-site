@@ -345,3 +345,13 @@
   Object.keys(map).forEach(function (id) { io.observe(document.getElementById(id)); });
   if (links[0]) links[0].setAttribute('aria-current', 'true');
 })();
+
+/* Closing: the line arrives word by word, once, when the section comes into view. */
+(function () {
+  var cl = document.querySelector('.cl');
+  if (!cl) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) { cl.classList.add('is-in'); return; }
+  new IntersectionObserver(function (es, io) {
+    es.forEach(function (e) { if (e.isIntersecting) { cl.classList.add('is-in'); io.disconnect(); } });
+  }, { threshold: 0.25 }).observe(cl);
+})();
