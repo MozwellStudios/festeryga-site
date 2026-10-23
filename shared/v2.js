@@ -405,3 +405,9 @@
   var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }); }, { threshold: 0.25 });
   document.querySelectorAll('.chap').forEach(function (c) { io.observe(c); });
 })();
+/* Injury hero: the photograph band settles once. */
+(function () {
+  var h = document.querySelector('.ijh');
+  if (!h || window.matchMedia('(prefers-reduced-motion: reduce)').matches) { if (h) h.classList.add('is-in'); return; }
+  requestAnimationFrame(function () { setTimeout(function () { h.classList.add('is-in'); }, 120); });
+})();
