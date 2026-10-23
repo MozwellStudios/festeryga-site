@@ -90,6 +90,18 @@ a.ct__v { text-decoration: underline; text-decoration-color: var(--merlot); text
 }
 @media (max-width: 560px) { .cf__form { grid-template-columns: 1fr; } }
 @media (prefers-reduced-motion: reduce) { .cf__send { transition: none; } }
+/* refinement (Oct 23): underline fields, portrait, big step numbers */
+.cf input[type=text], .cf input[type=tel], .cf input[type=email], .cf select, .cf textarea { border: 0; border-bottom: 1px solid rgba(4,6,12,0.45); background: transparent; padding: 12px 2px; }
+.cf textarea { border: 1px solid rgba(4,6,12,0.3); padding: 12px 14px; background: rgba(255,255,255,0.35); }
+.cf input:focus-visible, .cf select:focus-visible, .cf textarea:focus-visible { outline: none; border-bottom: 2px solid var(--merlot); box-shadow: 0 2px 0 0 rgba(122,27,58,0.15); }
+.cf textarea:focus-visible { border: 2px solid var(--merlot); }
+.cf [aria-invalid="true"] { border-bottom: 2px solid var(--merlot); }
+.ct__you { display: grid; grid-template-columns: 120px 1fr; gap: 20px; align-items: center; margin: clamp(32px, 4vw, 48px) 0 0 clamp(52px, 9vw, 150px); }
+.ct__you img { width: 120px; height: 150px; object-fit: cover; object-position: 50% 18%; filter: grayscale(1) contrast(1.05); }
+.ct__you p { margin: 0; font-family: var(--f-anton); text-transform: uppercase; font-size: clamp(30px, 3vw, 46px); line-height: 0.95; color: var(--cream); }
+.ct__you span { display: block; margin-top: 8px; font-family: var(--f-body); text-transform: none; font-size: 15px; color: var(--bone); }
+.steps--big .steps__n { font-family: var(--f-anton); font-size: clamp(56px, 6vw, 96px); line-height: 0.85; letter-spacing: 0; color: transparent; -webkit-text-stroke: 1.2px var(--merlot); }
+@media (max-width: 960px) { .ct__you { margin-left: 0; } }
 </style>
 </head>
 <body>
@@ -155,7 +167,7 @@ a.ct__v { text-decoration: underline; text-decoration-color: var(--merlot); text
   <div class="grain" aria-hidden="true"></div>
   <div class="wrap">
     <div>
-      <h1 class="sh" id="ctH"><span class="sh__a">Tell me</span> <span class="sh__b">what happened.</span></h1>
+      <p class="eb">Contact</p><h1 class="sh" id="ctH"><span class="sh__a">Tell me</span> <span class="sh__b">what happened.</span></h1>
       <p class="ct__lede">Free and confidential. Tell me what happened and I&rsquo;ll tell you, straight, whether I can help.</p>
       <ul class="ct__lines">
         <li><span class="ct__k">Call, 24/7</span><a class="ct__v ct__phone" href="tel:+17134144042">(713) 414-4042</a></li>
@@ -163,6 +175,7 @@ a.ct__v { text-decoration: underline; text-decoration-color: var(--merlot); text
         <li><span class="ct__k">Office</span><span class="ct__v">2525 North Loop W., Suite 510C, Houston, Texas 77008</span></li>
         <li><span class="ct__k">Languages</span><span class="ct__v" lang="es">English y Espa&ntilde;ol. Se habla espa&ntilde;ol.</span></li>
       </ul>
+      <div class="ct__you"><img src="../images/client-portrait.jpg" alt="Edward Festeryga" width="240" height="300" loading="lazy"><p>You get Edward.<span>Not a case manager. When you call, you reach the lawyer who will lead your case.</span></p></div>
     </div>
     <div class="cf" id="consult">
       <h2 class="cf__h" id="cfH">Free consultation</h2>
@@ -204,10 +217,10 @@ a.ct__v { text-decoration: underline; text-decoration-color: var(--merlot); text
     </div>
   </div>
 </section>
-<section class="steps" aria-labelledby="nextH">
+<section class="steps steps--big" aria-labelledby="nextH">
   <div class="grain" aria-hidden="true"></div>
   <div class="wrap">
-    <div class="steps__head"><h2 class="sh sh--sm" id="nextH"><span class="sh__a">What happens</span> <span class="sh__b">next</span></h2></div>
+    <div class="steps__head"><p class="eb">The first call</p><h2 class="sh sh--sm" id="nextH"><span class="sh__a">What happens</span> <span class="sh__b">next</span></h2></div>
     <ol class="steps__list">
       <li class="steps__item"><span class="steps__n">01</span><h3 class="steps__t">You reach a real person.</h3><p class="steps__p">Call or send the form, any hour. Calls are answered 24/7, in English or Espa&ntilde;ol.</p></li>
       <li class="steps__item"><span class="steps__n">02</span><h3 class="steps__t">We talk, free.</h3><p class="steps__p">The first conversation is free and confidential. I won&rsquo;t ask you to sign anything to have it.</p></li>
