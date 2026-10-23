@@ -807,3 +807,50 @@ button.cta { background: transparent; cursor: pointer; }
 .cl__strip .mq__pause { top: auto; bottom: 8px; transform: none; right: var(--pad); }
 @media (prefers-reduced-motion: reduce) { .cl__w, .cl__fade { opacity: 1 !important; transform: none !important; } .cl__btn { transition: none; } .cl__strip .mq__track { flex-wrap: nowrap; justify-content: center; overflow: hidden; } }
 .cl:focus-within .cl__w, .cl:focus-within .cl__fade { opacity: 1 !important; transform: none !important; transition: none !important; }
+
+/* ======================================================================
+   REFINEMENT FOUNDATION (Oct 23, branch design-refinement-oct23)
+   Carries the homepage's editorial language into the interior pages.
+   ====================================================================== */
+:root { --w-read: 68ch; --w-text: 760px; --w-wide: 1680px; }
+.wrap--wide { max-width: var(--w-wide); }
+
+/* eyebrow: the homepage's small tracked merlot label, optionally numbered (only where the content is a sequence) */
+.eb { display: flex; align-items: center; gap: 14px; margin: 0 0 clamp(18px, 2vw, 26px); font-family: var(--f-body); font-weight: 600; font-size: 13px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--merlot); }
+.eb::before { content: ''; width: 34px; height: 1px; background: currentColor; }
+.eb__n { font-variant-numeric: tabular-nums; color: var(--bone); }
+.on-cream .eb__n, .eb--ink .eb__n { color: var(--ink-2); }
+.eb--center { justify-content: center; }
+.eb--center::before { display: none; }
+
+/* the record: archival ledger. Huge figures, quiet metadata, one rule. */
+.led { position: relative; isolation: isolate; background: var(--black); padding: clamp(84px, 10vw, 150px) 0; }
+.led > .wrap { position: relative; z-index: 2; }
+.led__head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr); gap: clamp(24px, 4vw, 72px); align-items: end; margin-bottom: clamp(40px, 5vw, 72px); }
+.led__note { margin: 0; font-size: clamp(16px, 1.3vw, 18px); line-height: 1.6; color: var(--bone); max-width: 46ch; }
+.led__list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--iron); counter-reset: led; }
+.ledr { position: relative; display: grid; grid-template-columns: 90px minmax(0, 1fr) minmax(220px, 0.42fr); gap: clamp(16px, 3vw, 48px); align-items: center; padding: clamp(26px, 3vw, 42px) 0; border-bottom: 1px solid var(--iron); }
+.ledr::after { content: ''; position: absolute; left: 0; bottom: -1px; height: 2px; width: 100%; background: var(--merlot); transform: scaleX(0); transform-origin: left; transition: transform 0.6s var(--ease-x); }
+.ledr:hover::after, .ledr:focus-within::after { transform: scaleX(1); }
+.ledr__n { font-weight: 600; font-size: 14px; letter-spacing: 0.18em; color: var(--bone); font-variant-numeric: tabular-nums; align-self: start; padding-top: 0.9em; }
+.ledr__amt { margin: 0; font-family: var(--f-anton); font-weight: 400; font-size: clamp(54px, 9vw, 168px); line-height: 0.88; letter-spacing: -0.01em; color: var(--cream); font-variant-numeric: tabular-nums; transition: transform 0.6s var(--ease-x); }
+.ledr:hover .ledr__amt { transform: translateX(10px); }
+.ledr__meta { display: grid; gap: 6px; font-size: 15px; color: var(--bone); }
+.ledr__cat { font-family: var(--f-anton); text-transform: uppercase; font-size: clamp(20px, 1.8vw, 28px); line-height: 1.05; color: var(--cream); }
+.ledr__kind { font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; font-size: 13px; color: var(--merlot); }
+.led__disc { margin: clamp(28px, 3vw, 40px) 0 0; font-size: 15px; line-height: 1.55; color: var(--bone); max-width: 70ch; }
+.js .led__list.is-pending .ledr { opacity: 0; transform: translateY(24px); }
+.led__list.is-in .ledr { transition: opacity 0.7s var(--ease-x), transform 0.7s var(--ease-x); }
+.led--cream { background: var(--cream); }
+.led--cream .led__list, .led--cream .ledr { border-color: rgba(4,6,12,0.2); }
+.led--cream .ledr__amt, .led--cream .ledr__cat { color: var(--ink); }
+.led--cream .ledr__n, .led--cream .ledr__meta, .led--cream .led__note, .led--cream .led__disc { color: var(--ink-2); }
+@media (max-width: 900px) {
+  .led__head { grid-template-columns: 1fr; }
+  .ledr { grid-template-columns: 44px minmax(0, 1fr); }
+  .ledr__meta { grid-column: 2; }
+}
+@media (prefers-reduced-motion: reduce) { .ledr::after, .ledr__amt { transition: none; } .ledr:hover .ledr__amt { transform: none; } .js .led__list.is-pending .ledr { opacity: 1; transform: none; } }
+
+/* accordions open and close smoothly (JS animates height; content stays native details/summary) */
+details.is-anim { overflow: hidden; }

@@ -355,3 +355,46 @@
     es.forEach(function (e) { if (e.isIntersecting) { cl.classList.add('is-in'); io.disconnect(); } });
   }, { threshold: 0.25 }).observe(cl);
 })();
+
+/* Ledger: rows arrive in sequence once. */
+(function () {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+  document.querySelectorAll('.led__list').forEach(function (l) {
+    l.classList.add('is-pending');
+    new IntersectionObserver(function (es, io) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        io.disconnect();
+        l.classList.add('is-in');
+        l.querySelectorAll('.ledr').forEach(function (r, i) { r.style.transitionDelay = (i * 90) + 'ms'; });
+        requestAnimationFrame(function () { l.classList.remove('is-pending'); });
+        setTimeout(function () { l.querySelectorAll('.ledr').forEach(function (r) { r.style.transitionDelay = ''; }); }, 1600);
+      });
+    }, { threshold: 0.15 }).observe(l);
+  });
+})();
+
+/* Accordions: animate open/close height on native details (keyboard and screen readers keep native behaviour). */
+(function () {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !Element.prototype.animate) return;
+  document.querySelectorAll('.faqx details, .pbq details').forEach(function (d) {
+    var s = d.querySelector('summary');
+    if (!s) return;
+    s.addEventListener('click', function (e) {
+      e.preventDefault();
+      if (d._anim) d._anim.cancel();
+      var start = d.offsetHeight, end;
+      d.classList.add('is-anim');
+      if (d.open) {
+        end = s.offsetHeight;
+        d._anim = d.animate({ height: [start + 'px', end + 'px'] }, { duration: 260, easing: 'cubic-bezier(.33,0,.18,1)' });
+        d._anim.onfinish = function () { d.open = false; d.classList.remove('is-anim'); d._anim = null; };
+      } else {
+        d.open = true;
+        end = d.offsetHeight;
+        d._anim = d.animate({ height: [start + 'px', end + 'px'] }, { duration: 360, easing: 'cubic-bezier(.33,0,.18,1)' });
+        d._anim.onfinish = function () { d.classList.remove('is-anim'); d._anim = null; };
+      }
+    });
+  });
+})();
