@@ -431,3 +431,19 @@
   });
   list.addEventListener('mouseleave', function () { on = false; peek.classList.remove('is-on'); });
 })();
+
+/* Coverage plot: the city list and the plot highlight each other. */
+(function () {
+  var geo = document.querySelector('.geo');
+  if (!geo) return;
+  function set(id) {
+    geo.classList.toggle('has-on', !!id);
+    geo.querySelectorAll('[data-city]').forEach(function (el) { el.classList.toggle('is-on', el.getAttribute('data-city') === id); });
+  }
+  geo.querySelectorAll('.geo__item[data-city]').forEach(function (it) {
+    it.addEventListener('mouseenter', function () { set(it.getAttribute('data-city')); });
+    it.addEventListener('focusin', function () { set(it.getAttribute('data-city')); });
+  });
+  geo.querySelector('.geo__list').addEventListener('mouseleave', function () { set(null); });
+  geo.querySelector('.geo__list').addEventListener('focusout', function (e) { if (!geo.querySelector('.geo__list').contains(e.relatedTarget)) set(null); });
+})();

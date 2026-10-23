@@ -1107,3 +1107,48 @@ details.is-anim { overflow: hidden; }
 @media (max-width: 1000px) { .ix__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 600px) { .ix__grid { grid-template-columns: 1fr; } .ix__img { aspect-ratio: 4 / 3; } }
 @media (prefers-reduced-motion: reduce) { .ix__img img { transition: none; } }
+
+/* ---------- coverage: coordinate plot (no stock map). Real positions, Houston as the office. ---------- */
+.geo { position: relative; isolation: isolate; background: var(--black); border-top: 1px solid var(--iron); padding: clamp(72px, 9vw, 130px) 0; }
+.geo > .wrap { position: relative; z-index: 2; display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.65fr); gap: clamp(32px, 5vw, 80px); align-items: center; }
+.geo__plot { position: relative; margin: 0; }
+.geo__plot svg { display: block; width: 100%; height: auto; overflow: visible; }
+.geo__grid line { stroke: rgba(239,234,222,0.07); stroke-width: 1; }
+.geo__deg { font: 600 11px var(--f-body); letter-spacing: 0.12em; fill: rgba(200,193,176,0.45); }
+.geo__ray { stroke: rgba(239,234,222,0.22); stroke-width: 1; stroke-dasharray: 3 6; transition: stroke 0.4s var(--ease-x); }
+.geo__mi { font: 600 12px var(--f-body); fill: var(--bone); letter-spacing: 0.06em; }
+.geo__dot { fill: var(--cream); transition: r 0.4s var(--ease-x), fill 0.4s var(--ease-x); }
+.geo__ring { fill: none; stroke: var(--merlot); stroke-width: 1.5; opacity: 0; transition: opacity 0.4s var(--ease-x); }
+.geo__name { font: 400 22px var(--f-anton); text-transform: uppercase; fill: var(--cream); letter-spacing: 0.01em; }
+.geo__tag { font: 600 11px var(--f-body); letter-spacing: 0.18em; text-transform: uppercase; fill: var(--bone); }
+.geo__city--home .geo__dot { fill: var(--merlot); }
+.geo__city--home .geo__ring { opacity: 1; }
+.geo__city--home .geo__name { font-size: 34px; }
+.geo__city.is-on .geo__dot { fill: var(--merlot); }
+.geo__city.is-on .geo__ring { opacity: 1; }
+.geo.has-on .geo__ray:not(.is-on) { stroke: rgba(239,234,222,0.08); }
+.geo__ray.is-on { stroke: var(--merlot); stroke-dasharray: none; }
+.geo__list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--iron); }
+.geo__item { display: grid; grid-template-columns: 40px 1fr; gap: 6px 14px; padding: 18px 0; border-bottom: 1px solid var(--iron); cursor: default; transition: padding 0.4s var(--ease-x); }
+.geo__item:hover, .geo__item.is-on { padding-left: 10px; }
+.geo__n { font-weight: 600; font-size: 13px; letter-spacing: 0.16em; color: var(--bone); padding-top: 6px; }
+.geo__c { margin: 0; font-family: var(--f-anton); font-weight: 400; text-transform: uppercase; font-size: clamp(24px, 2.2vw, 32px); line-height: 1; color: var(--cream); }
+.geo__k { display: inline-block; margin-left: 10px; font-family: var(--f-body); font-size: 12px; font-weight: 600; letter-spacing: 0.18em; color: var(--merlot); vertical-align: middle; }
+.geo__d { grid-column: 2; margin: 0; font-size: 15px; line-height: 1.5; color: var(--bone); }
+.geo__links { grid-column: 2; display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 4px 0 0; padding: 0; list-style: none; }
+.geo__links a { display: inline-flex; align-items: center; min-height: 44px; font-size: 14px; font-weight: 600; color: var(--cream); text-decoration: underline; text-decoration-color: var(--merlot); text-underline-offset: 4px; }
+@media (max-width: 1000px) { .geo > .wrap { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { .geo__dot, .geo__ring, .geo__ray, .geo__item { transition: none; } }
+/* coverage plot, full width with the list beneath (Oct 23 fix) */
+.geo > .wrap { grid-template-columns: 1fr; }
+.geo__deg { font-size: 15px; }
+.geo__mi { font-size: 17px; }
+.geo__name { font-size: 30px; }
+.geo__city--home .geo__name { font-size: 46px; }
+.geo__tag { font-size: 15px; }
+.geo__list { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0 clamp(16px, 2vw, 28px); border-top: 0; }
+.geo__item { grid-template-columns: 1fr; border-top: 1px solid var(--iron); border-bottom: 0; align-content: start; }
+.geo__item:hover, .geo__item.is-on { padding-left: 0; border-top-color: var(--merlot); }
+.geo__n, .geo__d, .geo__links { grid-column: 1; }
+@media (max-width: 1100px) { .geo__list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .geo__list { grid-template-columns: 1fr; } }
