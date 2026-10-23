@@ -983,3 +983,13 @@ details.is-anim { overflow: hidden; }
   .chap__num { top: 10px; font-size: 140px; }
 }
 @media (prefers-reduced-motion: reduce) { .chap__fig img { transform: none; transition: none; } .stand__row, .stand__v { transition: none; } }
+
+/* ---------- credentials strip (Meet Edward): restrained, verified items only ---------- */
+.cred { position: relative; isolation: isolate; background: var(--near-black); border-top: 1px solid var(--iron); padding: clamp(56px, 7vw, 96px) 0; }
+.cred > .wrap { position: relative; z-index: 2; }
+.cred__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(16px, 2.4vw, 36px); }
+.cred__list li { border-top: 2px solid var(--merlot); padding-top: 18px; }
+.cred__big { display: block; font-family: var(--f-anton); text-transform: uppercase; font-size: clamp(40px, 4.4vw, 72px); line-height: 0.9; color: var(--cream); }
+.cred__what { display: block; margin-top: 10px; font-size: 15px; line-height: 1.45; color: var(--bone); }
+.ab-story__body .ab-story__close { margin-top: clamp(28px, 3vw, 40px) !important; font-family: var(--f-anton); font-weight: 400; text-transform: uppercase; font-size: clamp(30px, 3.4vw, 54px) !important; line-height: 1 !important; color: var(--cream) !important; }
+@media (max-width: 900px) { .cred__list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
