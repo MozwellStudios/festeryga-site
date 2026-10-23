@@ -398,3 +398,10 @@
     });
   });
 })();
+
+/* Chapters: the photograph settles once the chapter comes into view. */
+(function () {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }); }, { threshold: 0.25 });
+  document.querySelectorAll('.chap').forEach(function (c) { io.observe(c); });
+})();
