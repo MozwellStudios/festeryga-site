@@ -411,3 +411,23 @@
   if (!h || window.matchMedia('(prefers-reduced-motion: reduce)').matches) { if (h) h.classList.add('is-in'); return; }
   requestAnimationFrame(function () { setTimeout(function () { h.classList.add('is-in'); }, 120); });
 })();
+
+/* Docket: a photo of the hovered case type follows the cursor (fine pointers only). */
+(function () {
+  var list = document.querySelector('.dk__list');
+  if (!list || !window.matchMedia('(hover: hover) and (pointer: fine)').matches || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var peek = document.createElement('div'); peek.className = 'dk__peek'; peek.setAttribute('aria-hidden', 'true');
+  var imgs = {};
+  list.querySelectorAll('.dk__row a[data-img]').forEach(function (a) {
+    var src = a.getAttribute('data-img');
+    if (!imgs[src]) { var im = document.createElement('img'); im.src = src; im.alt = ''; peek.appendChild(im); imgs[src] = im; }
+  });
+  document.body.appendChild(peek);
+  var x = 0, y = 0, cx = 0, cy = 0, raf = null, on = false;
+  function loop() { cx += (x - cx) * 0.16; cy += (y - cy) * 0.16; peek.style.transform = 'translate3d(' + (cx - peek.offsetWidth / 2 + 260).toFixed(1) + 'px,' + (cy - peek.offsetHeight / 2).toFixed(1) + 'px,0)'; raf = on ? requestAnimationFrame(loop) : null; }
+  list.addEventListener('mousemove', function (e) { x = e.clientX; y = e.clientY; if (!raf) { cx = x; cy = y; raf = requestAnimationFrame(loop); } });
+  list.querySelectorAll('.dk__row a[data-img]').forEach(function (a) {
+    a.addEventListener('mouseenter', function () { on = true; peek.classList.add('is-on'); Object.keys(imgs).forEach(function (k) { imgs[k].classList.toggle('is-on', k === a.getAttribute('data-img')); }); if (!raf) raf = requestAnimationFrame(loop); });
+  });
+  list.addEventListener('mouseleave', function () { on = false; peek.classList.remove('is-on'); });
+})();
