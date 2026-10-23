@@ -1045,3 +1045,11 @@ details.is-anim { overflow: hidden; }
 }
 @media (max-width: 560px) { .ijd__list { grid-template-columns: 1fr; } }
 @media (prefers-reduced-motion: reduce) { .ijh__band img { transform: none; transition: none; } }
+
+/* client file metadata + two-up grid for the real stories */
+.tt__meta { margin: 0 0 6px; font-size: 12px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--merlot); }
+.tt:has(.tt__meta) .tt__meta { color: var(--bone); }
+.tg__grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.tg__grid--2 .tt__cover { aspect-ratio: 16 / 9; }
+.tg__grid--2 .tt__name { font-size: clamp(30px, 3vw, 46px); }
+@media (max-width: 700px) { .tg__grid--2 { grid-template-columns: 1fr; } }
