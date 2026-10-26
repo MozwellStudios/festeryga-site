@@ -112,6 +112,7 @@ a.fcard:focus-visible { outline: 2px solid var(--cream); outline-offset: -2px; }
   <div class="nav__menu" id="navmenu-about" hidden>
     <a href="../about/" aria-current="page">The firm<span>The people behind the practice</span></a>
     <a href="../about/edward/">Meet Edward<span>Founding attorney</span></a>
+    <a href="../about/sarah/">Meet Sarah<span>Attorney partner</span></a>
     <a href="../about/edward/#process">The EF Process<span>How a case is built</span></a>
   </div>
   <div class="nav__menu nav__menu--wide" id="navmenu-practice" hidden>
@@ -185,17 +186,17 @@ a.fcard:focus-visible { outline: 2px solid var(--cream); outline-offset: -2px; }
         <p class="mf__p">I grew up in a farming community. My parents and grandparents, the children and grandchildren of European immigrants, taught me to be honest, to work hard, and to stand up to bullies. I still practice law that way.</p>
         <p class="mf__p">I take on the companies that cut corners and the insurers that deny what they owe. Every case I accept is built for trial, so the other side has to deal with me.</p>
         <div class="mf__links">
-          <h3 class="links__h">More about the firm</h3>
-          <ul class="links">
-          <li><a href="../about/edward/">Meet Edward</a></li>
-          <li><a href="../about/edward/#process">The EF Process</a></li>
-          <li><a href="../results/">Case results</a></li>
-          <li><a href="../client-stories/">Client stories</a></li>
-          <li><a href="../recognition/">Recognition</a></li>
-          <li><a href="../practice-areas/">Practice areas</a></li>
-          <li><a href="../injuries/">Injuries</a></li>
-          <li><a href="../faq/">Common questions</a></li>
-          <li><a href="../coverage/">Where I take cases</a></li>
+          <div class="xl__head"><h3 class="xl__h">Explore the firm</h3><p class="xl__note">Pick a page to keep reading.</p></div>
+          <ul class="xl">
+          <li><a href="../about/edward/"><span class="xl__t">Meet Edward<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></li>
+          <li><a href="../about/edward/#process"><span class="xl__t">The EF Process<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></li>
+          <li><a href="../results/"><span class="xl__t">Case results<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></li>
+          <li><a href="../client-stories/"><span class="xl__t">Client stories<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></li>
+          <li><a href="../recognition/"><span class="xl__t">Recognition<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></li>
+          <li><a href="../practice-areas/"><span class="xl__t">Practice areas<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></li>
+          <li><a href="../injuries/"><span class="xl__t">Injuries<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></li>
+          <li><a href="../faq/"><span class="xl__t">Common questions<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></li>
+          <li><a href="../coverage/"><span class="xl__t">Where I take cases<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></li>
           </ul>
         </div>
       </div>
@@ -213,12 +214,12 @@ a.fcard:focus-visible { outline: 2px solid var(--cream); outline-offset: -2px; }
         <div class="fcard__media"><img src="../images/EF-On-Table-1.png" alt="" width="1500" height="1600" loading="lazy"></div>
         <div class="fcard__body"><span class="fcard__name">Edward Festeryga</span><span class="fcard__role">Founding attorney</span><span class="fcard__go">Meet Edward</span></div>
       </a>
+      <a class="fcard" href="sarah/">
+        <div class="fcard__media"><!-- PLACEHOLDER portrait: Sarah's headshot (BLOCKERS #2) --><img class="fcard__ph" src="../images/placeholder-portrait.svg" alt="" width="600" height="750" loading="lazy"></div>
+        <div class="fcard__body"><span class="fcard__name">Sarah</span><span class="fcard__role">Attorney partner</span><span class="fcard__go">Meet Sarah</span></div>
+      </a>
       <div class="fcard">
-        <div class="fcard__media" aria-hidden="true"><span class="fcard__mono">S</span></div>
-        <div class="fcard__body"><span class="fcard__name">Sarah</span><span class="fcard__role">Attorney partner</span></div>
-      </div>
-      <div class="fcard">
-        <div class="fcard__media" aria-hidden="true"><span class="fcard__mono">EF</span></div>
+        <div class="fcard__media"><!-- PLACEHOLDER portrait: team photo (BLOCKERS #2) --><img class="fcard__ph" src="../images/placeholder-portrait.svg" alt="" width="600" height="750" loading="lazy"></div>
         <div class="fcard__body"><span class="fcard__name">The team</span><span class="fcard__role">Paralegals and support</span></div>
       </div>
       <a class="fcard" href="edward/#process">
@@ -275,15 +276,37 @@ a.fcard:focus-visible { outline: 2px solid var(--cream); outline-offset: -2px; }
 
 <!-- WHAT THE FIRM STANDS FOR: Edward's mission, vision and values from festeryga.com, tightened -->
 <!-- PENDING EDWARD VERIFICATION of tightened mission, vision, and values -->
-<section class="stand on-cream" aria-labelledby="mvH">
+<section class="sbn sbn--cream on-cream" aria-labelledby="misH">
+  <div class="sbn__stage">
+    
+    <div class="grain grain--light" aria-hidden="true"></div>
+    <div class="wrap sbn__in">
+      <p class="eb">Mission</p><h2 class="sbn__h" id="misH"><span class="sbn__w">Healing yesterday. Here today.</span> <span class="sbn__w sbn__w--b">Bringing hope to tomorrow.</span></h2>
+      <div class="sbn__after">
+        <p class="sbn__p">I bring justice to the people and communities that need it most: people facing tragic, life-altering harm caused by someone else&rsquo;s negligence. I hold the corporations responsible to account.</p>
+        
+      </div>
+    </div>
+  </div>
+</section>
+<section class="sbn sbn--cream on-cream" aria-labelledby="visH">
+  <div class="sbn__stage">
+    
+    <div class="grain grain--light" aria-hidden="true"></div>
+    <div class="wrap sbn__in">
+      <p class="eb">Vision</p><h2 class="sbn__h" id="visH"><span class="sbn__w">Injured people</span> <span class="sbn__w sbn__w--b">need a champion.</span></h2>
+      <div class="sbn__after">
+        <p class="sbn__p">Every company I hold accountable makes Houston a little safer, and every client I represent gets the justice they deserve.</p>
+        
+      </div>
+    </div>
+  </div>
+</section>
+<section class="stand on-cream" aria-labelledby="mvH" style="padding-top:clamp(40px,5vw,70px)">
   <div class="grain grain--light" aria-hidden="true"></div>
   <div class="wrap">
-    <p class="eb">Mission, vision, values</p>
+    <p class="eb">Values</p>
     <h2 class="sh sh--md" id="mvH"><span class="sh__a">What the firm</span> <span class="sh__b">stands for.</span></h2>
-    <div class="stand__two">
-      <div><h3 class="stand__k">Mission</h3><p class="stand__s">Healing yesterday. Here today. Bringing hope to tomorrow.</p><p class="mv__p">I bring justice to the people and communities that need it most: people facing tragic, life-altering harm caused by someone else&rsquo;s negligence. I hold the corporations responsible to account.</p></div>
-      <div><h3 class="stand__k">Vision</h3><p class="stand__s">Injured people need a champion.</p><p class="mv__p">Every company I hold accountable makes Houston a little safer, and every client I represent gets the justice they deserve.</p></div>
-    </div>
     <ul class="stand__list" aria-label="Values">
       <li class="stand__row"><h3 class="stand__v">Justice</h3><p class="stand__d">Accidents almost never just happen. A company cut a corner and put profit over people. Holding it accountable makes the community safer.</p></li>
       <li class="stand__row"><h3 class="stand__v">Community</h3><p class="stand__d">Be good to others and hold bullies accountable. Billion-dollar industries need someone willing to face them.</p></li>
@@ -368,16 +391,18 @@ a.fcard:focus-visible { outline: 2px solid var(--cream); outline-offset: -2px; }
 <section class="cl" id="closing" aria-labelledby="clH">
   <div class="grain" aria-hidden="true"></div>
   <div class="cl__in">
-    <p class="cl__tag cl__fade" style="--i:0">Free and confidential. Answered 24/7.</p>
-    <h2 class="cl__h" id="clH"><span class="cl__line"><span class="cl__w" style="--i:0">When</span> <span class="cl__w" style="--i:1">it&rsquo;s</span> <span class="cl__w" style="--i:2">everything,</span></span> <span class="cl__line cl__line--b"><span class="cl__w" style="--i:3">you</span> <span class="cl__w" style="--i:4">get</span> <span class="cl__w" style="--i:5">Edward.</span></span></h2>
-    <p class="cl__p cl__fade" style="--i:6">Tell me what happened. In English or <span lang="es">espa&ntilde;ol</span>, I&rsquo;ll tell you straight whether I can help.</p>
-    <div class="cl__act cl__fade" style="--i:7">
-      <a class="cl__btn" href="../contact/">Free consultation</a>
-      <a class="cl__tel" href="tel:+17134144042">(713) 414-4042</a>
+    <div>
+      <p class="eb cl__fade" style="--i:0">Free and confidential</p>
+      <h2 class="cl__h" id="clH"><span class="cl__line"><span class="cl__w" style="--i:0">When</span> <span class="cl__w" style="--i:1">it&rsquo;s</span> <span class="cl__w" style="--i:2">everything,</span></span> <span class="cl__line cl__line--b"><span class="cl__w" style="--i:3">you</span> <span class="cl__w" style="--i:4">get</span> <span class="cl__w" style="--i:5">Edward.</span></span></h2>
+      <p class="cl__p cl__fade" style="--i:6">Tell me what happened. I&rsquo;ll tell you straight whether I can help.</p>
     </div>
-    <a class="cl__mail cl__fade" style="--i:8" href="mailto:edward@festeryga.com">edward@festeryga.com</a>
+    <div class="cl__panel cl__fade" style="--i:7">
+      <p class="cl__k">Call, any hour</p>
+      <a class="cl__tel" href="tel:+17134144042">(713) 414-4042</a>
+      <a class="cl__btn" href="../contact/">Free consultation</a>
+      <div class="cl__meta"><a class="cl__mail" href="mailto:edward@festeryga.com">edward@festeryga.com</a><span lang="es">English y espa&ntilde;ol</span></div>
+    </div>
   </div>
-<section class="mq cl__strip" aria-label="Photographs" style="--mq-dur:60s"><div class="mq__track"><span class="cl__ph"><img src="../images/IMG_2975-2048x1365.jpg.jpeg" alt="" loading="lazy" width="440" height="586"></span><span class="cl__ph"><img src="../images/interstitial-bg.jpg" alt="" loading="lazy" width="440" height="586"></span><span class="cl__ph"><img src="../images/edward-portrait.jpg" alt="" loading="lazy" width="440" height="586"></span><span class="cl__ph"><img src="../images/15.jpg.jpeg" alt="" loading="lazy" width="440" height="586"></span><span class="cl__ph"><img src="../images/accidents-happen.jpg.jpeg" alt="" loading="lazy" width="440" height="586"></span><span class="cl__ph"><img src="../images/client-portrait.jpg" alt="" loading="lazy" width="440" height="586"></span><span class="cl__ph"><img src="../images/16.jpg.jpeg" alt="" loading="lazy" width="440" height="586"></span><span class="cl__ph"><img src="../images/results-bg.jpg" alt="" loading="lazy" width="440" height="586"></span><span class="cl__ph"><img src="../images/final-bg.jpg" alt="" loading="lazy" width="440" height="586"></span><span class="cl__ph"><img src="https://i.vimeocdn.com/video/2192326704-0e04d1336e1b65ee14afc165b3ffe2957a4ed273c3a0602b07a42f271e129300-d_1280?region=us" alt="" loading="lazy" width="440" height="586"></span><span class="cl__ph"><img src="https://i.vimeocdn.com/video/2192327084-a609ef0475fb91005659dbfa22a23e242f4e22913996515bcf5f945a1d01735e-d_1280?region=us" alt="" loading="lazy" width="440" height="586"></span><span class="cl__ph" aria-hidden="true"><img src="../images/IMG_2975-2048x1365.jpg.jpeg" alt="" loading="lazy" width="440" height="586"></span><span class="cl__ph" aria-hidden="true"><img src="../images/interstitial-bg.jpg" alt="" loading="lazy" width="440" height="586"></span><span class="cl__ph" aria-hidden="true"><img src="../images/edward-portrait.jpg" alt="" loading="lazy" width="440" height="586"></span><span class="cl__ph" aria-hidden="true"><img src="../images/15.jpg.jpeg" alt="" loading="lazy" width="440" height="586"></span><span class="cl__ph" aria-hidden="true"><img src="../images/accidents-happen.jpg.jpeg" alt="" loading="lazy" width="440" height="586"></span><span class="cl__ph" aria-hidden="true"><img src="../images/client-portrait.jpg" alt="" loading="lazy" width="440" height="586"></span><span class="cl__ph" aria-hidden="true"><img src="../images/16.jpg.jpeg" alt="" loading="lazy" width="440" height="586"></span><span class="cl__ph" aria-hidden="true"><img src="../images/results-bg.jpg" alt="" loading="lazy" width="440" height="586"></span><span class="cl__ph" aria-hidden="true"><img src="../images/final-bg.jpg" alt="" loading="lazy" width="440" height="586"></span><span class="cl__ph" aria-hidden="true"><img src="https://i.vimeocdn.com/video/2192326704-0e04d1336e1b65ee14afc165b3ffe2957a4ed273c3a0602b07a42f271e129300-d_1280?region=us" alt="" loading="lazy" width="440" height="586"></span><span class="cl__ph" aria-hidden="true"><img src="https://i.vimeocdn.com/video/2192327084-a609ef0475fb91005659dbfa22a23e242f4e22913996515bcf5f945a1d01735e-d_1280?region=us" alt="" loading="lazy" width="440" height="586"></span></div><button class="mq__pause" type="button" aria-pressed="false" aria-label="Pause the moving list"></button></section>
 </section>
 </main>
 <footer class="credits">

@@ -111,7 +111,8 @@
       clearTimeout(timer);
       fade.classList.add('is-swap');
       timer = setTimeout(function () {
-        t.textContent = it.querySelector('.sel__name').textContent;
+        t.textContent = it.getAttribute('data-stmt') || it.querySelector('.sel__name').textContent;
+        var lab = sel.querySelector('.sel__lab'); if (lab) lab.textContent = (it.querySelector('.sel__num') ? it.querySelector('.sel__num').textContent + ' / ' : '') + it.querySelector('.sel__name').textContent;
         d.textContent = it.querySelector('.sel__desc').textContent;
         go.href = it.href;
         go.firstChild.nodeValue = it.getAttribute('data-go') || go.firstChild.nodeValue;
@@ -302,30 +303,38 @@
   });
 })();
 
-/* Scroll banner: each word blurs in as the section scrolls, then the call to action. Static on phones / reduced motion. */
+/* Scroll banners: each word blurs in as the section scrolls, then the line and action. Static on phones / reduced motion. */
 (function () {
-  var sec = document.querySelector('.sbn');
-  if (!sec || window.matchMedia('(prefers-reduced-motion: reduce)').matches || window.matchMedia('(max-width: 760px)').matches) return;
-  var words = sec.querySelectorAll('.sbn__w'), after = sec.querySelector('.sbn__after'), bg = sec.querySelector('.sbn__bg');
-  sec.classList.add('sbn--live');
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || window.matchMedia('(max-width: 760px)').matches) return;
+  var secs = document.querySelectorAll('.sbn');
+  if (!secs.length) return;
   function clamp(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
+  var items = [];
+  secs.forEach(function (sec) {
+    sec.classList.add('sbn--live');
+    items.push({ sec: sec, words: sec.querySelectorAll('.sbn__w'), after: sec.querySelector('.sbn__after'), bg: sec.querySelector('.sbn__bg') });
+  });
   var ticking = false;
   function render() {
     ticking = false;
-    var total = sec.offsetHeight - window.innerHeight;
-    if (total <= 0) return;
-    var p = clamp(-sec.getBoundingClientRect().top / total);
-    words.forEach(function (w, i) {
-      var t = clamp((p - 0.08 - i * 0.18) / 0.2), e = 1 - Math.pow(1 - t, 3);
-      w.style.opacity = e.toFixed(3);
-      w.style.filter = e < 0.99 ? 'blur(' + (16 * (1 - e)).toFixed(1) + 'px)' : 'none';
-      w.style.transform = 'translateY(' + (30 * (1 - e)).toFixed(1) + 'px)';
+    items.forEach(function (it) {
+      var r = it.sec.getBoundingClientRect(), total = it.sec.offsetHeight - window.innerHeight;
+      if (total <= 0 || r.bottom < 0 || r.top > window.innerHeight) return;
+      var p = clamp(-r.top / total);
+      it.words.forEach(function (w, i) {
+        var t = clamp((p - 0.08 - i * 0.18) / 0.2), e = 1 - Math.pow(1 - t, 3);
+        w.style.opacity = e.toFixed(3);
+        w.style.filter = e < 0.99 ? 'blur(' + (16 * (1 - e)).toFixed(1) + 'px)' : 'none';
+        w.style.transform = 'translateY(' + (30 * (1 - e)).toFixed(1) + 'px)';
+      });
+      if (it.after) {
+        var a = clamp((p - 0.62) / 0.2), ea = 1 - Math.pow(1 - a, 3);
+        it.after.style.opacity = ea.toFixed(3);
+        it.after.style.transform = 'translateY(' + (24 * (1 - ea)).toFixed(1) + 'px)';
+        it.after.style.visibility = ea <= 0.01 ? 'hidden' : 'visible';
+      }
+      if (it.bg) it.bg.style.transform = 'scale(' + (1.12 - 0.12 * p).toFixed(3) + ')';
     });
-    var a = clamp((p - 0.62) / 0.2), ea = 1 - Math.pow(1 - a, 3);
-    after.style.opacity = ea.toFixed(3);
-    after.style.transform = 'translateY(' + (24 * (1 - ea)).toFixed(1) + 'px)';
-    after.style.visibility = ea <= 0.01 ? 'hidden' : 'visible';
-    if (bg) bg.style.transform = 'scale(' + (1.12 - 0.12 * p).toFixed(3) + ')';
   }
   window.addEventListener('scroll', function () { if (!ticking) { ticking = true; window.requestAnimationFrame(render); } }, { passive: true });
   window.addEventListener('resize', render);
@@ -446,4 +455,14 @@
   });
   geo.querySelector('.geo__list').addEventListener('mouseleave', function () { set(null); });
   geo.querySelector('.geo__list').addEventListener('focusout', function (e) { if (!geo.querySelector('.geo__list').contains(e.relatedTarget)) set(null); });
+})();
+
+/* Reveal: elements marked .rv fade up once as they enter; groups stagger through --d. */
+(function () {
+  var els = document.querySelectorAll('.rv');
+  if (!els.length) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('is-in'); }); return; }
+  var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }); }, { threshold: 0.18, rootMargin: '0px 0px -6% 0px' });
+  els.forEach(function (e) { io.observe(e); });
+  document.addEventListener('focusin', function (e) { var r = e.target.closest && e.target.closest('.rv'); if (r) r.classList.add('is-in'); });
 })();
