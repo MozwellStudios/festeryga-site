@@ -1261,3 +1261,8 @@ details.is-anim { overflow: hidden; }
 .acc--photo .acc__head .sh { text-align: left; }
 .acc--photo > .wrap { position: relative; z-index: 2; }
 @media (max-width: 560px) { .xl li:last-child:nth-child(odd) { grid-column: 1 / -1; } .xl a { min-height: 96px; } }
+/* review fixes (Oct 26): written-statement stories get a short photo band, not an empty full-height hero */
+.tv--still { min-height: clamp(260px, 40vh, 440px); }
+.tv--still .tv__in { padding-bottom: clamp(24px, 3vw, 40px); }
+/* coverage plot is unreadable at phone width; the numbered city list carries the same information */
+@media (max-width: 760px) { .geo__plot { display: none; } }
