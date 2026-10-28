@@ -26,10 +26,10 @@
 <style>
 .vx { position: relative; overflow: hidden; isolation: isolate; background: var(--black); padding: clamp(40px, 5vw, 70px) 0 clamp(70px, 8vw, 110px); }
 .vx > .wrap { position: relative; z-index: 2; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: clamp(32px, 5vw, 90px); align-items: end; }
-.vx__h { margin: 0; font-family: var(--f-anton); font-weight: 400; text-transform: uppercase; font-size: clamp(96px, 17vw, 280px); line-height: 0.84; letter-spacing: -0.02em; color: var(--cream); }
-.vx__h span { display: block; padding-left: clamp(40px, 8vw, 150px); color: var(--merlot); }
+.vx__h { margin: 0; font-family: var(--f-anton); font-weight: 400; text-transform: uppercase; font-size: clamp(96px, 17vw, 280px); line-height: 0.96; letter-spacing: -0.02em; color: var(--cream); }
+.vx__h span { display: block; color: var(--merlot); } /* Oct 28: flush left, no indent */
 /* below 360px the 96px floor plus the 40px indent needs 319px of 272px and the page laid out wider than the screen (Phase C Stage 1, Oct 28) */
-@media (max-width: 359px) { .vx__h { font-size: 84px; } .vx__h span { padding-left: 24px; } }
+@media (max-width: 359px) { .vx__h { font-size: 84px; } }
 .vx__p { margin: clamp(24px, 3vw, 36px) 0 0; font-size: clamp(17px, 1.5vw, 21px); line-height: 1.6; color: rgba(239,234,222,0.9); max-width: 44ch; }
 .vx__fig { position: relative; aspect-ratio: 3 / 4; overflow: hidden; }
 .vx__fig img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.08) brightness(0.62); }
