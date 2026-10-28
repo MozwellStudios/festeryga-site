@@ -1,0 +1,47 @@
+/* PROTOTYPE 2 (Oct 27, 2026) · Glass navigation · Railroad only.
+   Loaded after shared/nav.css and shared/v2.css by prototypes/railroad-2-glass-nav/ and nothing else. Delete to revert.
+   Smoked glass, not frosted glass: a black tint with a cream hairline. No color, glow, rounding or gradient.
+     over media   : at rest, the hero photograph runs up under the nav (tint 0.55, blur 18px).
+     over content : as soon as any text would pass under it, the same plate turns near-opaque (0.94). Text never scrolls under glass.
+   Hero padding fix: the hero gains exactly the nav's height on top, so every hero element sits where it sits today. */
+
+:root { --glass-media: rgba(4,6,12,0.55); --glass-content: rgba(4,6,12,0.94); --glass-blur: 18px; --nav-h: 110px; }
+@media (max-width: 900px) { :root { --glass-blur: 12px; --nav-h: 65px; } }
+
+.nav.nav--glass {
+  background: var(--glass-media);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.1);
+  backdrop-filter: blur(var(--glass-blur)) saturate(1.1);
+  border-bottom: 1px solid rgba(239,234,222,0.14);
+  box-shadow: inset 0 1px 0 rgba(239,234,222,0.06);
+  transition: background-color var(--m-t-base) var(--m-ease-state), border-color var(--m-t-base) var(--m-ease-state);
+}
+.nav.nav--glass .nav__secondary { border-top-color: rgba(239,234,222,0.1); }
+.nav.nav--glass.is-solid { background: var(--glass-content); border-bottom-color: var(--iron); }
+.nav.nav--glass.is-solid .nav__secondary { border-top-color: var(--iron); }
+/* links keep the current nav's colors in both states (--bone, --cream on hover and current page) */
+
+/* the hero runs up under the nav */
+body.has-glass-nav .nav { margin-bottom: calc(-1 * var(--nav-h)); }
+@media (min-width: 901px) {
+  body.has-glass-nav .pvh { min-height: calc(clamp(620px, calc(100svh - 108px), 940px) + var(--nav-h)); }
+  body.has-glass-nav .pvh__in { padding-top: calc(clamp(80px, 10vw, 140px) + var(--nav-h)); }
+}
+@media (max-width: 900px) {
+  body.has-glass-nav .pvh__img { height: calc(46vh + var(--nav-h)); }
+}
+/* the nav band of the photograph gets a little more grade, so the plate never sits on the brightest part of a frame */
+body.has-glass-nav .pvh__img::before { content: ''; position: absolute; z-index: 1; left: 0; right: 0; top: 0; height: calc(var(--nav-h) + 80px); pointer-events: none;
+  background: linear-gradient(to bottom, rgba(4,6,12,0.45), rgba(4,6,12,0)); }
+
+/* keyboard focus never lands under the plate */
+html:has(body.has-glass-nav) { scroll-padding-top: calc(var(--nav-h) + 16px); }
+
+/* no glass for people who ask for less transparency or more contrast, or browsers without backdrop blur */
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  .nav.nav--glass, .nav.nav--glass.is-solid { background: var(--glass-content); -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .nav.nav--glass { background: rgba(4,6,12,0.82); }
+}
+@media (prefers-reduced-motion: reduce) { .nav.nav--glass { transition: none; } }

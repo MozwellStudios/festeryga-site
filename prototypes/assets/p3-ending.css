@@ -1,0 +1,30 @@
+/* PROTOTYPE 3 (Oct 27, 2026) · Closing CTA + footer as one ending · Railroad only.
+   Loaded after shared/v2.css by prototypes/railroad-3-ending/ and nothing else. Delete to revert.
+   One dark plane instead of two: the call-out keeps its line, its reveal and its action panel; the panel now carries
+   the address too, so the footer stops repeating phone and email and becomes a quiet index (brand, site links, legal).
+   The merlot light moves up behind the line and fades out before the index, so there is no seam between the two. */
+
+.cl.cl--end { padding-bottom: clamp(64px, 7vw, 104px); }
+.cl.cl--end::before { background: radial-gradient(ellipse 70% 85% at 12% 62%, rgba(122,27,58,0.36), transparent 70%); }
+.cl__addr { margin: 18px 0 0; padding-top: 16px; border-top: 1px solid var(--iron); font-style: normal; font-size: 15px; line-height: 1.6; color: var(--bone); }
+
+/* the index */
+.credits.credits--end { border-top: 0; padding: 0 0 clamp(36px, 4vw, 52px); background: var(--black); }
+.end { border-top: 1px solid var(--iron); padding-top: clamp(32px, 3.6vw, 48px); display: grid; grid-template-columns: minmax(0, 0.55fr) minmax(0, 1.45fr); gap: clamp(24px, 4vw, 72px); align-items: start; }
+.end__brand { display: inline-flex; align-items: center; min-height: 44px; font-family: var(--f-anton); font-size: clamp(24px, 2.2vw, 32px); line-height: 1; letter-spacing: 0.01em; color: var(--cream); text-decoration: none; }
+.end__nav ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0 clamp(16px, 2vw, 32px); }
+.end__nav a { display: flex; align-items: center; min-height: 44px; font-size: 15px; font-weight: 500; color: var(--bone); text-decoration: none; border-bottom: 1px solid transparent; transition: color var(--m-t-quick) var(--m-ease-state), border-color var(--m-t-quick) var(--m-ease-state); }
+.end__nav a:hover { color: var(--cream); border-bottom-color: var(--merlot); }
+.end__legal { grid-column: 1 / -1; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px 32px; margin-top: clamp(20px, 2.4vw, 32px); padding-top: 18px; border-top: 1px solid rgba(40,44,54,0.6); font-size: 13px; color: var(--ash); }
+.end__legal p { margin: 0; }
+.end__legal .legal-row { display: inline-flex; flex-wrap: wrap; gap: 6px 20px; }
+.credits--end a:focus-visible { outline: 2px solid var(--cream); outline-offset: 4px; }
+
+@media (max-width: 1100px) { .end__nav ul { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (max-width: 900px) {
+  .end { grid-template-columns: 1fr; gap: 12px; }
+  .end__nav ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .end__legal { flex-direction: column; align-items: flex-start; }
+  .cl.cl--end::before { background: radial-gradient(ellipse 120% 70% at 0% 40%, rgba(122,27,58,0.34), transparent 70%); }
+}
+@media (prefers-reduced-motion: reduce) { .end__nav a { transition: none; } }

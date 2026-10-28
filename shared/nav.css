@@ -60,3 +60,14 @@ html.navsheet-open, html.navsheet-open body { overflow: hidden; }
 /* wide menu (Practice areas: 12 pages) in two columns */
 .nav__menu--wide:not([hidden]) { display: grid; grid-template-columns: 1fr 1fr; min-width: min(560px, calc(100vw - 32px)); }
 .nav__menu--wide a:first-child { grid-column: 1 / -1; border-bottom: 1px solid var(--iron); }
+
+/* 320 to 371px (Phase C Stage 1, Oct 28): the interior nav row needs 324px inside the 24px page margins. At 320px it
+   overflowed (the page laid out at 348px and zoomed out); from 348 to 371px it fit only by eating 12px of the right margin.
+   Tighter brand tracking and gaps below 372px only: same type, same buttons, same 44px targets, same page margin.
+   The homepage's classic nav is a different component and is not touched here. */
+@media (max-width: 371px) {
+  .nav:not(.nav--classic) .nav__primary { gap: 12px; }
+  .nav:not(.nav--classic) .nav__right { gap: 6px; }
+  .nav:not(.nav--classic) .nav__brand { font-size: 12px; letter-spacing: 0.14em; }
+  .nav:not(.nav--classic) .nav__cta { padding: 0 14px; }
+}

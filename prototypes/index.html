@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Railroad Prototypes</title>
+<link rel="icon" type="image/png" sizes="32x32" href="../images/ef-monogram-32x32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Libre+Franklin:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --black: #04060C; --near: #080B12; --iron: #282C36; --cream: #EFEADE; --bone: #C8C1B0; --merlot: #7A1B3A; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--black); color: var(--cream); font: 400 17px/1.6 'Libre Franklin', 'Helvetica Neue', Arial, sans-serif; }
+  main { max-width: 980px; margin: 0 auto; padding: clamp(48px, 8vw, 96px) 24px; }
+  h1 { margin: 0; font: 400 clamp(44px, 7vw, 84px)/0.95 Anton, 'Arial Narrow', sans-serif; text-transform: uppercase; }
+  .lede { margin: 18px 0 0; max-width: 60ch; color: var(--bone); }
+  ol { list-style: none; margin: 48px 0 0; padding: 0; border-top: 1px solid var(--iron); }
+  li { border-bottom: 1px solid var(--iron); }
+  a { display: grid; grid-template-columns: 7rem 1fr; gap: 4px 24px; padding: 22px 0; color: inherit; text-decoration: none; }
+  a:hover h2, a:focus-visible h2 { color: var(--bone); text-decoration: underline; text-decoration-color: var(--merlot); text-underline-offset: 6px; }
+  a:focus-visible { outline: 2px solid var(--cream); outline-offset: 4px; }
+  .k { font-weight: 600; font-size: 14px; color: var(--merlot); padding-top: 6px; }
+  h2 { margin: 0; font: 400 clamp(26px, 3vw, 34px)/1.05 Anton, 'Arial Narrow', sans-serif; text-transform: uppercase; }
+  p.d { grid-column: 2; margin: 0; color: var(--bone); font-size: 16px; }
+  .note { margin: 32px 0 0; font-size: 15px; color: var(--bone); }
+  @media (max-width: 560px) { a { grid-template-columns: 1fr; } p.d { grid-column: 1; } }
+</style>
+</head>
+<body>
+<main>
+  <h1>Railroad prototypes</h1>
+  <p class="lede">Phase B, Oct 27, 2026. One experiment per page, each compared against the current Railroad page. Local review only, not deployed.</p>
+  <ol>
+    <li><a href="../practice-areas/railroad/"><span class="k">Current</span><h2>Railroad accidents</h2><p class="d">Option B as approved. The reference for all three.</p></a></li>
+    <li><a href="railroad-combined/"><span class="k">Combined</span><h2>Railroad, approved parts</h2><p class="d">Glass nav and hero from 2, the Accountability film still from 1, the one ending from 3, tuned to sit together.</p></a></li>
+    <li><a href="railroad-1-spatial/"><span class="k">Prototype 1</span><h2>Spatial composition</h2><p class="d">The cream sheet steps up over the hero photograph; Edward's photo bleeds full height in Accountability.</p></a></li>
+    <li><a href="railroad-2-glass-nav/"><span class="k">Prototype 2</span><h2>Glass navigation</h2><p class="d">The hero photograph runs up under a smoked-glass nav; the nav turns solid before any text passes under it.</p></a></li>
+    <li><a href="railroad-3-ending/"><span class="k">Prototype 3</span><h2>One ending</h2><p class="d">The closing call-out and the footer become one plane; contact details appear once.</p></a></li>
+  </ol>
+  <p class="note">Each prototype changes only its own experiment. Everything else on the page is the current Railroad page.</p>
+</main>
+</body>
+</html>

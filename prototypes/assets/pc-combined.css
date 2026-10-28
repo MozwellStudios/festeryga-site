@@ -1,0 +1,67 @@
+/* COMBINED RAILROAD PROTOTYPE (Oct 27, 2026) · Edwin's Phase B selections, one page.
+   Loaded by prototypes/railroad-combined/ after p2-glass-nav.css (approved hero + glass nav) and p3-ending.css (approved ending).
+   This file adds the one approved part of Experiment 1 (the Accountability film still), the footer's standalone contact line,
+   the seams between the three, and an isolated fix for the 320px nav overflow. Nothing here is new visual language. */
+
+/* ---------- Accountability film still (from p1-spatial.css, section B, unchanged) ---------- */
+@media (min-width: 901px) {
+  .pva { min-height: clamp(620px, 56vw, 900px); display: flex; align-items: center; }
+  .pva > .wrap { position: static; width: 100%; }
+  .pva__fig { position: absolute; z-index: 0; top: 0; bottom: 0; left: 0; width: 47%; aspect-ratio: auto; }
+  .pva__fig img { object-position: 22% 30%; }
+  .pva__fig::after { content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(90deg, rgba(8,11,18,0) 42%, rgba(8,11,18,0.7) 84%, var(--near-black) 100%),
+                linear-gradient(0deg, rgba(8,11,18,0.5) 0%, rgba(8,11,18,0) 26%); }
+  .pva > .wrap > div { grid-column: 2; position: relative; z-index: 2; }
+  .pva__q, .pva__cite { margin-left: calc(-1 * (clamp(18px, 2vw, 26px) + 3px)); }
+}
+@media (max-width: 900px) {
+  .pva { padding-top: 0; }
+  /* full bleed at every phone and tablet width: 4:5 of the viewport width, capped at 78% of its height (a capped
+     aspect-ratio box would shrink its width instead, which left a dark band on the right at 768px in Prototype 1) */
+  .pva__fig { margin: 0 calc(-1 * var(--pad)); aspect-ratio: auto; height: min(125vw, 78svh); }
+  /* the eyebrow and the first line of the quote sit on the photo's foot: graded deep enough there that merlot keeps its contrast */
+  .pva__fig::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(0deg, var(--near-black) 0%, rgba(8,11,18,0.92) 18%, rgba(8,11,18,0.55) 32%, rgba(8,11,18,0) 56%); }
+  .pva > .wrap > div { position: relative; z-index: 2; margin-top: -96px; }
+}
+
+/* ---------- the footer on its own ----------
+   The index carries one contact line. When the closing call-out sits directly above it, the panel already shows phone,
+   email and address, so the line is removed (display: none also takes it out of the accessibility tree).
+   On a page without the call-out, the line shows and the footer opens with its own spacing. */
+.end__contact { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 4px 28px; margin: 0; font-style: normal; font-size: 15px; color: var(--bone); }
+.end__contact a { display: inline-flex; align-items: center; min-height: 44px; color: var(--cream); text-decoration: underline; text-decoration-color: var(--merlot); text-underline-offset: 4px; }
+.end__contact span { display: inline-flex; align-items: center; min-height: 44px; }
+main:has(.cl--end) + .credits--end .end__contact { display: none; }
+main:not(:has(.cl--end)) + .credits--end { padding-top: clamp(48px, 6vw, 80px); border-top: 1px solid var(--iron); }
+main:not(:has(.cl--end)) + .credits--end .end { border-top: 0; padding-top: 0; }
+
+/* ---------- seams ---------- */
+/* Evidence into the film still: the photograph starts on the section line, so Evidence closes a little tighter
+   and the hairline between them is the photograph's top edge, not a second rule. */
+@media (min-width: 901px) {
+  .pve { padding-bottom: clamp(72px, 8vw, 120px); }
+  .pva { border-top-color: rgba(40,44,54,0.6); }
+}
+/* Docket into the ending: one dark run, so the ending's top rule is the only divider. */
+.dk--more { padding-bottom: clamp(64px, 8vw, 112px); }
+
+/* ---------- 320px nav overflow (pre-existing on every page) ----------
+   The nav row needs 324px inside the 24px page margins. At 320px it overflows (the page lays out at 348px and zooms out);
+   from 348px to 371px it fits only by eating 12px of the right margin. Isolated fix for this prototype: tighter brand
+   tracking and gaps below 372px. Same type, same buttons, same 44px targets, same page margin; nothing changes at 372px and up. */
+@media (max-width: 371px) {
+  .nav__primary { gap: 12px; }
+  .nav__right { gap: 6px; }
+  .nav__brand { font-size: 12px; letter-spacing: 0.14em; }
+  .nav .nav__cta { padding: 0 14px; }
+}
+
+/* ---------- ending light, re-aimed ----------
+   p3 put the merlot light behind the line. Merlot text on near-black is already 1.9:1 site-wide (brand red, pending a decision),
+   and the light behind it took the eyebrow to 1.75:1. Here it sits low and left, under the paragraph, and still fades out
+   before the index, so the merlot type keeps today's contrast and there is no seam into the footer. */
+.cl.cl--end::before { background: radial-gradient(ellipse 62% 70% at 6% 92%, rgba(122,27,58,0.34), transparent 72%); }
+@media (max-width: 900px) { .cl.cl--end::before { background: radial-gradient(ellipse 110% 42% at 0% 70%, rgba(122,27,58,0.3), transparent 72%); } }
+/* whatever the light's position, it dissolves before the call-out's bottom edge, so the index never shows a cut */
+.cl.cl--end::before { -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 100%); mask-image: linear-gradient(to bottom, #000 55%, transparent 100%); }

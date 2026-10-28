@@ -1296,3 +1296,48 @@ details.is-anim { overflow: hidden; }
 .tv--still .tv__in { padding-bottom: clamp(24px, 3vw, 40px); }
 /* coverage plot is unreadable at phone width; the numbered city list carries the same information */
 @media (max-width: 760px) { .geo__plot { display: none; } }
+
+/* ---------- page ending (Phase C Stage 1, Oct 28): closing call-out + footer index as one dark composition ----------
+   Approved in the combined Railroad prototype (prototypes/railroad-combined/, tag proto-railroad-combined-oct27).
+   Markup: site_chrome.closing() and site_chrome.footer(). The call-out panel carries every contact detail; the footer
+   index below it (brand, site links, legal) does not repeat them. A page with no call-out gets footer(standalone=True):
+   .credits--alone adds the contact line and the footer's own top rule and spacing. The homepage keeps its own footer. */
+.cl.cl--end { padding-bottom: clamp(64px, 7vw, 104px); }
+/* the merlot light sits low and left, under the paragraph (merlot type keeps its contrast), and dissolves before the
+   call-out's bottom edge, so the index below shows no seam */
+.cl.cl--end::before { background: radial-gradient(ellipse 62% 70% at 6% 92%, rgba(122,27,58,0.34), transparent 72%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 100%); mask-image: linear-gradient(to bottom, #000 55%, transparent 100%); }
+.cl__addr { margin: 18px 0 0; padding-top: 16px; border-top: 1px solid var(--iron); font-style: normal; font-size: 15px; line-height: 1.6; color: var(--bone); }
+/* the explore list before the ending closes a little tighter: one dark run, one divider */
+.dk--more { padding-bottom: clamp(64px, 8vw, 112px); }
+
+.credits.credits--end { border-top: 0; padding: 0 0 clamp(36px, 4vw, 52px); background: var(--black); }
+.end { border-top: 1px solid var(--iron); padding-top: clamp(32px, 3.6vw, 48px); display: grid; grid-template-columns: minmax(0, 0.55fr) minmax(0, 1.45fr); gap: clamp(24px, 4vw, 72px); align-items: start; }
+.end__brand { display: inline-flex; align-items: center; min-height: 44px; font-family: var(--f-anton); font-size: clamp(24px, 2.2vw, 32px); line-height: 1; letter-spacing: 0.01em; color: var(--cream); text-decoration: none; }
+.end__nav ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0 clamp(16px, 2vw, 32px); }
+.end__nav a { display: flex; align-items: center; min-height: 44px; font-size: 15px; font-weight: 500; color: var(--bone); text-decoration: none; border-bottom: 1px solid transparent; transition: color var(--m-t-quick) var(--m-ease-state), border-color var(--m-t-quick) var(--m-ease-state); }
+.end__nav a:hover { color: var(--cream); border-bottom-color: var(--merlot); }
+.end__contact { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 4px 28px; margin: 0; font-style: normal; font-size: 15px; color: var(--bone); }
+.end__contact a { display: inline-flex; align-items: center; min-height: 44px; color: var(--cream); text-decoration: underline; text-decoration-color: var(--merlot); text-underline-offset: 4px; }
+.end__contact span { display: inline-flex; align-items: center; min-height: 44px; }
+.end__contact .end__addr { gap: 0 0.3em; flex-wrap: wrap; } .end__addr > span { min-height: 0; white-space: nowrap; }
+.end__legal { grid-column: 1 / -1; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px 32px; margin-top: clamp(20px, 2.4vw, 32px); padding-top: 18px; border-top: 1px solid rgba(40,44,54,0.6); font-size: 13px; color: var(--ash); }
+.end__legal p { margin: 0; }
+.end__legal .legal-row { display: inline-flex; flex-wrap: wrap; gap: 6px 20px; margin-top: 0; } /* styles.css gives .legal-row an 18px top margin that knocked it out of line */
+.credits--end a:focus-visible { outline: 2px solid var(--cream); outline-offset: 4px; }
+/* standalone: no call-out above */
+.credits.credits--alone { padding-top: clamp(48px, 6vw, 80px); border-top: 1px solid var(--iron); }
+.credits--alone .end { border-top: 0; padding-top: 0; }
+/* 901 to 1100px: the brand takes its own row so the 10 links keep an even 5 + 5 grid (4 columns left Coverage and Contact orphaned) */
+@media (max-width: 1100px) and (min-width: 901px) { .end { grid-template-columns: 1fr; gap: 12px; } }
+@media (max-width: 900px) {
+  .end { grid-template-columns: 1fr; gap: 12px; }
+  .end__nav ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .end__legal { flex-direction: column; align-items: flex-start; }
+  .cl.cl--end::before { background: radial-gradient(ellipse 110% 42% at 0% 70%, rgba(122,27,58,0.3), transparent 72%); }
+}
+@media (prefers-reduced-motion: reduce) { .end__nav a { transition: none; } }
+
+/* ledger amounts below 375px (Phase C Stage 1 QA, Oct 28): the 54px floor set "$22,000,000" 46px wider than its column at
+   320px and the page laid out wider than the screen. Below 375px only the figures scale with the screen; nothing else changes. */
+@media (max-width: 374px) { .ledr__amt { font-size: min(54px, 13.5vw); } }

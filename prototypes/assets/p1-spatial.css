@@ -1,0 +1,49 @@
+/* PROTOTYPE 1 (Oct 27, 2026) · Spatial composition · Railroad only.
+   Loaded after shared/v2.css by prototypes/railroad-1-spatial/ and nothing else. Delete this file to revert.
+   Two moves, no new motion:
+     A. Hero to content: the cream "What happens" section is one sheet with a stepped top edge. Its right column rises
+        over the foot of the hero photograph; its 3px merlot edge is the panel edge the closing panel and the
+        related-links sidebar already use. The sheet keeps its paper grain because it is the section itself (clip-path).
+     B. Evidence to Accountability: Edward's photograph bleeds off the left edge for the full height of the section,
+        so the second dark section reads as a film still, not a second dark slab. The quote's merlot rule hangs on the
+        photograph's graded edge; the quote text stays on the column line. */
+
+:root {
+  --p1-lift: calc(clamp(56px, 7vw, 96px) - 16px);         /* the hero's bottom padding (v2.css .pvh__in) less 16px: never reaches the hero's buttons */
+  --p1-gap: clamp(36px, 6vw, 110px);                      /* .pvc column gap (v2.css) */
+  --p1-inset: clamp(28px, 3vw, 48px);                     /* sheet margin to the left of the right column */
+  /* x of the step: left edge of .pvc's right column minus the inset. 100% resolves to the element using it. */
+  --p1-x: calc(max(0px, (100% - var(--maxw)) / 2) + var(--pad) + (min(100%, var(--maxw)) - 2 * var(--pad) - var(--p1-gap)) * 0.45 + var(--p1-gap) - var(--p1-inset));
+}
+
+/* ---------- A. the sheet ---------- */
+@media (min-width: 901px) {
+  .pvc { margin-top: calc(-1 * var(--p1-lift)); padding-top: calc(var(--p1-lift) * 2);
+    clip-path: polygon(0 var(--p1-lift), var(--p1-x) var(--p1-lift), var(--p1-x) 0, 100% 0, 100% 100%, 0 100%);
+    background: linear-gradient(var(--merlot), var(--merlot)) var(--p1-x) 0 / 100% 3px no-repeat, var(--cream); }
+  .pvc > .wrap > div:last-child { margin-top: calc(-1 * var(--p1-lift)); }
+  /* contact shadow on the photograph just above the sheet: the one depth cue, no blur */
+  .pvh::after { content: ''; position: absolute; z-index: 1; left: var(--p1-x); right: 0; bottom: var(--p1-lift); height: 96px; pointer-events: none;
+    background: linear-gradient(to top, rgba(4,6,12,0.6), rgba(4,6,12,0)); }
+}
+/* phones: no step. The hero's foot is type, not photograph, so a sheet there has nothing to lie over; the section stays flush. */
+
+/* ---------- B. the film still ---------- */
+@media (min-width: 901px) {
+  .pva { min-height: clamp(620px, 56vw, 900px); display: flex; align-items: center; }
+  .pva > .wrap { position: static; width: 100%; }
+  .pva__fig { position: absolute; z-index: 0; top: 0; bottom: 0; left: 0; width: 47%; aspect-ratio: auto; }
+  .pva__fig img { object-position: 22% 30%; }
+  .pva__fig::after { content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(90deg, rgba(8,11,18,0) 42%, rgba(8,11,18,0.7) 84%, var(--near-black) 100%),
+                linear-gradient(0deg, rgba(8,11,18,0.5) 0%, rgba(8,11,18,0) 26%); }
+  .pva > .wrap > div { grid-column: 2; position: relative; z-index: 2; }
+  /* hanging rule: text on the column line, the merlot rule out in the gutter on the photograph's edge */
+  .pva__q, .pva__cite { margin-left: calc(-1 * (clamp(18px, 2vw, 26px) + 3px)); }
+}
+@media (max-width: 900px) {
+  .pva { padding-top: 0; }
+  .pva__fig { margin: 0 calc(-1 * var(--pad)); aspect-ratio: 4 / 5; max-height: 78svh; }
+  .pva__fig::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(0deg, var(--near-black) 0%, rgba(8,11,18,0.6) 22%, rgba(8,11,18,0) 50%); }
+  .pva > .wrap > div { position: relative; z-index: 2; margin-top: -96px; }
+}
