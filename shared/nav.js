@@ -120,3 +120,17 @@
   var mq = window.matchMedia(header.classList.contains('nav--classic') ? '(max-width: 1180px)' : '(max-width: 900px)');
   (mq.addEventListener ? mq.addEventListener.bind(mq, 'change') : mq.addListener.bind(mq))(function (e) { if (!e.matches && !sheet.hidden) close(false); });
 })();
+
+/* Glass navigation (Phase C Stage 3): on pages with body.glass-nav, the nav is glass while only photograph is behind it and
+   turns solid the moment the hero's first text reaches it. Measures the real nav height for the hero offset. */
+(function () {
+  if (!document.body.classList.contains('glass-nav')) return;
+  var nav = document.querySelector('.nav'); var hero = document.querySelector('main > section'); if (!nav || !hero) return;
+  var lead = hero.querySelector('.crumb, .tv__in > *, .sel__in > *, .pghero__in > *, h1') || hero;
+  var root = document.documentElement;
+  function measure() { root.style.setProperty('--nav-h', nav.offsetHeight + 'px'); document.body.style.setProperty('--nav-h', nav.offsetHeight + 'px'); }
+  function set() { nav.classList.toggle('is-solid', lead.getBoundingClientRect().top < nav.offsetHeight + 24); }
+  measure(); set();
+  window.addEventListener('resize', function () { measure(); set(); }, { passive: true });
+  if (window.FS && FS.frame) FS.frame(set); else window.addEventListener('scroll', set, { passive: true });
+})();

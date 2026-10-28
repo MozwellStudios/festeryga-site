@@ -1370,3 +1370,24 @@ details.is-anim { overflow: hidden; }
     background: linear-gradient(0deg, var(--near-black) 0%, rgba(8,11,18,0.92) 18%, rgba(8,11,18,0.55) 32%, rgba(8,11,18,0) 56%); }
   .pva--film > .wrap > div { position: relative; z-index: 2; margin-top: -96px; }
 }
+
+/* ---------- hero under the glass nav (Phase C Stage 3, Oct 28) ----------
+   Each glass hero family gains exactly the nav's height on top, so its photograph runs up behind the nav while every hero
+   element stays where it is without glass (measured identical positions). --nav-h comes from nav.css, refined by nav.js. */
+@media (min-width: 901px) {
+  body.glass-nav .pvh { min-height: calc(clamp(620px, calc(100svh - 108px), 940px) + var(--nav-h)); }
+  body.glass-nav .pvh__in { padding-top: calc(clamp(80px, 10vw, 140px) + var(--nav-h)); }
+  body.glass-nav .sel { min-height: calc(clamp(680px, calc(100svh - 108px), 980px) + var(--nav-h)); }
+  body.glass-nav .sel__in { padding-top: calc(clamp(48px, 6vw, 90px) + var(--nav-h)); }
+}
+@media (max-width: 900px) {
+  body.glass-nav .pvh__img { height: calc(46vh + var(--nav-h)); }
+  body.glass-nav .sel__in { padding-top: calc(clamp(48px, 6vw, 90px) + var(--nav-h)); }
+}
+body.glass-nav .tv { min-height: calc(clamp(520px, calc(100svh - 108px), 900px) + var(--nav-h)); }
+body.glass-nav .tv.tv--still { min-height: calc(clamp(260px, 40vh, 440px) + var(--nav-h)); }
+body.glass-nav .pghero { min-height: calc(clamp(560px, 84vh, 880px) + var(--nav-h)); }
+body.glass-nav .pghero__in { padding-top: calc(clamp(120px, 14vw, 200px) + var(--nav-h)); }
+/* the nav band of a practice hero photograph gets a little more grade, so the plate never sits on the brightest part */
+body.glass-nav .pvh__img::before { content: ''; position: absolute; z-index: 1; left: 0; right: 0; top: 0; height: calc(var(--nav-h) + 80px); pointer-events: none;
+  background: linear-gradient(to bottom, rgba(4,6,12,0.45), rgba(4,6,12,0)); }

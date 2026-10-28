@@ -71,3 +71,24 @@ html.navsheet-open, html.navsheet-open body { overflow: hidden; }
   .nav:not(.nav--classic) .nav__brand { font-size: 12px; letter-spacing: 0.14em; }
   .nav:not(.nav--classic) .nav__cta { padding: 0 14px; }
 }
+
+/* ---------- glass navigation (Phase C Stage 3, Oct 28): approved Experiment 2 / combined Railroad prototype ----------
+   Opt-in per page: site_chrome adds body.glass-nav only for photo-led hero families (see GLASS_HEROES there).
+   Smoked glass, not frosted: black tint, cream hairline, no color, glow or rounding. At rest the hero photograph runs up
+   under the nav (tint 0.55, blur 18px); nav.js adds .is-solid (0.94) as soon as the hero's first text would pass under
+   it, so text never scrolls under glass. Links keep the standard nav colors in both states. */
+body.glass-nav { --glass-media: rgba(4,6,12,0.55); --glass-content: rgba(4,6,12,0.94); --glass-blur: 18px; --nav-h: 110px; }
+@media (max-width: 900px) { body.glass-nav { --glass-blur: 12px; --nav-h: 65px; } }
+body.glass-nav .nav { margin-bottom: calc(-1 * var(--nav-h)); background: var(--glass-media);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.1); backdrop-filter: blur(var(--glass-blur)) saturate(1.1);
+  border-bottom: 1px solid rgba(239,234,222,0.14); box-shadow: inset 0 1px 0 rgba(239,234,222,0.06);
+  transition: background-color var(--m-t-base, .45s) var(--m-ease-state, ease), border-color var(--m-t-base, .45s) var(--m-ease-state, ease); }
+body.glass-nav .nav .nav__secondary { border-top-color: rgba(239,234,222,0.1); }
+body.glass-nav .nav.is-solid { background: var(--glass-content); border-bottom-color: var(--iron); }
+body.glass-nav .nav.is-solid .nav__secondary { border-top-color: var(--iron); }
+html:has(body.glass-nav) { scroll-padding-top: calc(var(--nav-h, 110px) + 16px); }
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  body.glass-nav .nav, body.glass-nav .nav.is-solid { background: var(--glass-content); -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { body.glass-nav .nav { background: rgba(4,6,12,0.82); } }
+@media (prefers-reduced-motion: reduce) { body.glass-nav .nav { transition: none; } }
