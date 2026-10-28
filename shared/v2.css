@@ -1341,3 +1341,32 @@ details.is-anim { overflow: hidden; }
 /* ledger amounts below 375px (Phase C Stage 1 QA, Oct 28): the 54px floor set "$22,000,000" 46px wider than its column at
    320px and the page laid out wider than the screen. Below 375px only the figures scale with the screen; nothing else changes. */
 @media (max-width: 374px) { .ledr__amt { font-size: min(54px, 13.5vw); } }
+
+/* ---------- Accountability film still (Phase C Stage 2, Oct 28): practice pages ----------
+   Approved in the combined Railroad prototype. Edward's photograph bleeds off the page edge for the full height of the
+   section; the quote's merlot rule hangs on the photograph's graded edge. .pva--flip mirrors it (photo right) on pages
+   whose hero photo is on the left. --pva-focus (set per image by build_practice_v4.py) keeps Edward in the crop. */
+.pva--film .pva__fig img { object-position: var(--pva-focus, 40% 25%); }
+@media (min-width: 901px) {
+  .pve:has(+ .pva--film) { padding-bottom: clamp(72px, 8vw, 120px); }
+  .pva--film { border-top-color: rgba(40,44,54,0.6); min-height: clamp(620px, 56vw, 900px); display: flex; align-items: center; }
+  .pva--film > .wrap { position: static; width: 100%; }
+  .pva--film .pva__fig { position: absolute; z-index: 0; top: 0; bottom: 0; left: 0; width: 47%; aspect-ratio: auto; }
+  .pva--film .pva__fig::after { content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(90deg, rgba(8,11,18,0) 42%, rgba(8,11,18,0.7) 84%, var(--near-black) 100%),
+                linear-gradient(0deg, rgba(8,11,18,0.5) 0%, rgba(8,11,18,0) 26%); }
+  .pva--film > .wrap > div { grid-column: 2; position: relative; z-index: 2; }
+  .pva--film:not(.pva--flip) .pva__q, .pva--film:not(.pva--flip) .pva__cite { margin-left: calc(-1 * (clamp(18px, 2vw, 26px) + 3px)); }
+  .pva--film.pva--flip > .wrap { grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); }
+  .pva--film.pva--flip > .wrap > div { grid-column: 1; grid-row: 1; }
+  .pva--film.pva--flip .pva__fig { left: auto; right: 0; }
+  .pva--film.pva--flip .pva__fig::after { background: linear-gradient(270deg, rgba(8,11,18,0) 42%, rgba(8,11,18,0.7) 84%, var(--near-black) 100%),
+                linear-gradient(0deg, rgba(8,11,18,0.5) 0%, rgba(8,11,18,0) 26%); }
+}
+@media (max-width: 900px) {
+  .pva--film { padding-top: 0; }
+  .pva--film .pva__fig { margin: 0 calc(-1 * var(--pad)); aspect-ratio: auto; height: min(125vw, 78svh); }
+  .pva--film .pva__fig::after { content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(0deg, var(--near-black) 0%, rgba(8,11,18,0.92) 18%, rgba(8,11,18,0.55) 32%, rgba(8,11,18,0) 56%); }
+  .pva--film > .wrap > div { position: relative; z-index: 2; margin-top: -96px; }
+}
