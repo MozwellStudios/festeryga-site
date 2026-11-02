@@ -58,7 +58,7 @@ ul { list-style: none; }
 .cta--merlot { border-color: var(--merlot); }
 
 /* ---- duotone + grain ---- */
-.duo { position: absolute; inset: 0; z-index: 0; background-size: cover; background-position: center; filter: grayscale(1) contrast(1.08) brightness(0.9); }
+.duo { position: absolute; inset: 0; z-index: 0; background-size: cover; background-position: center; filter: contrast(1.03) brightness(0.96); }
 .duo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(150deg, rgba(92,17,40,0.35) 0%, transparent 45%, rgba(4,6,12,0.4) 100%); mix-blend-mode: soft-light; }
 .grain { position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0.07; mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -180,8 +180,8 @@ ul { list-style: none; }
 .storygrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 .storycard { text-align: left; }
 .storycard__media { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: var(--charcoal); }
-.storycard__img { position: absolute; inset: 0; background-size: cover; background-position: center; filter: grayscale(1) contrast(1.06) brightness(0.62); transition: transform 0.6s var(--ease), filter 0.5s var(--ease); }
-.storycard:hover .storycard__img { transform: scale(1.04); filter: grayscale(0) contrast(1.04) brightness(0.8); }
+.storycard__img { position: absolute; inset: 0; background-size: cover; background-position: center; filter: contrast(1.02) brightness(0.83); transition: transform 0.6s var(--ease), filter 0.5s var(--ease); }
+.storycard:hover .storycard__img { transform: scale(1.04); filter: contrast(1.02) brightness(0.91); }
 .storycard__media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(4,6,12,0.6), transparent 60%); }
 .storycard__play { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 2; width: 54px; height: 54px; border-radius: 50%; border: 1px solid rgba(239,234,222,0.7); display: flex; align-items: center; justify-content: center; background: rgba(4,6,12,0.3); transition: background 0.3s var(--ease); }
 .storycard:hover .storycard__play { background: var(--merlot); border-color: var(--merlot-br); }
@@ -237,9 +237,9 @@ a.credits__line:hover { color: var(--cream); }
 
 /* video / image backdrop cover (Vimeo loaded by cinematic.js on desktop) */
 .vcover { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
-.vcover iframe { position: absolute; top: 50%; left: 50%; width: 100vw; height: 56.25vw; min-height: 100%; min-width: 177.78vh; transform: translate(-50%, -50%); border: 0; filter: grayscale(1) contrast(1.06) brightness(0.4); }
+.vcover iframe { position: absolute; top: 50%; left: 50%; width: 100vw; height: 56.25vw; min-height: 100%; min-width: 177.78vh; transform: translate(-50%, -50%); border: 0; filter: contrast(1.02) brightness(0.73); }
 .vcover iframe:not([src]) { display: none; } /* empty placeholder iframes: show the .kb image instead */
-.kb { position: absolute; inset: -8%; background-size: cover; background-position: center; filter: grayscale(1) contrast(1.05) brightness(0.4); animation: kenburns 30s ease-in-out infinite alternate; will-change: transform; }
+.kb { position: absolute; inset: -8%; background-size: cover; background-position: center; filter: contrast(1.02) brightness(0.73); animation: kenburns 30s ease-in-out infinite alternate; will-change: transform; }
 @keyframes kenburns { 0% { transform: scale(1) translate(0,0); } 100% { transform: scale(1.12) translate(-2%,-2%); } }
 .grain-anim { animation: grain-shift 8s ease-in-out infinite alternate; }
 @keyframes grain-shift { 0% { transform: translate(0,0); } 100% { transform: translate(-5%,-5%); } }
@@ -325,7 +325,7 @@ main a:focus-visible, main button:focus-visible, .credits a:focus-visible { outl
 
 /* page intro: the page's own subject, left-aligned, no label above it */
 .intro { position: relative; overflow: hidden; isolation: isolate; background: var(--black); padding: clamp(120px, 15vw, 200px) 0 clamp(64px, 8vw, 110px); }
-.intro__bg { position: absolute; inset: 0; z-index: 0; background-size: cover; background-position: center; filter: grayscale(1) contrast(1.06) brightness(0.32); }
+.intro__bg { position: absolute; inset: 0; z-index: 0; background-size: cover; background-position: center; filter: contrast(1.02) brightness(0.69); }
 .intro__scrim { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(4,6,12,0.55) 0%, rgba(4,6,12,0.35) 45%, var(--black) 100%); }
 .intro > .wrap { position: relative; z-index: 2; }
 .intro__h { font-family: var(--f-anton); text-transform: uppercase; font-weight: 400; font-size: clamp(46px, 7.4vw, 118px); line-height: 0.95; letter-spacing: -0.015em; color: var(--cream); max-width: 16ch; text-wrap: balance; margin: 0; }
